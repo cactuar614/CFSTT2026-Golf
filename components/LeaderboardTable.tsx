@@ -9,7 +9,7 @@ type LeaderboardTableProps = {
 export default function LeaderboardTable({ entries }: LeaderboardTableProps) {
   if (entries.length === 0) {
     return (
-      <p className="text-center text-gray-500 py-8">
+      <p className="text-center text-gray-500 dark:text-gray-400 py-8">
         No players yet. Add players on the Players page.
       </p>
     );
@@ -33,11 +33,11 @@ export default function LeaderboardTable({ entries }: LeaderboardTableProps) {
           {entries.map((entry, i) => (
             <tr
               key={entry.player.id}
-              className={`border-b border-gray-100 ${
-                i === 0 && entry.totalNet !== null ? 'bg-yellow-50 font-semibold' : 'hover:bg-gray-50'
+              className={`border-b border-gray-100 dark:border-gray-700 ${
+                i === 0 && entry.totalNet !== null ? 'bg-yellow-50 dark:bg-yellow-900/30 font-semibold' : 'hover:bg-gray-50 dark:hover:bg-gray-800'
               }`}
             >
-              <td className="py-2 px-3 text-gray-500">{i + 1}</td>
+              <td className="py-2 px-3 text-gray-500 dark:text-gray-400">{i + 1}</td>
               <td className="py-2 px-3 font-medium">{entry.player.name}</td>
               <td className="py-2 px-3 text-center">{entry.roundNets[0] ?? '—'}</td>
               <td className="py-2 px-3 text-center">{entry.roundNets[1] ?? '—'}</td>

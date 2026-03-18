@@ -12,10 +12,10 @@ function getCellColor(strokes: number | null, par: number): string {
   if (strokes === null) return '';
   const diff = scoreRelativeToPar(strokes, par);
   if (diff === null) return '';
-  if (diff <= -1) return 'bg-red-100 text-red-700'; // birdie or better
-  if (diff === 0) return 'bg-green-100 text-green-700'; // par
-  if (diff === 1) return 'bg-blue-50 text-blue-600'; // bogey
-  return 'bg-blue-100 text-blue-800'; // double+
+  if (diff <= -1) return 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-400'; // birdie or better
+  if (diff === 0) return 'bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400'; // par
+  if (diff === 1) return 'bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400'; // bogey
+  return 'bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300'; // double+
 }
 
 export default function ScoreInput({ value, par, onChange }: ScoreInputProps) {
@@ -27,7 +27,7 @@ export default function ScoreInput({ value, par, onChange }: ScoreInputProps) {
         const v = e.target.value;
         onChange(v === '' ? null : parseInt(v));
       }}
-      className={`w-10 h-8 text-center text-sm border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-transparent outline-none ${getCellColor(value, par)}`}
+      className={`w-10 h-8 text-center text-sm border border-gray-300 dark:border-gray-600 rounded focus:ring-2 focus:ring-primary focus:border-transparent outline-none dark:bg-gray-700 ${getCellColor(value, par)}`}
       min="1"
       max="15"
     />

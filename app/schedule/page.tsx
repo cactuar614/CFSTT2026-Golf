@@ -9,7 +9,7 @@ export default function SchedulePage() {
   const [state, updateState, hydrated] = useLocalStorage();
 
   if (!hydrated) {
-    return <div className="animate-pulse h-96 bg-gray-100 rounded-xl" />;
+    return <div className="animate-pulse h-96 bg-gray-100 dark:bg-gray-800 rounded-xl" />;
   }
 
   const setActiveDay = (dayIndex: number) => {
@@ -41,14 +41,14 @@ export default function SchedulePage() {
       <h1 className="text-xl font-bold text-primary">{TRIP_NAME} — Schedule</h1>
 
       {/* Live Status Editor */}
-      <div className="bg-white rounded-xl border border-gray-200 p-4">
-        <label className="block text-sm font-medium text-gray-700 mb-1">Live Status</label>
+      <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Live Status</label>
         <div className="flex gap-2">
           <input
             type="text"
             value={state.currentStatus}
             onChange={(e) => updateStatus(e.target.value)}
-            className="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
+            className="flex-1 border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none bg-white dark:bg-gray-700 dark:text-gray-100"
             placeholder='e.g. "Bourbon Run — Castle & Key" or "Round 2 — Hole 14"'
           />
         </div>
