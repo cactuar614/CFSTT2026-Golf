@@ -1,11 +1,33 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import { ThemeProvider } from '@/lib/ThemeContext';
+import ServiceWorkerRegister from '@/components/ServiceWorkerRegister';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#1a5632' },
+    { media: '(prefers-color-scheme: dark)', color: '#111827' },
+  ],
+};
 
 export const metadata: Metadata = {
   title: 'CFSTT 2026 Golf Trip',
   description: 'Logistics & scoring for the CFSTT 2026 golf trip',
+  manifest: '/CFSTT2026-Golf/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'CFSTT Golf',
+  },
+  icons: {
+    icon: '/CFSTT2026-Golf/icon-192.png',
+    apple: '/CFSTT2026-Golf/apple-touch-icon.png',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -18,6 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
           <Navbar />
         </ThemeProvider>
+        <ServiceWorkerRegister />
       </body>
     </html>
   );
