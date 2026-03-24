@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTheme } from '@/lib/ThemeContext';
-import { useAuth } from '@/lib/AuthContext';
+import { useSession, signOut } from 'next-auth/react';
 
 const tabs = [
   { href: '/', label: 'Home', icon: '⛳' },
@@ -16,7 +16,7 @@ const tabs = [
 export default function Navbar() {
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
-  const { user, signOut } = useAuth();
+  const { data: session } = useSession();
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 z-50 md:top-0 md:bottom-auto md:border-t-0 md:border-b">
@@ -47,23 +47,22 @@ export default function Navbar() {
           <span className="hidden md:inline">Theme</span>
         </button>
 
-        {/* Auth button */}
-        {user ? (
+        {session?.user ? (
           <button
-            onClick={signOut}
+            onClick={() => signOut()}
             className="flex flex-col items-center py-2 px-3 text-xs md:flex-row md:gap-2 md:text-sm md:py-3 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
-            title={`Signed in as ${user.displayName || user.email}`}
+            title={`Signed in as ${session.user.name || session.user.email}`}
           >
-            {user.photoURL ? (
+            {session.user.image ? (
               <img
-                src={user.photoURL}
+                src={session.user.image}
                 alt=""
                 className="w-5 h-5 rounded-full md:w-6 md:h-6"
                 referrerPolicy="no-referrer"
               />
             ) : (
               <span className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-primary text-white text-xs flex items-center justify-center font-medium">
-                {(user.displayName || user.email || '?')[0].toUpperCase()}
+                {(session.user.name || session.user.email || '?')[0].toUpperCase()}
               </span>
             )}
             <span className="hidden md:inline">Sign Out</span>

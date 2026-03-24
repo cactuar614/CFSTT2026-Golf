@@ -2,7 +2,7 @@ export type Player = {
   id: string;
   name: string;
   handicap: number;
-  firebaseUid?: string;
+  authId?: string;
 };
 
 export type HoleScore = {
