@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useLocalStorage } from '@/lib/useLocalStorage';
-import { TRIP_NAME, TRIP_DATES, TRIP_LOCATION, DAY_LABELS } from '@/lib/constants';
+import { TRIP_NAME, TRIP_DATES, TRIP_LOCATION, DAY_LABELS, LODGING } from '@/lib/constants';
 import StatusBanner from '@/components/StatusBanner';
 
 export default function Dashboard() {
@@ -47,6 +47,21 @@ export default function Dashboard() {
           )}
         </div>
       )}
+
+      {/* Lodging */}
+      <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4">
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-lg">🏨</span>
+          <h2 className="font-bold">{LODGING.name}</h2>
+        </div>
+        <div className="grid grid-cols-2 gap-1 text-sm text-gray-600 dark:text-gray-400">
+          <span>Check-in:</span><span>{LODGING.checkIn}</span>
+          <span>Check-out:</span><span>{LODGING.checkOut}</span>
+          <span>Rooms:</span><span>{LODGING.rooms}</span>
+          <span>Status:</span>
+          <span className="text-green-600 dark:text-green-400 font-medium">{LODGING.status}</span>
+        </div>
+      </div>
 
       {/* Quick Links */}
       <div className="grid grid-cols-2 gap-3">
@@ -96,7 +111,7 @@ export default function Dashboard() {
                   {round.courseName === 'TBD' ? 'Course TBD' : round.courseName}
                 </span>
               </div>
-              <span className="text-xs text-gray-400">{DAY_LABELS[i + 1]}</span>
+              <span className="text-xs text-gray-400">{DAY_LABELS[round.dayIndex]}</span>
             </div>
           </Link>
         ))}
