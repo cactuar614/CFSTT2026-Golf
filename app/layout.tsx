@@ -19,15 +19,15 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: 'CFSTT 2026 Golf Trip',
   description: 'Logistics & scoring for the CFSTT 2026 golf trip',
-  manifest: '/CFSTT2026-Golf/manifest.json',
+  manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
     title: 'CFSTT Golf',
   },
   icons: {
-    icon: '/CFSTT2026-Golf/icon-192.png',
-    apple: '/CFSTT2026-Golf/apple-touch-icon.png',
+    icon: '/icon-192.png',
+    apple: '/apple-touch-icon.png',
   },
 };
 
