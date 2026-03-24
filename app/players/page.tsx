@@ -2,17 +2,23 @@
 
 import { useState } from 'react';
 import { useLocalStorage } from '@/lib/useLocalStorage';
+import { useAuth } from '@/lib/AuthContext';
 import { Player } from '@/lib/types';
 import PlayerForm from '@/components/PlayerForm';
 
 export default function PlayersPage() {
   const [state, updateState, hydrated] = useLocalStorage();
+  const { user } = useAuth();
   const [editingId, setEditingId] = useState<string | null>(null);
   const [showAdd, setShowAdd] = useState(false);
 
   if (!hydrated) {
     return <div className="animate-pulse h-96 bg-gray-100 dark:bg-gray-800 rounded-xl" />;
   }
+
+  const myClaimedPlayer = user
+    ? state.players.find((p) => p.firebaseUid === user.uid)
+    : null;
 
   const addPlayer = (name: string, handicap: number) => {
     const newPlayer: Player = {
@@ -39,6 +45,25 @@ export default function PlayersPage() {
     updateState((prev) => ({
       ...prev,
       players: prev.players.filter((p) => p.id !== id),
+    }));
+  };
+
+  const claimPlayer = (playerId: string) => {
+    if (!user) return;
+    updateState((prev) => ({
+      ...prev,
+      players: prev.players.map((p) =>
+        p.id === playerId ? { ...p, firebaseUid: user.uid } : p
+      ),
+    }));
+  };
+
+  const unclaimPlayer = (playerId: string) => {
+    updateState((prev) => ({
+      ...prev,
+      players: prev.players.map((p) =>
+        p.id === playerId ? { ...p, firebaseUid: undefined } : p
+      ),
     }));
   };
 
@@ -80,11 +105,32 @@ export default function PlayersPage() {
                 key={player.id}
                 className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 flex items-center justify-between"
               >
-                <div>
+                <div className="flex items-center gap-2">
                   <span className="font-medium">{player.name}</span>
-                  <span className="text-sm text-gray-500 dark:text-gray-400 ml-3">HCP: {player.handicap}</span>
+                  <span className="text-sm text-gray-500 dark:text-gray-400">HCP: {player.handicap}</span>
+                  {player.firebaseUid === user?.uid && (
+                    <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full font-medium">
+                      You
+                    </span>
+                  )}
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-2 items-center">
+                  {user && !myClaimedPlayer && !player.firebaseUid && (
+                    <button
+                      onClick={() => claimPlayer(player.id)}
+                      className="text-sm text-accent hover:text-accent/80 font-medium"
+                    >
+                      Claim
+                    </button>
+                  )}
+                  {player.firebaseUid === user?.uid && (
+                    <button
+                      onClick={() => unclaimPlayer(player.id)}
+                      className="text-sm text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 font-medium"
+                    >
+                      Unclaim
+                    </button>
+                  )}
                   <button
                     onClick={() => {
                       setEditingId(player.id);
