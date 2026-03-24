@@ -21,14 +21,14 @@ export default function RoundScorecardPage() {
   const [state, updateState, hydrated] = useLocalStorage();
 
   if (!hydrated) {
-    return <div className="animate-pulse h-96 bg-gray-100 rounded-xl" />;
+    return <div className="animate-pulse h-96 bg-gray-100 dark:bg-gray-800 rounded-xl" />;
   }
 
   const roundIndex = state.rounds.findIndex((r) => r.id === roundId);
   if (roundIndex === -1) {
     return (
       <div className="text-center py-8">
-        <p className="text-gray-500">Round not found.</p>
+        <p className="text-gray-500 dark:text-gray-400">Round not found.</p>
         <Link href="/scorecard" className="text-primary underline text-sm">
           Back to rounds
         </Link>
@@ -112,12 +112,12 @@ export default function RoundScorecardPage() {
           <h1 className="text-xl font-bold text-primary">
             Round {roundIndex + 1}
           </h1>
-          <p className="text-xs text-gray-500">{DAY_LABELS[roundIndex + 1]}</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400">{DAY_LABELS[roundIndex + 1]}</p>
         </div>
       </div>
 
       {state.players.length === 0 ? (
-        <p className="text-center text-gray-500 py-8">
+        <p className="text-center text-gray-500 dark:text-gray-400 py-8">
           Add players on the{' '}
           <Link href="/players" className="text-primary underline">
             Players page

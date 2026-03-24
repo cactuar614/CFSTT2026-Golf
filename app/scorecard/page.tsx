@@ -8,7 +8,7 @@ export default function ScorecardIndexPage() {
   const [state, , hydrated] = useLocalStorage();
 
   if (!hydrated) {
-    return <div className="animate-pulse h-64 bg-gray-100 rounded-xl" />;
+    return <div className="animate-pulse h-64 bg-gray-100 dark:bg-gray-800 rounded-xl" />;
   }
 
   return (
@@ -20,12 +20,12 @@ export default function ScorecardIndexPage() {
           <Link
             key={round.id}
             href={`/scorecard/${round.id}`}
-            className="block bg-white rounded-xl border border-gray-200 p-4 hover:border-primary transition-colors"
+            className="block bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 hover:border-primary transition-colors"
           >
             <div className="flex justify-between items-center">
               <div>
                 <h2 className="font-bold text-lg">Round {i + 1}</h2>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-gray-500 dark:text-gray-400">
                   {round.courseName === 'TBD' ? 'Course TBD' : round.courseName}
                   {round.teeTime !== 'TBD' && ` — Tee: ${round.teeTime}`}
                 </p>
@@ -40,7 +40,7 @@ export default function ScorecardIndexPage() {
       </div>
 
       {state.players.length === 0 && (
-        <p className="text-center text-gray-500 text-sm">
+        <p className="text-center text-gray-500 dark:text-gray-400 text-sm">
           Add players on the{' '}
           <Link href="/players" className="text-primary underline">
             Players page

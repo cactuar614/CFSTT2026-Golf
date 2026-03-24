@@ -49,21 +49,21 @@ export default function ScorecardTable({
             ))}
             <th className="py-1 px-2 text-center font-bold w-12">{label}</th>
           </tr>
-          <tr className="bg-gray-100">
-            <td className="py-1 px-2 font-medium text-gray-600">Par</td>
+          <tr className="bg-gray-100 dark:bg-gray-700">
+            <td className="py-1 px-2 font-medium text-gray-600 dark:text-gray-300">Par</td>
             {holes.map((h) => (
               <td key={h} className="py-1 px-1 text-center">
                 <input
                   type="number"
                   value={round.coursePar[h - 1]}
                   onChange={(e) => onParChange(h, parseInt(e.target.value) || 3)}
-                  className="w-10 h-6 text-center text-xs border border-gray-200 rounded bg-white focus:ring-1 focus:ring-primary outline-none"
+                  className="w-10 h-6 text-center text-xs border border-gray-200 dark:border-gray-600 rounded bg-white dark:bg-gray-600 dark:text-gray-100 focus:ring-1 focus:ring-primary outline-none"
                   min="3"
                   max="5"
                 />
               </td>
             ))}
-            <td className="py-1 px-2 text-center font-bold text-gray-700">
+            <td className="py-1 px-2 text-center font-bold text-gray-700 dark:text-gray-300">
               {sumPar(round.coursePar, holes[0], holes[holes.length - 1])}
             </td>
           </tr>
@@ -73,8 +73,8 @@ export default function ScorecardTable({
             const scores = getPlayerScores(player.id);
             const half = holes[0] === 1 ? frontNine(scores) : backNine(scores);
             return (
-              <tr key={player.id} className="border-b border-gray-100 hover:bg-gray-50">
-                <td className="py-1 px-2 font-medium text-gray-800 truncate max-w-[80px]">
+              <tr key={player.id} className="border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
+                <td className="py-1 px-2 font-medium text-gray-800 dark:text-gray-200 truncate max-w-[80px]">
                   {player.name}
                 </td>
                 {holes.map((h) => (
@@ -86,7 +86,7 @@ export default function ScorecardTable({
                     />
                   </td>
                 ))}
-                <td className="py-1 px-2 text-center font-bold text-gray-800">
+                <td className="py-1 px-2 text-center font-bold text-gray-800 dark:text-gray-200">
                   {half ?? '—'}
                 </td>
               </tr>
@@ -104,28 +104,28 @@ export default function ScorecardTable({
           type="text"
           value={round.courseName}
           onChange={(e) => onCourseNameChange(e.target.value)}
-          className="text-lg font-bold bg-transparent border-b-2 border-dashed border-gray-300 focus:border-primary outline-none"
+          className="text-lg font-bold bg-transparent border-b-2 border-dashed border-gray-300 dark:border-gray-600 focus:border-primary outline-none"
           placeholder="Course Name"
         />
-        <div className="flex items-center gap-2 text-sm text-gray-500">
+        <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
           <span>Tee:</span>
           <input
             type="text"
             value={round.teeTime}
             onChange={(e) => onTeeTimeChange(e.target.value)}
-            className="bg-transparent border-b border-dashed border-gray-300 focus:border-primary outline-none w-24"
+            className="bg-transparent border-b border-dashed border-gray-300 dark:border-gray-600 focus:border-primary outline-none w-24"
             placeholder="Tee time"
           />
         </div>
       </div>
 
       <div>
-        <h3 className="text-sm font-semibold text-gray-500 mb-1">Front 9</h3>
+        <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-1">Front 9</h3>
         {renderHalf(frontHoles, 'OUT')}
       </div>
 
       <div>
-        <h3 className="text-sm font-semibold text-gray-500 mb-1">Back 9</h3>
+        <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-1">Back 9</h3>
         {renderHalf(backHoles, 'IN')}
       </div>
 
@@ -150,12 +150,12 @@ export default function ScorecardTable({
               const gross = grossTotal(scores);
               const net = netTotal(scores, player.handicap);
               return (
-                <tr key={player.id} className="border-b border-gray-100">
+                <tr key={player.id} className="border-b border-gray-100 dark:border-gray-700">
                   <td className="py-2 px-2 font-medium">{player.name}</td>
                   <td className="py-2 px-2 text-center">{f ?? '—'}</td>
                   <td className="py-2 px-2 text-center">{b ?? '—'}</td>
                   <td className="py-2 px-2 text-center font-bold">{gross ?? '—'}</td>
-                  <td className="py-2 px-2 text-center text-gray-500">{player.handicap}</td>
+                  <td className="py-2 px-2 text-center text-gray-500 dark:text-gray-400">{player.handicap}</td>
                   <td className="py-2 px-2 text-center font-bold text-primary">{net ?? '—'}</td>
                 </tr>
               );

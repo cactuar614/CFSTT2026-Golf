@@ -11,7 +11,7 @@ export default function PlayersPage() {
   const [showAdd, setShowAdd] = useState(false);
 
   if (!hydrated) {
-    return <div className="animate-pulse h-96 bg-gray-100 rounded-xl" />;
+    return <div className="animate-pulse h-96 bg-gray-100 dark:bg-gray-800 rounded-xl" />;
   }
 
   const addPlayer = (name: string, handicap: number) => {
@@ -62,7 +62,7 @@ export default function PlayersPage() {
       )}
 
       {state.players.length === 0 && !showAdd ? (
-        <p className="text-center text-gray-500 py-8">
+        <p className="text-center text-gray-500 dark:text-gray-400 py-8">
           No players yet. Add up to 8 players to get started.
         </p>
       ) : (
@@ -78,11 +78,11 @@ export default function PlayersPage() {
             ) : (
               <div
                 key={player.id}
-                className="bg-white rounded-xl border border-gray-200 p-4 flex items-center justify-between"
+                className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 flex items-center justify-between"
               >
                 <div>
                   <span className="font-medium">{player.name}</span>
-                  <span className="text-sm text-gray-500 ml-3">HCP: {player.handicap}</span>
+                  <span className="text-sm text-gray-500 dark:text-gray-400 ml-3">HCP: {player.handicap}</span>
                 </div>
                 <div className="flex gap-2">
                   <button
