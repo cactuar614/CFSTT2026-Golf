@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import { ThemeProvider } from '@/lib/ThemeContext';
+import { AuthProvider } from '@/lib/AuthContext';
 import ServiceWorkerRegister from '@/components/ServiceWorkerRegister';
 
 export const viewport: Viewport = {
@@ -18,15 +19,15 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: 'CFSTT 2026 Golf Trip',
   description: 'Logistics & scoring for the CFSTT 2026 golf trip',
-  manifest: '/CFSTT2026-Golf/manifest.json',
+  manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
     title: 'CFSTT Golf',
   },
   icons: {
-    icon: '/CFSTT2026-Golf/icon-192.png',
-    apple: '/CFSTT2026-Golf/apple-touch-icon.png',
+    icon: '/icon-192.png',
+    apple: '/apple-touch-icon.png',
   },
 };
 
@@ -35,10 +36,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <body className="min-h-screen">
         <ThemeProvider>
-          <div className="md:pt-14">
-            <main className="max-w-4xl mx-auto px-4 py-4">{children}</main>
-          </div>
-          <Navbar />
+          <AuthProvider>
+            <div className="md:pt-14">
+              <main className="max-w-4xl mx-auto px-4 py-4">{children}</main>
+            </div>
+            <Navbar />
+          </AuthProvider>
         </ThemeProvider>
         <ServiceWorkerRegister />
       </body>
