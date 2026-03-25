@@ -63,7 +63,7 @@ export default function SchedulePage() {
       <div className="space-y-4">
         {state.schedule.map((day, i) => (
           <DayCard
-            key={i}
+            key={day.date}
             day={day}
             dayIndex={i}
             isActiveDay={state.activeDayIndex === i}

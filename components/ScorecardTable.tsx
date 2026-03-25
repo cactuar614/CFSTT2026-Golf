@@ -1,7 +1,8 @@
 'use client';
 
-import { Player, Round, HoleScore } from '@/lib/types';
-import { frontNine, backNine, grossTotal, netTotal, sumPar } from '@/lib/scoring';
+import { useMemo } from 'react';
+import { Player, Round } from '@/lib/types';
+import { sumPar } from '@/lib/scoring';
 import ScoreInput from './ScoreInput';
 
 type ScorecardTableProps = {
@@ -24,17 +25,32 @@ export default function ScorecardTable({
   const frontHoles = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   const backHoles = [10, 11, 12, 13, 14, 15, 16, 17, 18];
 
-  function getPlayerScore(playerId: string, hole: number): number | null {
-    const pr = round.playerRounds.find((p) => p.playerId === playerId);
-    if (!pr) return null;
-    const hs = pr.scores.find((s) => s.hole === hole);
-    return hs?.strokes ?? null;
-  }
+  // Map playerId -> strokes[holeIndex] for O(1) lookups while rendering the table.
+  const emptyStrokes = useMemo(() => Array.from({ length: 18 }, () => null as number | null), []);
+  const strokesByPlayerId = useMemo(() => {
+    const map: Record<string, Array<number | null>> = {};
+    for (const pr of round.playerRounds) {
+      const strokes = Array.from({ length: 18 }, () => null as number | null);
+      for (const hs of pr.scores) {
+        if (hs.hole >= 1 && hs.hole <= 18) strokes[hs.hole - 1] = hs.strokes;
+      }
+      map[pr.playerId] = strokes;
+    }
+    return map;
+  }, [round.playerRounds]);
 
-  function getPlayerScores(playerId: string): HoleScore[] {
-    const pr = round.playerRounds.find((p) => p.playerId === playerId);
-    return pr?.scores ?? [];
-  }
+  const sumStrokesForRange = (strokes: Array<number | null>, fromHole: number, toHole: number): number | null => {
+    let sum = 0;
+    let any = false;
+    for (let hole = fromHole; hole <= toHole; hole++) {
+      const v = strokes[hole - 1];
+      if (v !== null) {
+        sum += v;
+        any = true;
+      }
+    }
+    return any ? sum : null;
+  };
 
   const renderHalf = (holes: number[], label: string) => (
     <div className="overflow-x-auto">
@@ -70,8 +86,11 @@ export default function ScorecardTable({
         </thead>
         <tbody>
           {players.map((player) => {
-            const scores = getPlayerScores(player.id);
-            const half = holes[0] === 1 ? frontNine(scores) : backNine(scores);
+            const strokes = strokesByPlayerId[player.id] ?? emptyStrokes;
+            const half =
+              holes[0] === 1
+                ? sumStrokesForRange(strokes, 1, 9)
+                : sumStrokesForRange(strokes, 10, 18);
             return (
               <tr key={player.id} className="border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
                 <td className="py-1 px-2 font-medium text-gray-800 dark:text-gray-200 truncate max-w-[80px]">
@@ -80,7 +99,7 @@ export default function ScorecardTable({
                 {holes.map((h) => (
                   <td key={h} className="py-1 px-1 text-center">
                     <ScoreInput
-                      value={getPlayerScore(player.id, h)}
+                      value={strokes[h - 1]}
                       par={round.coursePar[h - 1]}
                       onChange={(v) => onScoreChange(player.id, h, v)}
                     />
@@ -144,11 +163,11 @@ export default function ScorecardTable({
           </thead>
           <tbody>
             {players.map((player) => {
-              const scores = getPlayerScores(player.id);
-              const f = frontNine(scores);
-              const b = backNine(scores);
-              const gross = grossTotal(scores);
-              const net = netTotal(scores, player.handicap);
+              const strokes = strokesByPlayerId[player.id] ?? emptyStrokes;
+              const f = sumStrokesForRange(strokes, 1, 9);
+              const b = sumStrokesForRange(strokes, 10, 18);
+              const gross = f === null && b === null ? null : (f ?? 0) + (b ?? 0);
+              const net = gross === null ? null : gross - player.handicap;
               return (
                 <tr key={player.id} className="border-b border-gray-100 dark:border-gray-700">
                   <td className="py-2 px-2 font-medium">{player.name}</td>

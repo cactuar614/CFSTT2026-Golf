@@ -13,11 +13,17 @@ export function useLocalStorage(): [TripState, (updater: TripState | ((prev: Tri
     setHydrated(true);
   }, []);
 
+  // Debounce persistence so rapid typing/score entry doesn't JSON-serialize
+  // the entire trip state on every keystroke.
+  useEffect(() => {
+    if (!hydrated) return;
+    const id = window.setTimeout(() => setTripState(state), 250);
+    return () => window.clearTimeout(id);
+  }, [state, hydrated]);
+
   const updateState = useCallback((updater: TripState | ((prev: TripState) => TripState)) => {
     setState((prev) => {
-      const next = typeof updater === 'function' ? updater(prev) : updater;
-      setTripState(next);
-      return next;
+      return typeof updater === 'function' ? updater(prev) : updater;
     });
   }, []);
 

@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo } from 'react';
 import { useLocalStorage } from '@/lib/useLocalStorage';
 import { buildLeaderboard } from '@/lib/scoring';
 import LeaderboardTable from '@/components/LeaderboardTable';
@@ -12,7 +13,7 @@ export default function LeaderboardPage() {
     return <div className="animate-pulse h-64 bg-gray-100 dark:bg-gray-800 rounded-xl" />;
   }
 
-  const entries = buildLeaderboard(state.players, state.rounds);
+  const entries = useMemo(() => buildLeaderboard(state.players, state.rounds), [state.players, state.rounds]);
 
   return (
     <div className="space-y-6">
