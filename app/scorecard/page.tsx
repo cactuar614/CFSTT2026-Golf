@@ -17,7 +17,11 @@ export default function ScorecardIndexPage() {
       <div>
         <h1 className="text-xl font-bold text-primary">Scorecards</h1>
         <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-          One scorecard per round — day, location, course, and tee time.
+          View-only. Trip admins enter scores from the{' '}
+          <Link href="/admin" className="font-medium text-primary underline">
+            Admin
+          </Link>{' '}
+          page.
         </p>
       </div>
 

@@ -39,4 +39,6 @@ export type TripState = {
   schedule: TripDay[];
   currentStatus: string; // free-text live status
   activeDayIndex: number; // 0…schedule.length−1
+  /** When true, active day tracks the device calendar (see activeDay.ts). */
+  activeDayFollowCalendar: boolean;
 };
