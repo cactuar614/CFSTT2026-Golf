@@ -53,33 +53,37 @@ export default function ScorecardTable({
   };
 
   const renderHalf = (holes: number[], label: string) => (
-    <div className="overflow-x-auto">
-      <table className="w-full text-xs border-collapse min-w-[500px]">
+    <div className="-mx-1 overflow-x-auto overscroll-x-contain px-1">
+      <table className="w-full min-w-[520px] border-collapse text-sm md:text-xs">
         <thead>
           <tr className="bg-primary text-white">
-            <th className="py-1 px-2 text-left font-medium w-20">Hole</th>
+            <th className="w-24 min-w-[5.5rem] px-2 py-2 text-left text-sm font-medium md:py-1 md:text-xs">
+              Hole
+            </th>
             {holes.map((h) => (
-              <th key={h} className="py-1 px-1 text-center font-medium w-10">
+              <th key={h} className="w-11 min-w-[2.75rem] px-0.5 py-2 text-center text-sm font-medium md:w-10 md:py-1 md:text-xs">
                 {h}
               </th>
             ))}
-            <th className="py-1 px-2 text-center font-bold w-12">{label}</th>
+            <th className="w-14 min-w-[3rem] px-2 py-2 text-center text-sm font-bold md:py-1 md:text-xs">{label}</th>
           </tr>
           <tr className="bg-gray-100 dark:bg-gray-700">
-            <td className="py-1 px-2 font-medium text-gray-600 dark:text-gray-300">Par</td>
+            <td className="px-2 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 md:py-1 md:text-xs">Par</td>
             {holes.map((h) => (
-              <td key={h} className="py-1 px-1 text-center">
+              <td key={h} className="px-0.5 py-1.5 text-center md:py-1">
                 <input
                   type="number"
+                  inputMode="numeric"
                   value={round.coursePar[h - 1]}
-                  onChange={(e) => onParChange(h, parseInt(e.target.value) || 3)}
-                  className="w-10 h-6 text-center text-xs border border-gray-200 dark:border-gray-600 rounded bg-white dark:bg-gray-600 dark:text-gray-100 focus:ring-1 focus:ring-primary outline-none"
+                  onChange={(e) => onParChange(h, parseInt(e.target.value, 10) || 3)}
+                  className="h-10 w-11 min-h-[44px] rounded border border-gray-200 bg-white text-center text-base outline-none focus:ring-2 focus:ring-primary dark:border-gray-600 dark:bg-gray-600 dark:text-gray-100 md:h-6 md:min-h-0 md:w-10 md:text-xs"
                   min="3"
                   max="5"
+                  aria-label={`Par hole ${h}`}
                 />
               </td>
             ))}
-            <td className="py-1 px-2 text-center font-bold text-gray-700 dark:text-gray-300">
+            <td className="px-2 py-2 text-center text-sm font-bold text-gray-700 dark:text-gray-300 md:py-1 md:text-xs">
               {sumPar(round.coursePar, holes[0], holes[holes.length - 1])}
             </td>
           </tr>
@@ -92,12 +96,15 @@ export default function ScorecardTable({
                 ? sumStrokesForRange(strokes, 1, 9)
                 : sumStrokesForRange(strokes, 10, 18);
             return (
-              <tr key={player.id} className="border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
-                <td className="py-1 px-2 font-medium text-gray-800 dark:text-gray-200 truncate max-w-[80px]">
+              <tr
+                key={player.id}
+                className="border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800"
+              >
+                <td className="max-w-[7rem] truncate px-2 py-2 text-sm font-medium text-gray-800 dark:text-gray-200 md:py-1 md:text-xs">
                   {player.name}
                 </td>
                 {holes.map((h) => (
-                  <td key={h} className="py-1 px-1 text-center">
+                  <td key={h} className="px-0.5 py-1.5 text-center md:py-1">
                     <ScoreInput
                       value={strokes[h - 1]}
                       par={round.coursePar[h - 1]}
@@ -105,7 +112,7 @@ export default function ScorecardTable({
                     />
                   </td>
                 ))}
-                <td className="py-1 px-2 text-center font-bold text-gray-800 dark:text-gray-200">
+                <td className="px-2 py-2 text-center text-sm font-bold text-gray-800 dark:text-gray-200 md:py-1 md:text-xs">
                   {half ?? '—'}
                 </td>
               </tr>
@@ -118,47 +125,52 @@ export default function ScorecardTable({
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-        <input
-          type="text"
-          value={round.courseName}
-          onChange={(e) => onCourseNameChange(e.target.value)}
-          className="text-lg font-bold bg-transparent border-b-2 border-dashed border-gray-300 dark:border-gray-600 focus:border-primary outline-none"
-          placeholder="Course Name"
-        />
-        <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-          <span>Tee:</span>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:gap-4">
+        <label className="block min-w-0 flex-1">
+          <span className="mb-1 block text-xs font-medium text-gray-500 dark:text-gray-400">Course</span>
+          <input
+            type="text"
+            value={round.courseName}
+            onChange={(e) => onCourseNameChange(e.target.value)}
+            className="min-h-[48px] w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-base font-semibold text-gray-900 outline-none focus:border-primary focus:ring-2 focus:ring-primary dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 md:min-h-0 md:border-0 md:border-b-2 md:border-dashed md:bg-transparent md:px-0 md:py-1 md:text-lg"
+            placeholder="Course name"
+            autoComplete="off"
+          />
+        </label>
+        <label className="block w-full sm:w-auto sm:min-w-[11rem]">
+          <span className="mb-1 block text-xs font-medium text-gray-500 dark:text-gray-400">Tee time</span>
           <input
             type="text"
             value={round.teeTime}
             onChange={(e) => onTeeTimeChange(e.target.value)}
-            className="bg-transparent border-b border-dashed border-gray-300 dark:border-gray-600 focus:border-primary outline-none w-24"
-            placeholder="Tee time"
+            className="min-h-[48px] w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-base text-gray-800 outline-none focus:border-primary focus:ring-2 focus:ring-primary dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 md:min-h-0 md:border-0 md:border-b md:border-dashed md:bg-transparent md:px-0 md:py-1 md:text-sm"
+            placeholder="e.g. 10:30 AM"
+            autoComplete="off"
           />
-        </div>
+        </label>
       </div>
 
       <div>
-        <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-1">Front 9</h3>
+        <h3 className="mb-1 text-sm font-semibold text-gray-500 dark:text-gray-400">Front 9</h3>
         {renderHalf(frontHoles, 'OUT')}
       </div>
 
       <div>
-        <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-1">Back 9</h3>
+        <h3 className="mb-1 text-sm font-semibold text-gray-500 dark:text-gray-400">Back 9</h3>
         {renderHalf(backHoles, 'IN')}
       </div>
 
       {/* Totals */}
-      <div className="overflow-x-auto">
-        <table className="w-full text-xs border-collapse">
+      <div className="-mx-1 overflow-x-auto overscroll-x-contain px-1">
+        <table className="w-full min-w-[320px] border-collapse text-sm md:text-xs">
           <thead>
             <tr className="bg-accent text-white">
-              <th className="py-2 px-2 text-left font-medium w-20">Totals</th>
-              <th className="py-2 px-2 text-center">OUT</th>
-              <th className="py-2 px-2 text-center">IN</th>
-              <th className="py-2 px-2 text-center">GROSS</th>
-              <th className="py-2 px-2 text-center">HCP</th>
-              <th className="py-2 px-2 text-center">NET</th>
+              <th className="w-24 px-2 py-3 text-left text-sm font-medium md:py-2 md:text-xs">Totals</th>
+              <th className="px-2 py-3 text-center text-sm md:py-2 md:text-xs">OUT</th>
+              <th className="px-2 py-3 text-center text-sm md:py-2 md:text-xs">IN</th>
+              <th className="px-2 py-3 text-center text-sm md:py-2 md:text-xs">GROSS</th>
+              <th className="px-2 py-3 text-center text-sm md:py-2 md:text-xs">HCP</th>
+              <th className="px-2 py-3 text-center text-sm md:py-2 md:text-xs">NET</th>
             </tr>
           </thead>
           <tbody>
@@ -170,12 +182,16 @@ export default function ScorecardTable({
               const net = gross === null ? null : gross - player.handicap;
               return (
                 <tr key={player.id} className="border-b border-gray-100 dark:border-gray-700">
-                  <td className="py-2 px-2 font-medium">{player.name}</td>
-                  <td className="py-2 px-2 text-center">{f ?? '—'}</td>
-                  <td className="py-2 px-2 text-center">{b ?? '—'}</td>
-                  <td className="py-2 px-2 text-center font-bold">{gross ?? '—'}</td>
-                  <td className="py-2 px-2 text-center text-gray-500 dark:text-gray-400">{player.handicap}</td>
-                  <td className="py-2 px-2 text-center font-bold text-primary">{net ?? '—'}</td>
+                  <td className="max-w-[6rem] truncate px-2 py-3 text-sm font-medium md:py-2 md:text-xs">{player.name}</td>
+                  <td className="px-2 py-3 text-center text-sm tabular-nums md:py-2 md:text-xs">{f ?? '—'}</td>
+                  <td className="px-2 py-3 text-center text-sm tabular-nums md:py-2 md:text-xs">{b ?? '—'}</td>
+                  <td className="px-2 py-3 text-center text-sm font-bold tabular-nums md:py-2 md:text-xs">{gross ?? '—'}</td>
+                  <td className="px-2 py-3 text-center text-sm text-gray-500 tabular-nums dark:text-gray-400 md:py-2 md:text-xs">
+                    {player.handicap}
+                  </td>
+                  <td className="px-2 py-3 text-center text-sm font-bold tabular-nums text-primary md:py-2 md:text-xs">
+                    {net ?? '—'}
+                  </td>
                 </tr>
               );
             })}

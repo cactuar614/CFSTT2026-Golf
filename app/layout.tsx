@@ -7,8 +7,9 @@ import ServiceWorkerRegister from '@/components/ServiceWorkerRegister';
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
+  maximumScale: 5,
+  userScalable: true,
+  viewportFit: 'cover',
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#1a5632' },
     { media: '(prefers-color-scheme: dark)', color: '#111827' },
@@ -16,13 +17,14 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: 'CFSTT 2026 Golf Trip',
-  description: 'Logistics & scoring for the CFSTT 2026 golf trip',
+  title: 'Lexington & Louisville Golf 2026',
+  description:
+    'Golf trip: Lexington Thu 7/30, Louisville Fri–Sun — itinerary, lodging, four rounds, scoring — July 30–August 2, 2026',
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
-    title: 'CFSTT Golf',
+    title: 'Louisville Golf',
   },
   icons: {
     icon: '/icon-192.png',
@@ -36,7 +38,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-screen">
         <ThemeProvider>
           <div className="md:pt-14">
-            <main className="max-w-4xl mx-auto px-4 py-4">{children}</main>
+            <main className="max-w-4xl mx-auto px-4 py-4 pt-[max(1rem,env(safe-area-inset-top,0px))] md:pt-4">
+              {children}
+            </main>
           </div>
           <Navbar />
         </ThemeProvider>

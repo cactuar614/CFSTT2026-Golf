@@ -15,8 +15,8 @@ export type PlayerRound = {
 };
 
 export type Round = {
-  id: string; // "round-1", "round-2", "round-3"
-  dayIndex: number; // 1, 2, 3 (maps to 7/31, 8/1, 8/2)
+  id: string; // "round-1" …
+  dayIndex: number; // index into schedule / DAY_LABELS (same order as rounds)
   courseName: string;
   coursePar: number[]; // 18 entries, par for each hole
   teeTime: string;
@@ -24,11 +24,13 @@ export type Round = {
 };
 
 export type TripDay = {
-  date: string; // "2026-07-30"
-  label: string; // "Bourbon Run" or "Golf - Round 1"
+  date: string; // ISO date e.g. "2026-07-31"
+  label: string; // e.g. day headline
   description: string;
   activities: string[]; // schedule items
   isActive: boolean;
+  /** Shown on schedule & scorecards (e.g. Lexington vs Louisville). */
+  city?: string;
 };
 
 export type TripState = {
@@ -36,5 +38,5 @@ export type TripState = {
   rounds: Round[];
   schedule: TripDay[];
   currentStatus: string; // free-text live status
-  activeDayIndex: number; // 0-3
+  activeDayIndex: number; // 0…schedule.length−1
 };

@@ -8,7 +8,7 @@ export default function StatusBanner({ status }: StatusBannerProps) {
   if (!status) return null;
 
   return (
-    <div className="bg-primary text-white text-center py-2 px-4 text-sm font-medium rounded-lg">
+    <div className="rounded-lg bg-primary px-4 py-3 text-center text-base font-medium text-white md:text-sm">
       Currently: {status}
     </div>
   );

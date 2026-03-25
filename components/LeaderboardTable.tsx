@@ -4,29 +4,35 @@ import { LeaderboardEntry } from '@/lib/scoring';
 
 type LeaderboardTableProps = {
   entries: LeaderboardEntry[];
+  /** Must match number of rounds (columns R1…Rn). */
+  roundCount: number;
 };
 
-export default function LeaderboardTable({ entries }: LeaderboardTableProps) {
+export default function LeaderboardTable({ entries, roundCount }: LeaderboardTableProps) {
   if (entries.length === 0) {
     return (
-      <p className="text-center text-gray-500 dark:text-gray-400 py-8">
+      <p className="py-8 text-center text-gray-500 dark:text-gray-400">
         No players yet. Add players on the Players page.
       </p>
     );
   }
 
+  const nRounds = Math.max(roundCount, entries[0]?.roundNets.length ?? 0);
+
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full text-sm border-collapse">
+    <div className="-mx-1 overflow-x-auto overscroll-x-contain px-1">
+      <table className="w-full min-w-[340px] border-collapse text-sm md:text-sm">
         <thead>
           <tr className="bg-primary text-white">
-            <th className="py-2 px-3 text-left">#</th>
-            <th className="py-2 px-3 text-left">Player</th>
-            <th className="py-2 px-3 text-center">R1</th>
-            <th className="py-2 px-3 text-center">R2</th>
-            <th className="py-2 px-3 text-center">R3</th>
-            <th className="py-2 px-3 text-center">Net</th>
-            <th className="py-2 px-3 text-center">Gross</th>
+            <th className="px-3 py-3 text-left text-sm md:py-2">#</th>
+            <th className="px-3 py-3 text-left text-sm md:py-2">Player</th>
+            {Array.from({ length: nRounds }, (_, ri) => (
+              <th key={ri} className="px-3 py-3 text-center text-sm tabular-nums md:py-2">
+                R{ri + 1}
+              </th>
+            ))}
+            <th className="px-3 py-3 text-center text-sm md:py-2">Net</th>
+            <th className="px-3 py-3 text-center text-sm md:py-2">Gross</th>
           </tr>
         </thead>
         <tbody>
@@ -34,18 +40,22 @@ export default function LeaderboardTable({ entries }: LeaderboardTableProps) {
             <tr
               key={entry.player.id}
               className={`border-b border-gray-100 dark:border-gray-700 ${
-                i === 0 && entry.totalNet !== null ? 'bg-yellow-50 dark:bg-yellow-900/30 font-semibold' : 'hover:bg-gray-50 dark:hover:bg-gray-800'
+                i === 0 && entry.totalNet !== null
+                  ? 'bg-yellow-50 font-semibold dark:bg-yellow-900/30'
+                  : 'hover:bg-gray-50 dark:hover:bg-gray-800'
               }`}
             >
-              <td className="py-2 px-3 text-gray-500 dark:text-gray-400">{i + 1}</td>
-              <td className="py-2 px-3 font-medium">{entry.player.name}</td>
-              <td className="py-2 px-3 text-center">{entry.roundNets[0] ?? '—'}</td>
-              <td className="py-2 px-3 text-center">{entry.roundNets[1] ?? '—'}</td>
-              <td className="py-2 px-3 text-center">{entry.roundNets[2] ?? '—'}</td>
-              <td className="py-2 px-3 text-center font-bold text-primary">
+              <td className="px-3 py-3 text-gray-500 tabular-nums dark:text-gray-400 md:py-2">{i + 1}</td>
+              <td className="max-w-[7rem] truncate px-3 py-3 font-medium md:py-2">{entry.player.name}</td>
+              {Array.from({ length: nRounds }, (_, ri) => (
+                <td key={ri} className="px-3 py-3 text-center tabular-nums md:py-2">
+                  {entry.roundNets[ri] ?? '—'}
+                </td>
+              ))}
+              <td className="px-3 py-3 text-center text-base font-bold text-primary tabular-nums md:py-2 md:text-sm">
                 {entry.totalNet ?? '—'}
               </td>
-              <td className="py-2 px-3 text-center">{entry.totalGross ?? '—'}</td>
+              <td className="px-3 py-3 text-center tabular-nums md:py-2">{entry.totalGross ?? '—'}</td>
             </tr>
           ))}
         </tbody>

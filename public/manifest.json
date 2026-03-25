@@ -1,7 +1,7 @@
 {
-  "name": "CFSTT 2026 Golf Trip",
-  "short_name": "CFSTT Golf",
-  "description": "Logistics & scoring for the CFSTT 2026 golf trip",
+  "name": "Lexington & Louisville Golf 2026",
+  "short_name": "KY Golf",
+  "description": "Lexington Thu + Louisville Fri–Sun — four rounds, lodging, scoring (Jul 30–Aug 2, 2026)",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
