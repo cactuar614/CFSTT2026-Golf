@@ -9,7 +9,6 @@ type DayCardProps = {
   dayIndex: number;
   isActiveDay: boolean;
   onSetActive: () => void;
-  onUpdateActivities: (activities: string[]) => void;
   onUpdateDescription: (desc: string) => void;
 };
 
@@ -18,7 +17,6 @@ export default function DayCard({
   dayIndex,
   isActiveDay,
   onSetActive,
-  onUpdateActivities,
   onUpdateDescription,
 }: DayCardProps) {
   return (
@@ -59,44 +57,11 @@ export default function DayCard({
         placeholder="Description..."
       />
 
-      <ul className="space-y-2">
-        {day.activities.map((activity, i) => (
-          <li key={i} className="flex items-center gap-2">
-            <span className="shrink-0 text-gray-400" aria-hidden>
-              •
-            </span>
-            <input
-              type="text"
-              value={activity}
-              onChange={(e) => {
-                const updated = [...day.activities];
-                updated[i] = e.target.value;
-                onUpdateActivities(updated);
-              }}
-              className="min-h-[44px] flex-1 rounded-md border border-transparent bg-transparent px-1 py-2 text-base outline-none focus:border-primary focus:ring-1 focus:ring-primary dark:text-gray-200 md:min-h-0 md:border-b md:border-dashed md:py-1 md:text-sm md:hover:border-gray-300 dark:md:hover:border-gray-600"
-            />
-            <button
-              type="button"
-              onClick={() => {
-                const updated = day.activities.filter((_, idx) => idx !== i);
-                onUpdateActivities(updated);
-              }}
-              className="flex h-11 min-w-[44px] shrink-0 touch-manipulation items-center justify-center rounded-lg text-lg text-gray-400 transition-colors active:bg-red-50 active:text-red-500 dark:active:bg-red-950/50"
-              aria-label="Remove activity"
-            >
-              ✕
-            </button>
-          </li>
+      <ul className="list-inside list-disc space-y-1.5 text-sm text-gray-700 dark:text-gray-300">
+        {day.activities.filter((a) => a.trim()).map((activity, i) => (
+          <li key={i}>{activity}</li>
         ))}
       </ul>
-
-      <button
-        type="button"
-        onClick={() => onUpdateActivities([...day.activities, ''])}
-        className="mt-3 min-h-[44px] w-full touch-manipulation rounded-lg border border-dashed border-primary/40 py-2.5 text-sm font-medium text-primary transition-colors active:bg-primary/10 md:min-h-0 md:w-auto md:border-0 md:py-2"
-      >
-        + Add item
-      </button>
     </div>
   );
 }

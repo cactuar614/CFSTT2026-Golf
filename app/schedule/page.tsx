@@ -17,14 +17,6 @@ export default function SchedulePage() {
     updateState((prev) => ({ ...prev, activeDayIndex: dayIndex }));
   };
 
-  const updateActivities = (dayIndex: number, activities: string[]) => {
-    updateState((prev) => {
-      const schedule = [...prev.schedule];
-      schedule[dayIndex] = { ...schedule[dayIndex], activities };
-      return { ...prev, schedule };
-    });
-  };
-
   const updateDescription = (dayIndex: number, description: string) => {
     updateState((prev) => {
       const schedule = [...prev.schedule];
@@ -77,7 +69,6 @@ export default function SchedulePage() {
             dayIndex={i}
             isActiveDay={state.activeDayIndex === i}
             onSetActive={() => setActiveDay(i)}
-            onUpdateActivities={(activities) => updateActivities(i, activities)}
             onUpdateDescription={(desc) => updateDescription(i, desc)}
           />
         ))}
