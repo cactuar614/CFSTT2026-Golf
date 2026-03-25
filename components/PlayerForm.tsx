@@ -3,6 +3,9 @@
 import { useState } from 'react';
 import { Player } from '@/lib/types';
 
+const inputClass =
+  'min-h-[48px] w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-base outline-none focus:border-transparent focus:ring-2 focus:ring-primary dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 md:min-h-0 md:py-2 md:text-sm';
+
 type PlayerFormProps = {
   player?: Player;
   onSave: (name: string, handicap: number) => void;
@@ -16,44 +19,49 @@ export default function PlayerForm({ player, onSave, onCancel }: PlayerFormProps
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) return;
-    onSave(name.trim(), parseInt(handicap) || 0);
+    onSave(name.trim(), parseInt(handicap, 10) || 0);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 space-y-3">
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-4 rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800"
+    >
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Name</label>
+        <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">Name</label>
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none bg-white dark:bg-gray-700 dark:text-gray-100"
+          className={inputClass}
           placeholder="Player name"
+          autoComplete="name"
           autoFocus
         />
       </div>
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Handicap</label>
+        <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">Handicap</label>
         <input
           type="number"
+          inputMode="numeric"
           value={handicap}
           onChange={(e) => setHandicap(e.target.value)}
-          className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none bg-white dark:bg-gray-700 dark:text-gray-100"
+          className={inputClass}
           min="0"
           max="54"
         />
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-3">
         <button
           type="submit"
-          className="flex-1 bg-primary text-white rounded-lg py-2 text-sm font-medium hover:bg-primary-light transition-colors"
+          className="min-h-[48px] flex-1 touch-manipulation rounded-lg bg-primary py-3 text-base font-medium text-white transition-colors active:bg-primary-light md:min-h-0 md:py-2 md:text-sm"
         >
           {player ? 'Update' : 'Add Player'}
         </button>
         <button
           type="button"
           onClick={onCancel}
-          className="flex-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg py-2 text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+          className="min-h-[48px] flex-1 touch-manipulation rounded-lg bg-gray-100 py-3 text-base font-medium text-gray-700 transition-colors active:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:active:bg-gray-600 md:min-h-0 md:py-2 md:text-sm"
         >
           Cancel
         </button>

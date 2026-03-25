@@ -20,7 +20,7 @@ export default function LeaderboardPage() {
       <h1 className="text-xl font-bold text-primary">Leaderboard</h1>
 
       <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-        <LeaderboardTable entries={entries} />
+        <LeaderboardTable entries={entries} roundCount={state.rounds.length} />
       </div>
 
       <p className="text-center text-xs text-gray-400">

@@ -22,14 +22,17 @@ export default function ScoreInput({ value, par, onChange }: ScoreInputProps) {
   return (
     <input
       type="number"
+      inputMode="numeric"
+      enterKeyHint="done"
       value={value ?? ''}
       onChange={(e) => {
         const v = e.target.value;
-        onChange(v === '' ? null : parseInt(v));
+        onChange(v === '' ? null : parseInt(v, 10));
       }}
-      className={`w-10 h-8 text-center text-sm border border-gray-300 dark:border-gray-600 rounded focus:ring-2 focus:ring-primary focus:border-transparent outline-none dark:bg-gray-700 ${getCellColor(value, par)}`}
+      className={`h-11 w-11 min-h-[44px] min-w-[44px] rounded-md border border-gray-300 text-center text-base tabular-nums outline-none focus:border-primary focus:ring-2 focus:ring-primary dark:border-gray-600 dark:bg-gray-700 md:h-8 md:w-10 md:min-h-0 md:min-w-0 md:text-sm ${getCellColor(value, par)}`}
       min="1"
       max="15"
+      aria-label={`Strokes, par ${par}`}
     />
   );
 }

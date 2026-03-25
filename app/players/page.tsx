@@ -44,14 +44,15 @@ export default function PlayersPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-xl font-bold text-primary">Players</h1>
         <button
+          type="button"
           onClick={() => {
             setShowAdd(true);
             setEditingId(null);
           }}
-          className="bg-primary text-white text-sm px-4 py-2 rounded-lg font-medium hover:bg-primary-light transition-colors"
+          className="min-h-[48px] w-full touch-manipulation rounded-lg bg-primary px-4 py-3 text-base font-medium text-white transition-colors active:bg-primary-light sm:w-auto sm:min-h-0 sm:py-2 sm:text-sm"
         >
           + Add Player
         </button>
@@ -78,25 +79,27 @@ export default function PlayersPage() {
             ) : (
               <div
                 key={player.id}
-                className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 flex items-center justify-between"
+                className="flex flex-col gap-3 rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 sm:flex-row sm:items-center sm:justify-between"
               >
-                <div className="flex items-center gap-2">
-                  <span className="font-medium">{player.name}</span>
+                <div className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1">
+                  <span className="text-base font-medium">{player.name}</span>
                   <span className="text-sm text-gray-500 dark:text-gray-400">HCP: {player.handicap}</span>
                 </div>
-                <div className="flex gap-2 items-center">
+                <div className="flex gap-2">
                   <button
+                    type="button"
                     onClick={() => {
                       setEditingId(player.id);
                       setShowAdd(false);
                     }}
-                    className="text-sm text-primary hover:text-primary-light font-medium"
+                    className="min-h-[44px] min-w-[4.5rem] touch-manipulation rounded-lg border border-primary/30 px-4 text-base font-medium text-primary transition-colors active:bg-primary/10 sm:min-h-0 sm:py-2 sm:text-sm"
                   >
                     Edit
                   </button>
                   <button
+                    type="button"
                     onClick={() => removePlayer(player.id)}
-                    className="text-sm text-red-500 hover:text-red-700 font-medium"
+                    className="min-h-[44px] min-w-[4.5rem] touch-manipulation rounded-lg border border-red-200 px-4 text-base font-medium text-red-600 transition-colors active:bg-red-50 dark:border-red-900 dark:text-red-400 dark:active:bg-red-950/50 sm:min-h-0 sm:py-2 sm:text-sm"
                   >
                     Remove
                   </button>
