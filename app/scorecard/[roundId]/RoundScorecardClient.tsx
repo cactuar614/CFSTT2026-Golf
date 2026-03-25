@@ -16,21 +16,27 @@ function ensurePlayerRound(playerId: string): PlayerRound {
   return { playerId, scores };
 }
 
-export default function RoundScorecardClient() {
+
+type RoundScorecardClientProps = {
+  /** Public scorecards are read-only; admin passes false. */
+  readOnly?: boolean;
+};
+
+export default function RoundScorecardClient({ readOnly = true }: RoundScorecardClientProps) {
   const params = useParams();
   const roundId = params.roundId as string;
   const [state, updateState, hydrated] = useLocalStorage();
 
   if (!hydrated) {
-    return <div className="animate-pulse h-96 bg-gray-100 dark:bg-gray-800 rounded-xl" />;
+    return <div className="animate-pulse h-96 rounded-xl bg-gray-100 dark:bg-gray-800" />;
   }
 
   const roundIndex = state.rounds.findIndex((r) => r.id === roundId);
   if (roundIndex === -1) {
     return (
-      <div className="text-center py-8">
+      <div className="py-8 text-center">
         <p className="text-gray-500 dark:text-gray-400">Round not found.</p>
-        <Link href="/scorecard" className="text-primary underline text-sm">
+        <Link href="/scorecard" className="text-sm text-primary underline">
           Back to rounds
         </Link>
       </div>
@@ -103,15 +109,17 @@ export default function RoundScorecardClient() {
     }),
   };
 
+  const backHref = readOnly ? '/scorecard' : '/admin';
+
   return (
     <div className="space-y-4">
       <div className="space-y-3">
         <div>
           <Link
-            href="/scorecard"
+            href={backHref}
             className="-ml-2 inline-flex min-h-[44px] items-center rounded-lg px-2 py-2 text-base text-primary touch-manipulation active:bg-primary/10 md:text-sm"
           >
-            ← All Rounds
+            {readOnly ? '← All Rounds' : '← Admin'}
           </Link>
           <h1 className="text-xl font-bold text-primary">Round {roundIndex + 1}</h1>
           <p className="text-sm text-gray-500 dark:text-gray-400">{DAY_LABELS[round.dayIndex]}</p>
@@ -137,24 +145,22 @@ export default function RoundScorecardClient() {
       </div>
 
       {state.players.length === 0 ? (
-        <p className="text-center text-gray-500 dark:text-gray-400 py-8">
-          Add players on the{' '}
-          <Link
-            href="/players"
-            className="inline-flex min-h-[44px] items-center text-primary underline touch-manipulation"
-          >
-            Players page
+        <p className="py-8 text-center text-gray-500 dark:text-gray-400">
+          No players in the trip list yet. Admins can add players from the{' '}
+          <Link href="/admin" className="text-primary underline">
+            Admin
           </Link>{' '}
-          first.
+          page.
         </p>
       ) : (
         <ScorecardTable
           round={roundWithAllPlayers}
           players={state.players}
-          onScoreChange={handleScoreChange}
-          onParChange={handleParChange}
-          onCourseNameChange={handleCourseNameChange}
-          onTeeTimeChange={handleTeeTimeChange}
+          readOnly={readOnly}
+          onScoreChange={readOnly ? (_pid, _h, _s) => {} : handleScoreChange}
+          onParChange={readOnly ? (_h, _p) => {} : handleParChange}
+          onCourseNameChange={readOnly ? (_n) => {} : handleCourseNameChange}
+          onTeeTimeChange={readOnly ? (_t) => {} : handleTeeTimeChange}
         />
       )}
     </div>

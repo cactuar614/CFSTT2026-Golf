@@ -5,7 +5,7 @@ export const TRIP_DATES = 'July 30 – August 2, 2026';
 export const TRIP_LOCATION = 'Lexington & Louisville, KY';
 
 /** Bump when default trip shape changes so clients load fresh itinerary (localStorage). */
-export const STORAGE_KEY = 'cfstt2026-lex-lou-4day';
+export const STORAGE_KEY = 'cfstt2026-lex-lou-8players';
 
 export const LODGING = {
   hotel: 'AC Hotel Louisville Downtown',
@@ -25,47 +25,42 @@ export const DEFAULT_SCHEDULE: TripDay[] = [
   {
     date: '2026-07-30',
     label: 'Thursday — Lexington · Round 1',
-    description: 'Cherry Blossom Golf Course · Lexington, KY · 8 golfers',
+    description: 'Cherry Blossom Golf Course · Lexington, KY',
     city: 'Lexington, KY',
-    activities: [
-      'Cherry Blossom Golf Course',
-      'Lexington, KY',
-      'Tee time: TBD (confirm with group)',
-      '8 golfers',
-    ],
+    activities: ['Cherry Blossom Golf Course', 'Lexington, KY', 'Tee time: TBD (confirm with group)'],
     isActive: false,
   },
   {
     date: '2026-07-31',
     label: 'Friday — Louisville · Round 2',
-    description: 'Champions Pointe Golf Club · Hotel check-in · 8 golfers',
+    description: 'Champions Pointe Golf Club · Hotel check-in',
     city: 'Louisville, KY',
     activities: [
       'AC Hotel Louisville Downtown — check-in (confirmed)',
       'Champions Pointe Golf Club',
       'Tee time: 12:30 PM',
-      '8 golfers',
+      'Dinner',
     ],
     isActive: false,
   },
   {
     date: '2026-08-01',
     label: 'Saturday — Louisville · Round 3',
-    description: 'Covered Bridge Golf Club · 8 golfers',
+    description: 'Covered Bridge Golf Club',
     city: 'Louisville, KY',
-    activities: ['Covered Bridge Golf Club', 'Tee time: 10:30 AM', '8 golfers'],
+    activities: ['Covered Bridge Golf Club', 'Tee time: 10:30 AM', 'Night out and dinner'],
     isActive: false,
   },
   {
     date: '2026-08-02',
     label: 'Sunday — Louisville · Round 4',
-    description: 'Heritage Hill Golf Club · Check-out · 8 golfers',
+    description: 'Heritage Hill Golf Club · Check-out',
     city: 'Louisville, KY',
     activities: [
       'Heritage Hill Golf Club',
       'Tee time: TBD (requested 10:30 AM)',
-      '8 golfers',
       'AC Hotel Louisville Downtown — check-out',
+      'Drive home',
     ],
     isActive: false,
   },
@@ -107,14 +102,14 @@ export const DEFAULT_ROUNDS: Round[] = [
 ];
 
 export const DEFAULT_PLAYERS: Player[] = [
-  { id: 'player-1', name: 'Player 1', handicap: 0 },
-  { id: 'player-2', name: 'Player 2', handicap: 0 },
-  { id: 'player-3', name: 'Player 3', handicap: 0 },
-  { id: 'player-4', name: 'Player 4', handicap: 0 },
-  { id: 'player-5', name: 'Player 5', handicap: 0 },
-  { id: 'player-6', name: 'Player 6', handicap: 0 },
-  { id: 'player-7', name: 'Player 7', handicap: 0 },
-  { id: 'player-8', name: 'Player 8', handicap: 0 },
+  { id: 'player-1', name: 'Matt Huber', handicap: 11 },
+  { id: 'player-2', name: 'Adam Wakeland', handicap: 12 },
+  { id: 'player-3', name: 'Jason Karns', handicap: 18 },
+  { id: 'player-4', name: 'Mike Kennedy', handicap: 20 },
+  { id: 'player-5', name: 'Matt Lanning', handicap: 25 },
+  { id: 'player-6', name: 'Hippy Mike', handicap: 36 },
+  { id: 'player-7', name: 'Alex Rogers', handicap: 12 },
+  { id: 'player-8', name: 'Guest (temp)', handicap: 25 },
 ];
 
 export const DAY_LABELS = [

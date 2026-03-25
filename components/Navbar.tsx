@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTheme } from '@/lib/ThemeContext';
+import { useAdmin } from '@/lib/AdminContext';
 
 const tabs = [
   { href: '/', label: 'Home', icon: '⛳' },
@@ -22,6 +23,7 @@ const tabClass = (isActive: boolean) =>
 export default function Navbar() {
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
+  const { isAdmin } = useAdmin();
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-gray-200 bg-white/95 backdrop-blur-sm dark:border-gray-700 dark:bg-gray-800/95 md:bottom-auto md:top-0 md:border-b md:border-t-0">
@@ -41,6 +43,18 @@ export default function Navbar() {
             </Link>
           );
         })}
+        {isAdmin ? (
+          <Link
+            href="/admin"
+            className={tabClass(pathname.startsWith('/admin'))}
+            title="Admin"
+          >
+            <span className="text-[1.35rem] leading-none md:text-base" aria-hidden>
+              ⚙️
+            </span>
+            <span className="truncate leading-tight">Admin</span>
+          </Link>
+        ) : null}
         <button
           type="button"
           onClick={toggleTheme}

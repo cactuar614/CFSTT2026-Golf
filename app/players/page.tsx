@@ -1,112 +1,41 @@
 'use client';
 
-import { useState } from 'react';
+import Link from 'next/link';
 import { useLocalStorage } from '@/lib/useLocalStorage';
-import { Player } from '@/lib/types';
-import PlayerForm from '@/components/PlayerForm';
 
 export default function PlayersPage() {
-  const [state, updateState, hydrated] = useLocalStorage();
-  const [editingId, setEditingId] = useState<string | null>(null);
-  const [showAdd, setShowAdd] = useState(false);
+  const [state, , hydrated] = useLocalStorage();
 
   if (!hydrated) {
-    return <div className="animate-pulse h-96 bg-gray-100 dark:bg-gray-800 rounded-xl" />;
+    return <div className="animate-pulse h-96 rounded-xl bg-gray-100 dark:bg-gray-800" />;
   }
-
-  const addPlayer = (name: string, handicap: number) => {
-    const newPlayer: Player = {
-      id: `player-${Date.now()}`,
-      name,
-      handicap,
-    };
-    updateState((prev) => ({
-      ...prev,
-      players: [...prev.players, newPlayer],
-    }));
-    setShowAdd(false);
-  };
-
-  const updatePlayer = (id: string, name: string, handicap: number) => {
-    updateState((prev) => ({
-      ...prev,
-      players: prev.players.map((p) => (p.id === id ? { ...p, name, handicap } : p)),
-    }));
-    setEditingId(null);
-  };
-
-  const removePlayer = (id: string) => {
-    updateState((prev) => ({
-      ...prev,
-      players: prev.players.filter((p) => p.id !== id),
-    }));
-  };
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div>
         <h1 className="text-xl font-bold text-primary">Players</h1>
-        <button
-          type="button"
-          onClick={() => {
-            setShowAdd(true);
-            setEditingId(null);
-          }}
-          className="min-h-[48px] w-full touch-manipulation rounded-lg bg-primary px-4 py-3 text-base font-medium text-white transition-colors active:bg-primary-light sm:w-auto sm:min-h-0 sm:py-2 sm:text-sm"
-        >
-          + Add Player
-        </button>
+        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+          Roster is read-only here. Trip admins edit names and handicaps on the{' '}
+          <Link href="/admin" className="font-medium text-primary underline">
+            Admin
+          </Link>{' '}
+          page.
+        </p>
       </div>
 
-      {showAdd && (
-        <PlayerForm onSave={addPlayer} onCancel={() => setShowAdd(false)} />
-      )}
-
-      {state.players.length === 0 && !showAdd ? (
-        <p className="text-center text-gray-500 dark:text-gray-400 py-8">
-          No players yet. Add up to 8 players to get started.
-        </p>
+      {state.players.length === 0 ? (
+        <p className="py-8 text-center text-gray-500 dark:text-gray-400">No players listed yet.</p>
       ) : (
         <div className="space-y-2">
-          {state.players.map((player) =>
-            editingId === player.id ? (
-              <PlayerForm
-                key={player.id}
-                player={player}
-                onSave={(name, handicap) => updatePlayer(player.id, name, handicap)}
-                onCancel={() => setEditingId(null)}
-              />
-            ) : (
-              <div
-                key={player.id}
-                className="flex flex-col gap-3 rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 sm:flex-row sm:items-center sm:justify-between"
-              >
-                <div className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1">
-                  <span className="text-base font-medium">{player.name}</span>
-                  <span className="text-sm text-gray-500 dark:text-gray-400">HCP: {player.handicap}</span>
-                </div>
-                <div className="flex gap-2">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setEditingId(player.id);
-                      setShowAdd(false);
-                    }}
-                    className="min-h-[44px] min-w-[4.5rem] touch-manipulation rounded-lg border border-primary/30 px-4 text-base font-medium text-primary transition-colors active:bg-primary/10 sm:min-h-0 sm:py-2 sm:text-sm"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => removePlayer(player.id)}
-                    className="min-h-[44px] min-w-[4.5rem] touch-manipulation rounded-lg border border-red-200 px-4 text-base font-medium text-red-600 transition-colors active:bg-red-50 dark:border-red-900 dark:text-red-400 dark:active:bg-red-950/50 sm:min-h-0 sm:py-2 sm:text-sm"
-                  >
-                    Remove
-                  </button>
-                </div>
-              </div>
-            )
-          )}
+          {state.players.map((player) => (
+            <div
+              key={player.id}
+              className="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800"
+            >
+              <span className="text-base font-medium">{player.name}</span>
+              <span className="ml-2 text-sm text-gray-500 dark:text-gray-400">HCP: {player.handicap}</span>
+            </div>
+          ))}
         </div>
       )}
     </div>
