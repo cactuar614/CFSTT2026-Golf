@@ -1,0 +1,25 @@
+---
+description: Default stack and deployment assumptions for Next.js on Vercel
+alwaysApply: true
+---
+
+# Stack and hosting
+
+- Assume **Next.js** with the **App Router** (`app/`) unless the repo clearly uses the Pages Router (`pages/`).
+- Use **TypeScript** for new code; match the project’s existing `tsconfig` strictness.
+- Design for **Vercel**: serverless route handlers and Server Actions, no reliance on a long-lived Node process or local filesystem persistence in production.
+
+# Vercel-oriented choices
+
+- Prefer **static generation** and **ISR** (`revalidate`) when content can be cached; use **dynamic** rendering only when the page truly needs per-request data or cookies/headers.
+- For **Edge** runtimes, avoid Node-only APIs unless the route is explicitly configured for Node.
+- Use **environment variables** correctly: `NEXT_PUBLIC_*` only for values safe in the browser; keep secrets on the server and never expose them to client bundles.
+
+# Dependencies and tooling
+
+- Prefer **official Next.js patterns** (`next/image`, `next/font`, Metadata API in App Router) over ad-hoc alternatives unless the project already standardizes otherwise.
+- Match the repo’s **package manager** (lockfile: `pnpm-lock.yaml`, `package-lock.json`, or `yarn.lock`).
+
+# When suggesting infra or scripts
+
+- Favor solutions that work on **Vercel’s build and runtime** (build command `next build`, output handled by Vercel). Call out when something needs a different host or add-on (e.g. long-running workers, persistent disk).

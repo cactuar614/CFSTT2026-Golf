@@ -1,25 +1,18 @@
 'use client';
 
 import { useState } from 'react';
-import { useSession } from 'next-auth/react';
 import { useLocalStorage } from '@/lib/useLocalStorage';
 import { Player } from '@/lib/types';
 import PlayerForm from '@/components/PlayerForm';
 
 export default function PlayersPage() {
   const [state, updateState, hydrated] = useLocalStorage();
-  const { data: session } = useSession();
   const [editingId, setEditingId] = useState<string | null>(null);
   const [showAdd, setShowAdd] = useState(false);
 
   if (!hydrated) {
     return <div className="animate-pulse h-96 bg-gray-100 dark:bg-gray-800 rounded-xl" />;
   }
-
-  const userId = (session?.user as any)?.id as string | undefined;
-  const myClaimedPlayer = userId
-    ? state.players.find((p) => p.authId === userId)
-    : null;
 
   const addPlayer = (name: string, handicap: number) => {
     const newPlayer: Player = {
@@ -46,25 +39,6 @@ export default function PlayersPage() {
     updateState((prev) => ({
       ...prev,
       players: prev.players.filter((p) => p.id !== id),
-    }));
-  };
-
-  const claimPlayer = (playerId: string) => {
-    if (!userId) return;
-    updateState((prev) => ({
-      ...prev,
-      players: prev.players.map((p) =>
-        p.id === playerId ? { ...p, authId: userId } : p
-      ),
-    }));
-  };
-
-  const unclaimPlayer = (playerId: string) => {
-    updateState((prev) => ({
-      ...prev,
-      players: prev.players.map((p) =>
-        p.id === playerId ? { ...p, authId: undefined } : p
-      ),
     }));
   };
 
@@ -109,29 +83,8 @@ export default function PlayersPage() {
                 <div className="flex items-center gap-2">
                   <span className="font-medium">{player.name}</span>
                   <span className="text-sm text-gray-500 dark:text-gray-400">HCP: {player.handicap}</span>
-                  {player.authId === userId && (
-                    <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full font-medium">
-                      You
-                    </span>
-                  )}
                 </div>
                 <div className="flex gap-2 items-center">
-                  {userId && !myClaimedPlayer && !player.authId && (
-                    <button
-                      onClick={() => claimPlayer(player.id)}
-                      className="text-sm text-accent hover:text-accent/80 font-medium"
-                    >
-                      Claim
-                    </button>
-                  )}
-                  {player.authId === userId && (
-                    <button
-                      onClick={() => unclaimPlayer(player.id)}
-                      className="text-sm text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 font-medium"
-                    >
-                      Unclaim
-                    </button>
-                  )}
                   <button
                     onClick={() => {
                       setEditingId(player.id);

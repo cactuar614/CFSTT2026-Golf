@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import { ThemeProvider } from '@/lib/ThemeContext';
-import { AuthProvider } from '@/lib/AuthContext';
 import ServiceWorkerRegister from '@/components/ServiceWorkerRegister';
 
 export const viewport: Viewport = {
@@ -36,12 +35,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <body className="min-h-screen">
         <ThemeProvider>
-          <AuthProvider>
-            <div className="md:pt-14">
-              <main className="max-w-4xl mx-auto px-4 py-4">{children}</main>
-            </div>
-            <Navbar />
-          </AuthProvider>
+          <div className="md:pt-14">
+            <main className="max-w-4xl mx-auto px-4 py-4">{children}</main>
+          </div>
+          <Navbar />
         </ThemeProvider>
         <ServiceWorkerRegister />
       </body>

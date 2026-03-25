@@ -1,0 +1,25 @@
+---
+description: Next.js App Router and React Server Components conventions
+globs: "**/*.{ts,tsx}"
+alwaysApply: false
+---
+
+# Components
+
+- Default to **Server Components**. Add `"use client"` only when the file needs hooks, browser APIs, or event handlers in that module.
+- Keep client boundaries **small** (leaf components) instead of marking large trees as client.
+
+# Data and mutations
+
+- Prefer **fetching on the server** (RSC, `loading.tsx`, parallel routes) over client `useEffect` data loading when possible.
+- Use **Server Actions** or route handlers for mutations; validate input on the server.
+
+# Routing and metadata
+
+- Use the **App Router** file conventions: `page.tsx`, `layout.tsx`, `route.ts`, `error.tsx`, `not-found.tsx` as appropriate.
+- Use the **Metadata API** (`export const metadata` / `generateMetadata`) for SEO in App Router.
+
+# Performance on Vercel
+
+- Use **`next/image`** for images; configure remote patterns if loading from external URLs.
+- Avoid shipping large client-only libraries in shared modules; import them from client components only.

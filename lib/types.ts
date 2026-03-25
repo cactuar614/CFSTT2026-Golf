@@ -2,7 +2,6 @@ export type Player = {
   id: string;
   name: string;
   handicap: number;
-  authId?: string;
 };
 
 export type HoleScore = {
