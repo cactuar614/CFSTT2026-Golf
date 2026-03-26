@@ -25,3 +25,15 @@ export function getActiveDayIndexForDate(schedule: TripDay[], date: Date): numbe
 export function getActiveDayIndexForToday(schedule: TripDay[]): number {
   return getActiveDayIndexForDate(schedule, new Date());
 }
+
+/** Index of the schedule row whose date equals local today, or null if today is not a trip day. */
+export function scheduleIndexMatchingLocalToday(schedule: TripDay[], date: Date = new Date()): number | null {
+  const iso = localDateISO(date);
+  const idx = schedule.findIndex((d) => d.date === iso);
+  return idx === -1 ? null : idx;
+}
+
+/** True only when this row’s ISO date is today (local) — use for “today” highlight on the schedule. */
+export function isScheduleDayCalendarToday(day: TripDay, date: Date = new Date()): boolean {
+  return day.date === localDateISO(date);
+}

@@ -2,6 +2,7 @@
 
 import { useLocalStorage } from '@/lib/useLocalStorage';
 import { TRIP_NAME } from '@/lib/constants';
+import { isScheduleDayCalendarToday } from '@/lib/activeDay';
 import ScheduleDayReadOnly from '@/components/ScheduleDayReadOnly';
 import StatusBanner from '@/components/StatusBanner';
 import LodgingCard from '@/components/LodgingCard';
@@ -21,7 +22,7 @@ export default function SchedulePage() {
           Thu 7/30 Lexington → Fri–Sun Louisville · July 30 – August 2, 2026
         </p>
         <p className="text-xs text-gray-500 dark:text-gray-500">
-          The highlighted day matches today on the calendar (local time). Before the trip it shows Day 1; after the trip, the last day.
+          Only the day whose calendar date matches today on your device (local time) is highlighted. Outside the trip dates, no day is highlighted.
         </p>
       </div>
 
@@ -35,7 +36,7 @@ export default function SchedulePage() {
             key={day.date}
             day={day}
             dayIndex={i}
-            isActiveDay={state.activeDayIndex === i}
+            isActiveDay={isScheduleDayCalendarToday(day)}
           />
         ))}
       </div>
