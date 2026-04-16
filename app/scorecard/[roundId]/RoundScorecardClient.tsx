@@ -146,11 +146,7 @@ export default function RoundScorecardClient({ readOnly = true }: RoundScorecard
 
       {state.players.length === 0 ? (
         <p className="py-8 text-center text-gray-500 dark:text-gray-400">
-          No players in the trip list yet. Admins can add players from the{' '}
-          <Link href="/admin" className="text-primary underline">
-            Admin
-          </Link>{' '}
-          page.
+          No players in the trip list yet.
         </p>
       ) : (
         <ScorecardTable

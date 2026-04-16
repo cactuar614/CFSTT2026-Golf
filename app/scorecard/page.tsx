@@ -16,13 +16,7 @@ export default function ScorecardIndexPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-xl font-bold text-primary">Scorecards</h1>
-        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-          View-only. Trip admins enter scores from the{' '}
-          <Link href="/admin" className="font-medium text-primary underline">
-            Admin
-          </Link>{' '}
-          page.
-        </p>
+        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">View-only.</p>
       </div>
 
       <div className="space-y-3">

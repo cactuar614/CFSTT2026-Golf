@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { useLocalStorage } from '@/lib/useLocalStorage';
 
 export default function PlayersPage() {
@@ -14,13 +13,7 @@ export default function PlayersPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-xl font-bold text-primary">Players</h1>
-        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-          Roster is read-only here. Trip admins edit names and handicaps on the{' '}
-          <Link href="/admin" className="font-medium text-primary underline">
-            Admin
-          </Link>{' '}
-          page.
-        </p>
+        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Roster is read-only here.</p>
       </div>
 
       {state.players.length === 0 ? (

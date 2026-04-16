@@ -109,7 +109,6 @@ export const DEFAULT_PLAYERS: Player[] = [
   { id: 'player-5', name: 'Matt Lanning', handicap: 25 },
   { id: 'player-6', name: 'Hippy Mike', handicap: 36 },
   { id: 'player-7', name: 'Alex Rogers', handicap: 12 },
-  { id: 'player-8', name: 'Guest (temp)', handicap: 25 },
 ];
 
 export const DAY_LABELS = [
