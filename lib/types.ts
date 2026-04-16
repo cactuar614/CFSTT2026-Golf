@@ -21,6 +21,8 @@ export type Round = {
   coursePar: number[]; // 18 entries, par for each hole
   teeTime: string;
   playerRounds: PlayerRound[];
+  /** True if the round isn't mandatory (e.g., Lexington-only arrival round). */
+  optional?: boolean;
 };
 
 export type TripDay = {

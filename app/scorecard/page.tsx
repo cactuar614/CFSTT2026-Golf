@@ -38,7 +38,12 @@ export default function ScorecardIndexPage() {
               <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                 <div className="min-w-0 space-y-1">
                   <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0">
-                    <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">Round {i + 1}</h2>
+                    <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">Round {i}</h2>
+                    {round.optional ? (
+                      <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-900 dark:bg-amber-900/40 dark:text-amber-200">
+                        Optional
+                      </span>
+                    ) : null}
                     <span className="text-sm text-gray-500 dark:text-gray-400">{DAY_LABELS[round.dayIndex]}</span>
                   </div>
                   {day ? (

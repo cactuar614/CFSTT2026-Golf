@@ -8,12 +8,11 @@ import Link from 'next/link';
 
 export default function LeaderboardPage() {
   const [state, , hydrated] = useLocalStorage();
+  const entries = useMemo(() => buildLeaderboard(state.players, state.rounds), [state.players, state.rounds]);
 
   if (!hydrated) {
     return <div className="animate-pulse h-64 bg-gray-100 dark:bg-gray-800 rounded-xl" />;
   }
-
-  const entries = useMemo(() => buildLeaderboard(state.players, state.rounds), [state.players, state.rounds]);
 
   return (
     <div className="space-y-6">

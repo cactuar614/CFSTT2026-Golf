@@ -4,7 +4,7 @@ import { LeaderboardEntry } from '@/lib/scoring';
 
 type LeaderboardTableProps = {
   entries: LeaderboardEntry[];
-  /** Must match number of rounds (columns R1…Rn). */
+  /** Must match number of rounds (columns R0…R{n-1}). */
   roundCount: number;
 };
 
@@ -28,7 +28,7 @@ export default function LeaderboardTable({ entries, roundCount }: LeaderboardTab
             <th scope="col" className="px-3 py-3 text-left text-sm md:py-2">Player</th>
             {Array.from({ length: nRounds }, (_, ri) => (
               <th scope="col" key={ri} className="px-3 py-3 text-center text-sm tabular-nums md:py-2">
-                R{ri + 1}
+                R{ri}
               </th>
             ))}
             <th scope="col" className="px-3 py-3 text-center text-sm md:py-2">Net</th>

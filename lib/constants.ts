@@ -5,7 +5,7 @@ export const TRIP_DATES = 'July 30 – August 2, 2026';
 export const TRIP_LOCATION = 'Lexington & Louisville, KY';
 
 /** Bump when default trip shape changes so clients load fresh itinerary (localStorage). */
-export const STORAGE_KEY = 'cfstt2026-lex-lou-8players';
+export const STORAGE_KEY = 'cfstt2026-lex-lou-v2';
 
 export const LODGING = {
   hotel: 'AC Hotel Louisville Downtown',
@@ -24,15 +24,20 @@ export const DEFAULT_PAR: number[] = [
 export const DEFAULT_SCHEDULE: TripDay[] = [
   {
     date: '2026-07-30',
-    label: 'Thursday — Lexington · Round 1',
-    description: 'Cherry Blossom Golf Course · Lexington, KY',
+    label: 'Thursday — Lexington · Round 0 (optional)',
+    description: 'Cherry Blossom Golf Course · Lexington, KY (optional — skip if not in Lexington)',
     city: 'Lexington, KY',
-    activities: ['Cherry Blossom Golf Course', 'Lexington, KY', 'Tee time: TBD (confirm with group)'],
+    activities: [
+      'Cherry Blossom Golf Course (optional)',
+      'Lexington, KY',
+      'Tee time: TBD (confirm with group)',
+      'Skip this round if you are not in Lexington',
+    ],
     isActive: false,
   },
   {
     date: '2026-07-31',
-    label: 'Friday — Louisville · Round 2',
+    label: 'Friday — Louisville · Round 1',
     description: 'Champions Pointe Golf Club · Hotel check-in',
     city: 'Louisville, KY',
     activities: [
@@ -45,7 +50,7 @@ export const DEFAULT_SCHEDULE: TripDay[] = [
   },
   {
     date: '2026-08-01',
-    label: 'Saturday — Louisville · Round 3',
+    label: 'Saturday — Louisville · Round 2',
     description: 'Covered Bridge Golf Club',
     city: 'Louisville, KY',
     activities: ['Covered Bridge Golf Club', 'Tee time: 10:30 AM', 'Night out and dinner'],
@@ -53,7 +58,7 @@ export const DEFAULT_SCHEDULE: TripDay[] = [
   },
   {
     date: '2026-08-02',
-    label: 'Sunday — Louisville · Round 4',
+    label: 'Sunday — Louisville · Round 3',
     description: 'Heritage Hill Golf Club · Check-out',
     city: 'Louisville, KY',
     activities: [
@@ -74,6 +79,7 @@ export const DEFAULT_ROUNDS: Round[] = [
     coursePar: [...DEFAULT_PAR],
     teeTime: 'TBD (confirm with group)',
     playerRounds: [],
+    optional: true,
   },
   {
     id: 'round-2',
@@ -106,10 +112,11 @@ export const DEFAULT_PLAYERS: Player[] = [
   { id: 'player-2', name: 'Adam Wakeland', handicap: 12 },
   { id: 'player-3', name: 'Jason Karns', handicap: 18 },
   { id: 'player-4', name: 'Mike Kennedy', handicap: 20 },
-  { id: 'player-5', name: 'Matt Lanning', handicap: 25 },
-  { id: 'player-6', name: 'Hippy Mike', handicap: 36 },
-  { id: 'player-7', name: 'Alex Rogers', handicap: 12 },
-  { id: 'player-8', name: 'Guest (temp)', handicap: 25 },
+  { id: 'player-5', name: 'Hippy Mike', handicap: 36 },
+  { id: 'player-6', name: 'Alex Rogers', handicap: 12 },
+  { id: 'player-7', name: 'Matt Sweeney', handicap: 18 },
+  { id: 'player-8', name: "Kevin O'Callahan", handicap: 18 },
+  { id: 'player-9', name: 'Guest (temp)', handicap: 25 },
 ];
 
 export const DAY_LABELS = [

@@ -121,7 +121,14 @@ export default function RoundScorecardClient({ readOnly = true }: RoundScorecard
           >
             {readOnly ? '← All Rounds' : '← Admin'}
           </Link>
-          <h1 className="text-xl font-bold text-primary">Round {roundIndex + 1}</h1>
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+            <h1 className="text-xl font-bold text-primary">Round {roundIndex}</h1>
+            {round.optional ? (
+              <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-900 dark:bg-amber-900/40 dark:text-amber-200">
+                Optional
+              </span>
+            ) : null}
+          </div>
           <p className="text-sm text-gray-500 dark:text-gray-400">{DAY_LABELS[round.dayIndex]}</p>
         </div>
 

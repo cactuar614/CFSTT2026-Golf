@@ -15,7 +15,7 @@ export default function LodgingCard() {
       <div>
         <p className="font-semibold text-gray-900 dark:text-gray-100">{LODGING.hotel}</p>
         <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-          Thursday Round 1 is in Lexington. Hotel nights are Friday–Sunday in Louisville.
+          Thursday Round 0 is the optional Lexington round. Hotel nights are Friday–Sunday in Louisville.
         </p>
         <ul className="mt-3 space-y-1.5 text-sm text-gray-600 dark:text-gray-400">
           <li>

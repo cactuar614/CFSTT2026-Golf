@@ -242,7 +242,8 @@ export default function AdminPage() {
           {state.rounds.map((r, i) => (
             <li key={r.id}>
               <Link href={`/admin/scorecard/${r.id}`} className="text-primary underline">
-                Round {i + 1} — {r.courseName}
+                Round {i} — {r.courseName}
+                {r.optional ? ' (optional)' : ''}
               </Link>
             </li>
           ))}

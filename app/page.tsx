@@ -109,7 +109,12 @@ export default function Dashboard() {
               <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-baseline gap-x-2">
-                    <span className="font-medium">Round {i + 1}</span>
+                    <span className="font-medium">Round {i}</span>
+                    {round.optional ? (
+                      <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-900 dark:bg-amber-900/40 dark:text-amber-200">
+                        Optional
+                      </span>
+                    ) : null}
                     <span className="text-sm text-gray-500 dark:text-gray-400">
                       {round.courseName === 'TBD' ? 'Course TBD' : round.courseName}
                     </span>
