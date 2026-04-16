@@ -18,6 +18,9 @@ function getCellColor(strokes: number | null, par: number): string {
   return 'bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300'; // double+
 }
 
+const MIN_STROKES = 1;
+const MAX_STROKES = 15;
+
 export default function ScoreInput({ value, par, onChange }: ScoreInputProps) {
   return (
     <input
@@ -26,12 +29,21 @@ export default function ScoreInput({ value, par, onChange }: ScoreInputProps) {
       enterKeyHint="done"
       value={value ?? ''}
       onChange={(e) => {
-        const v = e.target.value;
-        onChange(v === '' ? null : parseInt(v, 10));
+        const raw = e.target.value;
+        if (raw === '') {
+          onChange(null);
+          return;
+        }
+        const parsed = parseInt(raw, 10);
+        if (!Number.isFinite(parsed)) {
+          onChange(null);
+          return;
+        }
+        onChange(Math.min(MAX_STROKES, Math.max(MIN_STROKES, parsed)));
       }}
       className={`h-11 w-11 min-h-[44px] min-w-[44px] rounded-md border border-gray-300 text-center text-base tabular-nums outline-none focus:border-primary focus:ring-2 focus:ring-primary dark:border-gray-600 dark:bg-gray-700 md:h-8 md:w-10 md:min-h-0 md:min-w-0 md:text-sm ${getCellColor(value, par)}`}
-      min="1"
-      max="15"
+      min={MIN_STROKES}
+      max={MAX_STROKES}
       aria-label={`Strokes, par ${par}`}
     />
   );

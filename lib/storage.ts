@@ -39,14 +39,20 @@ export function getTripState(): TripState {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return { ...defaultTripState };
     return normalizeTripState(JSON.parse(raw));
-  } catch {
+  } catch (err) {
+    console.error('[cfstt] Failed to read trip state from localStorage; falling back to defaults.', err);
     return { ...defaultTripState };
   }
 }
 
 export function setTripState(state: TripState): void {
   if (typeof window === 'undefined') return;
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch (err) {
+    // Hitting quota or disabled storage (e.g., Safari private mode) should not crash the app.
+    console.error('[cfstt] Failed to persist trip state to localStorage.', err);
+  }
 }
 
 export function clearTripState(): void {

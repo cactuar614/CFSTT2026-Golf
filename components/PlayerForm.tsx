@@ -12,14 +12,34 @@ type PlayerFormProps = {
   onCancel: () => void;
 };
 
+const MIN_HANDICAP = 0;
+const MAX_HANDICAP = 54;
+
 export default function PlayerForm({ player, onSave, onCancel }: PlayerFormProps) {
   const [name, setName] = useState(player?.name ?? '');
   const [handicap, setHandicap] = useState(player?.handicap?.toString() ?? '0');
+  const [error, setError] = useState<string | null>(null);
+
+  const trimmedName = name.trim();
+  const parsedHandicap = parseInt(handicap, 10);
+  const handicapValid =
+    Number.isFinite(parsedHandicap) &&
+    parsedHandicap >= MIN_HANDICAP &&
+    parsedHandicap <= MAX_HANDICAP;
+  const canSubmit = trimmedName.length > 0 && handicapValid;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim()) return;
-    onSave(name.trim(), parseInt(handicap, 10) || 0);
+    if (!trimmedName) {
+      setError('Name is required.');
+      return;
+    }
+    if (!handicapValid) {
+      setError(`Handicap must be a whole number between ${MIN_HANDICAP} and ${MAX_HANDICAP}.`);
+      return;
+    }
+    setError(null);
+    onSave(trimmedName, parsedHandicap);
   };
 
   return (
@@ -37,6 +57,8 @@ export default function PlayerForm({ player, onSave, onCancel }: PlayerFormProps
           placeholder="Player name"
           autoComplete="name"
           autoFocus
+          maxLength={80}
+          required
         />
       </div>
       <div>
@@ -47,14 +69,21 @@ export default function PlayerForm({ player, onSave, onCancel }: PlayerFormProps
           value={handicap}
           onChange={(e) => setHandicap(e.target.value)}
           className={inputClass}
-          min="0"
-          max="54"
+          min={MIN_HANDICAP}
+          max={MAX_HANDICAP}
+          step={1}
         />
       </div>
+      {error ? (
+        <p role="alert" className="text-sm text-red-600 dark:text-red-400">
+          {error}
+        </p>
+      ) : null}
       <div className="flex gap-3">
         <button
           type="submit"
-          className="min-h-[48px] flex-1 touch-manipulation rounded-lg bg-primary py-3 text-base font-medium text-white transition-colors active:bg-primary-light md:min-h-0 md:py-2 md:text-sm"
+          disabled={!canSubmit}
+          className="min-h-[48px] flex-1 touch-manipulation rounded-lg bg-primary py-3 text-base font-medium text-white transition-colors active:bg-primary-light disabled:cursor-not-allowed disabled:opacity-50 md:min-h-0 md:py-2 md:text-sm"
         >
           {player ? 'Update' : 'Add Player'}
         </button>

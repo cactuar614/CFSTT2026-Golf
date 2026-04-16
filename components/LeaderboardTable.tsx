@@ -24,15 +24,15 @@ export default function LeaderboardTable({ entries, roundCount }: LeaderboardTab
       <table className="w-full min-w-[340px] border-collapse text-sm md:text-sm">
         <thead>
           <tr className="bg-primary text-white">
-            <th className="px-3 py-3 text-left text-sm md:py-2">#</th>
-            <th className="px-3 py-3 text-left text-sm md:py-2">Player</th>
+            <th scope="col" className="px-3 py-3 text-left text-sm md:py-2">#</th>
+            <th scope="col" className="px-3 py-3 text-left text-sm md:py-2">Player</th>
             {Array.from({ length: nRounds }, (_, ri) => (
-              <th key={ri} className="px-3 py-3 text-center text-sm tabular-nums md:py-2">
+              <th scope="col" key={ri} className="px-3 py-3 text-center text-sm tabular-nums md:py-2">
                 R{ri + 1}
               </th>
             ))}
-            <th className="px-3 py-3 text-center text-sm md:py-2">Net</th>
-            <th className="px-3 py-3 text-center text-sm md:py-2">Gross</th>
+            <th scope="col" className="px-3 py-3 text-center text-sm md:py-2">Net</th>
+            <th scope="col" className="px-3 py-3 text-center text-sm md:py-2">Gross</th>
           </tr>
         </thead>
         <tbody>
@@ -46,7 +46,9 @@ export default function LeaderboardTable({ entries, roundCount }: LeaderboardTab
               }`}
             >
               <td className="px-3 py-3 text-gray-500 tabular-nums dark:text-gray-400 md:py-2">{i + 1}</td>
-              <td className="max-w-[7rem] truncate px-3 py-3 font-medium md:py-2">{entry.player.name}</td>
+              <th scope="row" className="max-w-[7rem] truncate px-3 py-3 text-left font-medium md:py-2">
+                {entry.player.name}
+              </th>
               {Array.from({ length: nRounds }, (_, ri) => (
                 <td key={ri} className="px-3 py-3 text-center tabular-nums md:py-2">
                   {entry.roundNets[ri] ?? '—'}

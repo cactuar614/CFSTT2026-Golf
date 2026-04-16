@@ -83,7 +83,19 @@ export default function AdminPage() {
   };
 
   const removePlayer = (id: string) => {
-    updateState((prev) => ({ ...prev, players: prev.players.filter((p) => p.id !== id) }));
+    const player = state.players.find((p) => p.id === id);
+    const label = player ? `"${player.name}"` : 'this player';
+    if (typeof window !== 'undefined' && !window.confirm(`Remove ${label}? Their scores will also be cleared.`)) {
+      return;
+    }
+    updateState((prev) => ({
+      ...prev,
+      players: prev.players.filter((p) => p.id !== id),
+      rounds: prev.rounds.map((r) => ({
+        ...r,
+        playerRounds: r.playerRounds.filter((pr) => pr.playerId !== id),
+      })),
+    }));
   };
 
   const updateDayField = (i: number, patch: Partial<(typeof state.schedule)[0]>) => {

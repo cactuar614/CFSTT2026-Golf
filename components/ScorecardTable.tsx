@@ -68,18 +68,20 @@ export default function ScorecardTable({
       <table className="w-full min-w-[520px] border-collapse text-sm md:text-xs">
         <thead>
           <tr className="bg-primary text-white">
-            <th className="w-24 min-w-[5.5rem] px-2 py-2 text-left text-sm font-medium md:py-1 md:text-xs">
+            <th scope="col" className="w-24 min-w-[5.5rem] px-2 py-2 text-left text-sm font-medium md:py-1 md:text-xs">
               Hole
             </th>
             {holes.map((h) => (
-              <th key={h} className="w-11 min-w-[2.75rem] px-0.5 py-2 text-center text-sm font-medium md:w-10 md:py-1 md:text-xs">
+              <th scope="col" key={h} className="w-11 min-w-[2.75rem] px-0.5 py-2 text-center text-sm font-medium md:w-10 md:py-1 md:text-xs">
                 {h}
               </th>
             ))}
-            <th className="w-14 min-w-[3rem] px-2 py-2 text-center text-sm font-bold md:py-1 md:text-xs">{label}</th>
+            <th scope="col" className="w-14 min-w-[3rem] px-2 py-2 text-center text-sm font-bold md:py-1 md:text-xs">{label}</th>
           </tr>
           <tr className="bg-gray-100 dark:bg-gray-700">
-            <td className="px-2 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 md:py-1 md:text-xs">Par</td>
+            <th scope="row" className="px-2 py-2 text-left text-sm font-medium text-gray-600 dark:text-gray-300 md:py-1 md:text-xs">
+              Par
+            </th>
             {holes.map((h) => (
               <td key={h} className="px-0.5 py-1.5 text-center md:py-1">
                 {readOnly ? (
@@ -91,7 +93,11 @@ export default function ScorecardTable({
                     type="number"
                     inputMode="numeric"
                     value={round.coursePar[h - 1]}
-                    onChange={(e) => onParChange(h, parseInt(e.target.value, 10) || 3)}
+                    onChange={(e) => {
+                      const parsed = parseInt(e.target.value, 10);
+                      const par = Number.isFinite(parsed) ? Math.min(5, Math.max(3, parsed)) : 3;
+                      onParChange(h, par);
+                    }}
                     className="h-10 w-11 min-h-[44px] rounded border border-gray-200 bg-white text-center text-base outline-none focus:ring-2 focus:ring-primary dark:border-gray-600 dark:bg-gray-600 dark:text-gray-100 md:h-6 md:min-h-0 md:w-10 md:text-xs"
                     min="3"
                     max="5"
@@ -117,9 +123,9 @@ export default function ScorecardTable({
                 key={player.id}
                 className="border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800"
               >
-                <td className="max-w-[7rem] truncate px-2 py-2 text-sm font-medium text-gray-800 dark:text-gray-200 md:py-1 md:text-xs">
+                <th scope="row" className="max-w-[7rem] truncate px-2 py-2 text-left text-sm font-medium text-gray-800 dark:text-gray-200 md:py-1 md:text-xs">
                   {player.name}
-                </td>
+                </th>
                 {holes.map((h) => {
                   const v = strokes[h - 1];
                   const par = round.coursePar[h - 1];
@@ -209,12 +215,12 @@ export default function ScorecardTable({
         <table className="w-full min-w-[320px] border-collapse text-sm md:text-xs">
           <thead>
             <tr className="bg-accent text-white">
-              <th className="w-24 px-2 py-3 text-left text-sm font-medium md:py-2 md:text-xs">Totals</th>
-              <th className="px-2 py-3 text-center text-sm md:py-2 md:text-xs">OUT</th>
-              <th className="px-2 py-3 text-center text-sm md:py-2 md:text-xs">IN</th>
-              <th className="px-2 py-3 text-center text-sm md:py-2 md:text-xs">GROSS</th>
-              <th className="px-2 py-3 text-center text-sm md:py-2 md:text-xs">HCP</th>
-              <th className="px-2 py-3 text-center text-sm md:py-2 md:text-xs">NET</th>
+              <th scope="col" className="w-24 px-2 py-3 text-left text-sm font-medium md:py-2 md:text-xs">Totals</th>
+              <th scope="col" className="px-2 py-3 text-center text-sm md:py-2 md:text-xs">OUT</th>
+              <th scope="col" className="px-2 py-3 text-center text-sm md:py-2 md:text-xs">IN</th>
+              <th scope="col" className="px-2 py-3 text-center text-sm md:py-2 md:text-xs">GROSS</th>
+              <th scope="col" className="px-2 py-3 text-center text-sm md:py-2 md:text-xs">HCP</th>
+              <th scope="col" className="px-2 py-3 text-center text-sm md:py-2 md:text-xs">NET</th>
             </tr>
           </thead>
           <tbody>
@@ -226,7 +232,9 @@ export default function ScorecardTable({
               const net = gross === null ? null : gross - player.handicap;
               return (
                 <tr key={player.id} className="border-b border-gray-100 dark:border-gray-700">
-                  <td className="max-w-[6rem] truncate px-2 py-3 text-sm font-medium md:py-2 md:text-xs">{player.name}</td>
+                  <th scope="row" className="max-w-[6rem] truncate px-2 py-3 text-left text-sm font-medium md:py-2 md:text-xs">
+                    {player.name}
+                  </th>
                   <td className="px-2 py-3 text-center text-sm tabular-nums md:py-2 md:text-xs">{f ?? '—'}</td>
                   <td className="px-2 py-3 text-center text-sm tabular-nums md:py-2 md:text-xs">{b ?? '—'}</td>
                   <td className="px-2 py-3 text-center text-sm font-bold tabular-nums md:py-2 md:text-xs">{gross ?? '—'}</td>

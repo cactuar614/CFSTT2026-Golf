@@ -29,7 +29,8 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
 
   const login = useCallback((code: string) => {
     const expected = getExpectedAdminCode();
-    if (!expected || code.trim() !== expected) return false;
+    const submitted = code.trim();
+    if (!adminAccessConfigured() || !submitted || submitted !== expected) return false;
     writeAdminSession();
     setIsAdmin(true);
     return true;
