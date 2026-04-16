@@ -5,7 +5,7 @@ export const TRIP_DATES = 'July 30 – August 2, 2026';
 export const TRIP_LOCATION = 'Lexington & Louisville, KY';
 
 /** Bump when default trip shape changes so clients load fresh itinerary (localStorage). */
-export const STORAGE_KEY = 'cfstt2026-lex-lou-v2';
+export const STORAGE_KEY = 'cfstt2026-lex-lou-v3';
 
 export const LODGING = {
   hotel: 'AC Hotel Louisville Downtown',
@@ -31,6 +31,7 @@ export const DEFAULT_SCHEDULE: TripDay[] = [
       'Cherry Blossom Golf Course (optional)',
       'Lexington, KY',
       'Tee time: TBD (confirm with group)',
+      'Play it by ear: Buffalo Trace before golf?',
       'Skip this round if you are not in Lexington',
     ],
     isActive: false,
@@ -42,8 +43,10 @@ export const DEFAULT_SCHEDULE: TripDay[] = [
     city: 'Louisville, KY',
     activities: [
       'AC Hotel Louisville Downtown — check-in (confirmed)',
+      'Buffalo Trace run',
       'Champions Pointe Golf Club',
       'Tee time: 12:30 PM',
+      'Format: 2-man best ball',
       'Dinner',
     ],
     isActive: false,
@@ -53,7 +56,13 @@ export const DEFAULT_SCHEDULE: TripDay[] = [
     label: 'Saturday — Louisville · Round 2',
     description: 'Covered Bridge Golf Club',
     city: 'Louisville, KY',
-    activities: ['Covered Bridge Golf Club', 'Tee time: 10:30 AM', 'Night out and dinner'],
+    activities: [
+      'Covered Bridge Golf Club',
+      'Tee time: 10:30 AM',
+      'Format: 2-man scramble — ranked, balanced teams (keep it as even as possible)',
+      'Side games: Longest Drive, Closest to Pin',
+      'Night out and dinner',
+    ],
     isActive: false,
   },
   {
@@ -64,6 +73,7 @@ export const DEFAULT_SCHEDULE: TripDay[] = [
     activities: [
       'Heritage Hill Golf Club',
       'Tee time: TBD (requested 10:30 AM)',
+      'Format: 4-man scramble',
       'AC Hotel Louisville Downtown — check-out',
       'Drive home',
     ],
