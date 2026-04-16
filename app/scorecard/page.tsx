@@ -1,16 +1,10 @@
-'use client';
-
 import Link from 'next/link';
-import { useLocalStorage } from '@/lib/useLocalStorage';
+import { getTripState } from '@/lib/tripState';
 import { DAY_LABELS } from '@/lib/constants';
 import { formatTripDayDate } from '@/lib/formatTrip';
 
 export default function ScorecardIndexPage() {
-  const [state, , hydrated] = useLocalStorage();
-
-  if (!hydrated) {
-    return <div className="animate-pulse h-64 rounded-xl bg-gray-100 dark:bg-gray-800" />;
-  }
+  const state = getTripState();
 
   return (
     <div className="space-y-6">
@@ -56,15 +50,6 @@ export default function ScorecardIndexPage() {
         })}
       </div>
 
-      {state.players.length === 0 && (
-        <p className="text-center text-sm text-gray-500 dark:text-gray-400">
-          Add players on the{' '}
-          <Link href="/players" className="inline-flex min-h-[44px] items-center text-primary underline">
-            Players page
-          </Link>{' '}
-          to start scoring.
-        </p>
-      )}
     </div>
   );
 }

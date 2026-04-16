@@ -6,5 +6,5 @@ export function generateStaticParams() {
 }
 
 export default function RoundScorecardPage() {
-  return <RoundScorecardClient readOnly />;
+  return <RoundScorecardClient />;
 }

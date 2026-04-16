@@ -28,7 +28,6 @@ export type TripDay = {
   label: string; // e.g. day headline
   description: string;
   activities: string[]; // schedule items
-  isActive: boolean;
   /** Shown on schedule & scorecards (e.g. Lexington vs Louisville). */
   city?: string;
 };
@@ -38,7 +37,5 @@ export type TripState = {
   rounds: Round[];
   schedule: TripDay[];
   currentStatus: string; // free-text live status
-  activeDayIndex: number; // 0…schedule.length−1
-  /** When true, active day tracks the device calendar (see activeDay.ts). */
-  activeDayFollowCalendar: boolean;
+  activeDayIndex: number; // derived from today's date (see activeDay.ts)
 };

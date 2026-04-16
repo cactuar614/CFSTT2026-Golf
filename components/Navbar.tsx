@@ -52,16 +52,6 @@ export default function Navbar() {
           </span>
           <span className="hidden leading-tight md:inline">Theme</span>
         </button>
-        <Link
-          href="/admin"
-          className={tabClass(pathname.startsWith('/admin'))}
-          title="Admin"
-        >
-          <span className="text-[1.35rem] leading-none md:text-base" aria-hidden>
-            ⚙️
-          </span>
-          <span className="truncate leading-tight">Admin</span>
-        </Link>
       </div>
     </nav>
   );

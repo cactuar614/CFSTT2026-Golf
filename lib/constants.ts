@@ -4,9 +4,6 @@ export const TRIP_NAME = 'Lexington & Louisville Golf Trip';
 export const TRIP_DATES = 'July 30 – August 2, 2026';
 export const TRIP_LOCATION = 'Lexington & Louisville, KY';
 
-/** Bump when default trip shape changes so clients load fresh itinerary (localStorage). */
-export const STORAGE_KEY = 'cfstt2026-lex-lou-8players';
-
 export const LODGING = {
   hotel: 'AC Hotel Louisville Downtown',
   checkIn: 'Friday, 7/31/26',
@@ -28,7 +25,6 @@ export const DEFAULT_SCHEDULE: TripDay[] = [
     description: 'Cherry Blossom Golf Course · Lexington, KY',
     city: 'Lexington, KY',
     activities: ['Cherry Blossom Golf Course', 'Lexington, KY', 'Tee time: TBD (confirm with group)'],
-    isActive: false,
   },
   {
     date: '2026-07-31',
@@ -41,7 +37,6 @@ export const DEFAULT_SCHEDULE: TripDay[] = [
       'Tee time: 12:30 PM',
       'Dinner',
     ],
-    isActive: false,
   },
   {
     date: '2026-08-01',
@@ -49,7 +44,6 @@ export const DEFAULT_SCHEDULE: TripDay[] = [
     description: 'Covered Bridge Golf Club',
     city: 'Louisville, KY',
     activities: ['Covered Bridge Golf Club', 'Tee time: 10:30 AM', 'Night out and dinner'],
-    isActive: false,
   },
   {
     date: '2026-08-02',
@@ -62,7 +56,6 @@ export const DEFAULT_SCHEDULE: TripDay[] = [
       'AC Hotel Louisville Downtown — check-out',
       'Drive home',
     ],
-    isActive: false,
   },
 ];
 
@@ -117,3 +110,6 @@ export const DAY_LABELS = [
   'Day 3 — Sat 8/1 · Louisville',
   'Day 4 — Sun 8/2 · Louisville',
 ];
+
+/** Free-text live status shown on Home and Schedule (empty = hidden). */
+export const TRIP_STATUS = '';

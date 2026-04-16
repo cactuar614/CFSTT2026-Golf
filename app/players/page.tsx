@@ -1,13 +1,7 @@
-'use client';
-
-import { useLocalStorage } from '@/lib/useLocalStorage';
+import { getTripState } from '@/lib/tripState';
 
 export default function PlayersPage() {
-  const [state, , hydrated] = useLocalStorage();
-
-  if (!hydrated) {
-    return <div className="animate-pulse h-96 rounded-xl bg-gray-100 dark:bg-gray-800" />;
-  }
+  const state = getTripState();
 
   return (
     <div className="space-y-6">

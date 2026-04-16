@@ -1,17 +1,13 @@
 'use client';
 
-import { useLocalStorage } from '@/lib/useLocalStorage';
+import { getTripState } from '@/lib/tripState';
 import { TRIP_NAME } from '@/lib/constants';
 import ScheduleDayReadOnly from '@/components/ScheduleDayReadOnly';
 import StatusBanner from '@/components/StatusBanner';
 import LodgingCard from '@/components/LodgingCard';
 
 export default function SchedulePage() {
-  const [state, , hydrated] = useLocalStorage();
-
-  if (!hydrated) {
-    return <div className="animate-pulse h-96 rounded-xl bg-gray-100 dark:bg-gray-800" />;
-  }
+  const state = getTripState();
 
   return (
     <div className="space-y-6">

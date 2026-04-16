@@ -1,19 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { useLocalStorage } from '@/lib/useLocalStorage';
+import { getTripState } from '@/lib/tripState';
 import { TRIP_NAME, TRIP_DATES, TRIP_LOCATION, DAY_LABELS } from '@/lib/constants';
 import { formatTripDayDate } from '@/lib/formatTrip';
 import StatusBanner from '@/components/StatusBanner';
 import LodgingCard from '@/components/LodgingCard';
 
 export default function Dashboard() {
-  const [state, , hydrated] = useLocalStorage();
-
-  if (!hydrated) {
-    return <div className="animate-pulse h-64 bg-gray-100 dark:bg-gray-800 rounded-xl" />;
-  }
-
+  const state = getTripState();
   const activeDay = state.schedule[state.activeDayIndex];
 
   return (
