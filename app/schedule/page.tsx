@@ -30,14 +30,18 @@ export default function SchedulePage() {
       {state.currentStatus ? <StatusBanner status={state.currentStatus} /> : null}
 
       <div className="space-y-4">
-        {state.schedule.map((day, i) => (
-          <ScheduleDayReadOnly
-            key={day.date}
-            day={day}
-            dayIndex={i}
-            isActiveDay={state.activeDayIndex === i}
-          />
-        ))}
+        {state.schedule.map((day, i) => {
+          const round = state.rounds.find((r) => r.dayIndex === i);
+          return (
+            <ScheduleDayReadOnly
+              key={day.date}
+              day={day}
+              dayIndex={i}
+              isActiveDay={state.activeDayIndex === i}
+              mapsUrl={round?.mapsUrl}
+            />
+          );
+        })}
       </div>
     </div>
   );
