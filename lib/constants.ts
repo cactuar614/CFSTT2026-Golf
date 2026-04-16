@@ -5,7 +5,7 @@ export const TRIP_DATES = 'July 30 – August 2, 2026';
 export const TRIP_LOCATION = 'Lexington & Louisville, KY';
 
 /** Bump when default trip shape changes so clients load fresh itinerary (localStorage). */
-export const STORAGE_KEY = 'cfstt2026-lex-lou-v3';
+export const STORAGE_KEY = 'cfstt2026-lex-lou-v4';
 
 export const LODGING = {
   hotel: 'AC Hotel Louisville Downtown',
@@ -31,7 +31,7 @@ export const DEFAULT_SCHEDULE: TripDay[] = [
       'Cherry Blossom Golf Course (optional)',
       'Lexington, KY',
       'Tee time: TBD (confirm with group)',
-      'Play it by ear: Buffalo Trace before golf?',
+      'Potential Buffalo Trace run',
       'Skip this round if you are not in Lexington',
     ],
     isActive: false,
