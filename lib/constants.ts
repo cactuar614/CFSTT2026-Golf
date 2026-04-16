@@ -5,7 +5,7 @@ export const TRIP_DATES = 'July 30 – August 2, 2026';
 export const TRIP_LOCATION = 'Lexington & Louisville, KY';
 
 /** Bump when default trip shape changes so clients load fresh itinerary (localStorage). */
-export const STORAGE_KEY = 'cfstt2026-lex-lou-v5';
+export const STORAGE_KEY = 'cfstt2026-lex-lou-v6';
 
 export const LODGING = {
   hotel: 'AC Hotel Louisville Downtown',
@@ -133,8 +133,8 @@ export const DEFAULT_PLAYERS: Player[] = [
 ];
 
 export const DAY_LABELS = [
-  'Day 1 — Thu 7/30 · Lexington',
-  'Day 2 — Fri 7/31 · Louisville',
-  'Day 3 — Sat 8/1 · Louisville',
-  'Day 4 — Sun 8/2 · Louisville',
+  'Day 0 — Thu 7/30 · Lexington',
+  'Day 1 — Fri 7/31 · Louisville',
+  'Day 2 — Sat 8/1 · Louisville',
+  'Day 3 — Sun 8/2 · Louisville',
 ];

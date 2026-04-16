@@ -21,7 +21,7 @@ export default function SchedulePage() {
           Thu 7/30 Lexington → Fri–Sun Louisville · July 30 – August 2, 2026
         </p>
         <p className="text-xs text-gray-500 dark:text-gray-500">
-          The highlighted day matches today on the calendar (local time). Before the trip it shows Day 1; after the trip, the last day.
+          The highlighted day matches today on the calendar (local time). Before the trip it shows Day 0; after the trip, the last day.
         </p>
       </div>
 

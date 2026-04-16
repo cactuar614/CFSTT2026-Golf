@@ -178,7 +178,7 @@ export default function AdminPage() {
             >
               {state.schedule.map((_, i) => (
                 <option key={i} value={i}>
-                  {DAY_LABELS[i] ?? `Day ${i + 1}`}
+                  {DAY_LABELS[i] ?? `Day ${i}`}
                 </option>
               ))}
             </select>
