@@ -23,6 +23,8 @@ export type Round = {
   playerRounds: PlayerRound[];
   /** True if the round isn't mandatory (e.g., Lexington-only arrival round). */
   optional?: boolean;
+  /** Deep link (e.g., Google Maps) to the course location. */
+  mapsUrl?: string;
 };
 
 export type TripDay = {

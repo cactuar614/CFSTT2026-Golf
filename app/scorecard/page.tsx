@@ -30,39 +30,50 @@ export default function ScorecardIndexPage() {
           const day = state.schedule[round.dayIndex];
           const courseLabel = round.courseName === 'TBD' ? 'Course TBD' : round.courseName;
           return (
-            <Link
-              key={round.id}
-              href={`/scorecard/${round.id}`}
-              className="block min-h-[6rem] touch-manipulation rounded-xl border border-gray-200 bg-white p-4 transition-colors active:border-primary active:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:active:bg-gray-700/80 md:hover:border-primary"
-            >
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                <div className="min-w-0 space-y-1">
-                  <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0">
-                    <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">Round {i}</h2>
-                    {round.optional ? (
-                      <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-900 dark:bg-amber-900/40 dark:text-amber-200">
-                        Optional
-                      </span>
-                    ) : null}
-                    <span className="text-sm text-gray-500 dark:text-gray-400">{DAY_LABELS[round.dayIndex]}</span>
-                  </div>
-                  {day ? (
-                    <>
-                      <p className="text-sm text-gray-600 dark:text-gray-300">{formatTripDayDate(day.date)}</p>
-                      {day.city ? (
-                        <p className="text-sm font-semibold text-primary">{day.city}</p>
+            <div key={round.id} className="rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
+              <Link
+                href={`/scorecard/${round.id}`}
+                className="block min-h-[6rem] touch-manipulation rounded-xl p-4 transition-colors active:border-primary active:bg-gray-50 dark:active:bg-gray-700/80 md:hover:border-primary"
+              >
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                  <div className="min-w-0 space-y-1">
+                    <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0">
+                      <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">Round {i}</h2>
+                      {round.optional ? (
+                        <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-900 dark:bg-amber-900/40 dark:text-amber-200">
+                          Optional
+                        </span>
                       ) : null}
-                      <p className="text-sm text-gray-600 dark:text-gray-400">{day.label}</p>
-                    </>
-                  ) : null}
-                  <p className="text-base font-medium text-gray-800 dark:text-gray-200">{courseLabel}</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Tee: {round.teeTime}</p>
+                      <span className="text-sm text-gray-500 dark:text-gray-400">{DAY_LABELS[round.dayIndex]}</span>
+                    </div>
+                    {day ? (
+                      <>
+                        <p className="text-sm text-gray-600 dark:text-gray-300">{formatTripDayDate(day.date)}</p>
+                        {day.city ? (
+                          <p className="text-sm font-semibold text-primary">{day.city}</p>
+                        ) : null}
+                        <p className="text-sm text-gray-600 dark:text-gray-400">{day.label}</p>
+                      </>
+                    ) : null}
+                    <p className="text-base font-medium text-gray-800 dark:text-gray-200">{courseLabel}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">Tee: {round.teeTime}</p>
+                  </div>
+                  <div className="shrink-0 text-right sm:pt-1">
+                    <div className="text-sm font-medium text-primary">Open scorecard →</div>
+                  </div>
                 </div>
-                <div className="shrink-0 text-right sm:pt-1">
-                  <div className="text-sm font-medium text-primary">Open scorecard →</div>
-                </div>
-              </div>
-            </Link>
+              </Link>
+              {round.mapsUrl ? (
+                <a
+                  href={round.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex min-h-[44px] touch-manipulation items-center justify-center gap-1.5 border-t border-gray-100 px-4 py-2 text-sm font-medium text-primary active:bg-gray-50 dark:border-gray-700 dark:active:bg-gray-700/60"
+                >
+                  <span aria-hidden>📍</span> Open in Google Maps
+                </a>
+              ) : null}
+            </div>
           );
         })}
       </div>

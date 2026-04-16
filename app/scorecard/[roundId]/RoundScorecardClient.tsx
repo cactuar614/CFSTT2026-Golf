@@ -147,6 +147,16 @@ export default function RoundScorecardClient({ readOnly = true }: RoundScorecard
             <p className="text-sm text-gray-700 dark:text-gray-300">
               <span className="font-medium">Tee time:</span> {round.teeTime}
             </p>
+            {round.mapsUrl ? (
+              <a
+                href={round.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-2 inline-flex min-h-[44px] touch-manipulation items-center gap-1.5 text-sm font-medium text-primary underline"
+              >
+                <span aria-hidden>📍</span> Open in Google Maps
+              </a>
+            ) : null}
           </div>
         ) : null}
       </div>

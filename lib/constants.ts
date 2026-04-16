@@ -5,7 +5,7 @@ export const TRIP_DATES = 'July 30 – August 2, 2026';
 export const TRIP_LOCATION = 'Lexington & Louisville, KY';
 
 /** Bump when default trip shape changes so clients load fresh itinerary (localStorage). */
-export const STORAGE_KEY = 'cfstt2026-lex-lou-v4';
+export const STORAGE_KEY = 'cfstt2026-lex-lou-v5';
 
 export const LODGING = {
   hotel: 'AC Hotel Louisville Downtown',
@@ -39,13 +39,13 @@ export const DEFAULT_SCHEDULE: TripDay[] = [
   {
     date: '2026-07-31',
     label: 'Friday — Louisville · Round 1',
-    description: 'Champions Pointe Golf Club · Hotel check-in',
+    description: 'Covered Bridge Golf Club · Hotel check-in',
     city: 'Louisville, KY',
     activities: [
       'AC Hotel Louisville Downtown — check-in (confirmed)',
       'Buffalo Trace run',
-      'Champions Pointe Golf Club',
-      'Tee time: 12:30 PM',
+      'Covered Bridge Golf Club',
+      'Tee time: 10:30 AM',
       'Format: 2-man best ball',
       'Dinner',
     ],
@@ -54,11 +54,11 @@ export const DEFAULT_SCHEDULE: TripDay[] = [
   {
     date: '2026-08-01',
     label: 'Saturday — Louisville · Round 2',
-    description: 'Covered Bridge Golf Club',
+    description: 'Champions Pointe Golf Club',
     city: 'Louisville, KY',
     activities: [
-      'Covered Bridge Golf Club',
-      'Tee time: 10:30 AM',
+      'Champions Pointe Golf Club',
+      'Tee time: 12:30 PM',
       'Format: 2-man scramble — ranked, balanced teams (keep it as even as possible)',
       'Side games: Longest Drive, Closest to Pin',
       'Night out and dinner',
@@ -68,11 +68,11 @@ export const DEFAULT_SCHEDULE: TripDay[] = [
   {
     date: '2026-08-02',
     label: 'Sunday — Louisville · Round 3',
-    description: 'Heritage Hill Golf Club · Check-out',
+    description: 'Course TBD · Check-out',
     city: 'Louisville, KY',
     activities: [
-      'Heritage Hill Golf Club',
-      'Tee time: TBD (requested 10:30 AM)',
+      'Course TBD',
+      'Tee time: TBD',
       'Format: 4-man scramble',
       'AC Hotel Louisville Downtown — check-out',
       'Drive home',
@@ -90,29 +90,32 @@ export const DEFAULT_ROUNDS: Round[] = [
     teeTime: 'TBD (confirm with group)',
     playerRounds: [],
     optional: true,
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Cherry+Blossom+Golf+Course+Georgetown+KY',
   },
   {
     id: 'round-2',
     dayIndex: 1,
-    courseName: 'Champions Pointe Golf Club',
-    coursePar: [...DEFAULT_PAR],
-    teeTime: '12:30 PM',
-    playerRounds: [],
-  },
-  {
-    id: 'round-3',
-    dayIndex: 2,
     courseName: 'Covered Bridge Golf Club',
     coursePar: [...DEFAULT_PAR],
     teeTime: '10:30 AM',
     playerRounds: [],
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Covered+Bridge+Golf+Club+Sellersburg+IN',
+  },
+  {
+    id: 'round-3',
+    dayIndex: 2,
+    courseName: 'Champions Pointe Golf Club',
+    coursePar: [...DEFAULT_PAR],
+    teeTime: '12:30 PM',
+    playerRounds: [],
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Champions+Pointe+Golf+Club+Henryville+IN',
   },
   {
     id: 'round-4',
     dayIndex: 3,
-    courseName: 'Heritage Hill Golf Club',
+    courseName: 'TBD',
     coursePar: [...DEFAULT_PAR],
-    teeTime: 'TBD (requested 10:30 AM)',
+    teeTime: 'TBD',
     playerRounds: [],
   },
 ];
