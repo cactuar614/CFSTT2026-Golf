@@ -5,13 +5,13 @@ export const TRIP_DATES = 'July 30 – August 2, 2026';
 export const TRIP_LOCATION = 'Lexington & Louisville, KY';
 
 /** Bump when default trip shape changes so clients load fresh itinerary (localStorage). */
-export const STORAGE_KEY = 'cfstt2026-lex-lou-8players';
+export const STORAGE_KEY = 'cfstt2026-lex-lou-8players-v2';
 
 export const LODGING = {
   hotel: 'AC Hotel Louisville Downtown',
   checkIn: 'Friday, 7/31/26',
   checkOut: 'Sunday, 8/2/26',
-  status: 'Confirmed (see notes)',
+  status: 'Confirmed',
   rooms: '(4) Two Queen rooms',
   groupSize: 8,
 } as const;
@@ -48,7 +48,7 @@ export const DEFAULT_SCHEDULE: TripDay[] = [
     label: 'Saturday — Louisville · Round 3',
     description: 'Covered Bridge Golf Club',
     city: 'Louisville, KY',
-    activities: ['Covered Bridge Golf Club', 'Tee time: 10:30 AM', 'Night out and dinner'],
+    activities: ['Covered Bridge Golf Club', 'Tee time: 10:00 AM', 'Night out and dinner'],
     isActive: false,
   },
   {
@@ -88,7 +88,7 @@ export const DEFAULT_ROUNDS: Round[] = [
     dayIndex: 2,
     courseName: 'Covered Bridge Golf Club',
     coursePar: [...DEFAULT_PAR],
-    teeTime: '10:30 AM',
+    teeTime: '10:00 AM',
     playerRounds: [],
   },
   {
