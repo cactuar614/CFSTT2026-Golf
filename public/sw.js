@@ -7,7 +7,6 @@ self.addEventListener('install', (event) => {
       return cache.addAll([
         `${BASE_PATH}/`,
         `${BASE_PATH}/schedule`,
-        `${BASE_PATH}/players`,
         `${BASE_PATH}/scorecard`,
         `${BASE_PATH}/leaderboard`,
       ]);

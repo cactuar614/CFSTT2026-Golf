@@ -61,7 +61,7 @@ export default function Dashboard() {
       )}
 
       {/* Quick Links */}
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-3 gap-3">
         <Link
           href="/schedule"
           className="flex min-h-[5.5rem] touch-manipulation flex-col items-center justify-center rounded-xl border border-gray-200 bg-white p-4 text-center transition-colors active:border-primary active:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:active:bg-gray-700/80 md:hover:border-primary"
@@ -70,15 +70,6 @@ export default function Dashboard() {
             📅
           </div>
           <div className="text-sm font-medium">Schedule</div>
-        </Link>
-        <Link
-          href="/players"
-          className="flex min-h-[5.5rem] touch-manipulation flex-col items-center justify-center rounded-xl border border-gray-200 bg-white p-4 text-center transition-colors active:border-primary active:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:active:bg-gray-700/80 md:hover:border-primary"
-        >
-          <div className="mb-1 text-2xl" aria-hidden>
-            👥
-          </div>
-          <div className="text-sm font-medium">Players ({state.players.length})</div>
         </Link>
         <Link
           href="/scorecard"

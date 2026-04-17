@@ -7,7 +7,6 @@ import { useTheme } from '@/lib/ThemeContext';
 const tabs = [
   { href: '/', label: 'Home', icon: '⛳' },
   { href: '/schedule', label: 'Schedule', icon: '📅' },
-  { href: '/players', label: 'Players', icon: '👥' },
   { href: '/scorecard', label: 'Scores', icon: '📝' },
   { href: '/leaderboard', label: 'Board', icon: '🏆' },
 ];
