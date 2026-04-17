@@ -1,6 +1,6 @@
 import { Player, TripDay, Round } from './types';
 
-export const TRIP_NAME = 'Lexington & Louisville Golf Trip';
+export const TRIP_NAME = 'The Kentucky Bourbon Scramble';
 export const TRIP_DATES = 'July 31 – August 2, 2026';
 export const TRIP_LOCATION = 'Lexington & Louisville, KY';
 
