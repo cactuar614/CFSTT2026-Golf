@@ -10,8 +10,11 @@ import MapLink from '@/components/MapLink';
 
 export default function Dashboard() {
   const state = getTripState();
-  const activeDay = state.schedule[state.activeDayIndex];
-  const activeRound = state.rounds.find((r) => r.dayIndex === state.activeDayIndex);
+  const activeDay = state.activeDayIndex !== null ? state.schedule[state.activeDayIndex] : null;
+  const activeRound =
+    state.activeDayIndex !== null
+      ? state.rounds.find((r) => r.dayIndex === state.activeDayIndex)
+      : undefined;
 
   return (
     <div className="space-y-6">
@@ -31,8 +34,8 @@ export default function Dashboard() {
       {/* Status Banner */}
       <StatusBanner status={state.currentStatus} />
 
-      {/* Today / Active Day Card */}
-      {activeDay && (
+      {/* Today / Active Day Card — only when today is one of the trip days */}
+      {activeDay && state.activeDayIndex !== null && (
         <div className="bg-white dark:bg-gray-800 rounded-xl border-2 border-primary p-4">
           <div className="flex items-center gap-2 mb-2">
             <span className="bg-primary text-white text-xs font-bold px-2 py-0.5 rounded-full">

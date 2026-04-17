@@ -39,5 +39,6 @@ export type TripState = {
   rounds: Round[];
   schedule: TripDay[];
   currentStatus: string; // free-text live status
-  activeDayIndex: number; // derived from today's date (see activeDay.ts)
+  /** Index of today's trip day, or null if today isn't a trip day. */
+  activeDayIndex: number | null;
 };

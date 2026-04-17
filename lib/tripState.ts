@@ -5,15 +5,15 @@ import {
   DEFAULT_SCHEDULE,
   TRIP_STATUS,
 } from './constants';
-import { getActiveDayIndexForToday } from './activeDay';
+import { getCurrentTripDayIndex } from './activeDay';
 
-/** Static trip data. `activeDayIndex` is derived from the device calendar. */
+/** Static trip data. `activeDayIndex` is the index of today's trip day, or null. */
 export function getTripState(): TripState {
   return {
     players: DEFAULT_PLAYERS,
     rounds: DEFAULT_ROUNDS,
     schedule: DEFAULT_SCHEDULE,
     currentStatus: TRIP_STATUS,
-    activeDayIndex: getActiveDayIndexForToday(DEFAULT_SCHEDULE),
+    activeDayIndex: getCurrentTripDayIndex(DEFAULT_SCHEDULE),
   };
 }

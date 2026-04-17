@@ -1,7 +1,7 @@
 import { Player, TripDay, Round } from './types';
 
 export const TRIP_NAME = 'Lexington & Louisville Golf Trip';
-export const TRIP_DATES = 'July 30 – August 2, 2026';
+export const TRIP_DATES = 'July 31 – August 2, 2026';
 export const TRIP_LOCATION = 'Lexington & Louisville, KY';
 
 export const LODGING = {
@@ -21,15 +21,8 @@ export const DEFAULT_PAR: number[] = [
 
 export const DEFAULT_SCHEDULE: TripDay[] = [
   {
-    date: '2026-07-30',
-    label: 'Thursday — Lexington · Round 1',
-    description: 'Cherry Blossom Golf Course · Lexington, KY',
-    city: 'Lexington, KY',
-    activities: ['Cherry Blossom Golf Course', 'Lexington, KY', 'Tee time: TBD (confirm with group)'],
-  },
-  {
     date: '2026-07-31',
-    label: 'Friday — Louisville · Round 2',
+    label: 'Friday — Louisville · Round 1',
     description: 'Champions Pointe Golf Club · Hotel check-in',
     city: 'Louisville, KY',
     activities: [
@@ -41,14 +34,14 @@ export const DEFAULT_SCHEDULE: TripDay[] = [
   },
   {
     date: '2026-08-01',
-    label: 'Saturday — Louisville · Round 3',
+    label: 'Saturday — Louisville · Round 2',
     description: 'Covered Bridge Golf Club',
     city: 'Louisville, KY',
     activities: ['Covered Bridge Golf Club', 'Tee time: 10:30 AM', 'Night out and dinner'],
   },
   {
     date: '2026-08-02',
-    label: 'Sunday — Louisville · Round 4',
+    label: 'Sunday — Louisville · Round 3',
     description: 'Heritage Hill Golf Club · Check-out',
     city: 'Louisville, KY',
     activities: [
@@ -64,15 +57,6 @@ export const DEFAULT_ROUNDS: Round[] = [
   {
     id: 'round-1',
     dayIndex: 0,
-    courseName: 'Cherry Blossom Golf Course',
-    coursePar: [...DEFAULT_PAR],
-    teeTime: 'TBD (confirm with group)',
-    playerRounds: [],
-    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Cherry+Blossom+Golf+Course+Lexington+KY',
-  },
-  {
-    id: 'round-2',
-    dayIndex: 1,
     courseName: 'Champions Pointe Golf Club',
     coursePar: [...DEFAULT_PAR],
     teeTime: '12:30 PM',
@@ -80,8 +64,8 @@ export const DEFAULT_ROUNDS: Round[] = [
     mapUrl: 'https://www.google.com/maps/search/?api=1&query=Champions+Pointe+Golf+Club+Louisville',
   },
   {
-    id: 'round-3',
-    dayIndex: 2,
+    id: 'round-2',
+    dayIndex: 1,
     courseName: 'Covered Bridge Golf Club',
     coursePar: [...DEFAULT_PAR],
     teeTime: '10:30 AM',
@@ -89,8 +73,8 @@ export const DEFAULT_ROUNDS: Round[] = [
     mapUrl: 'https://www.google.com/maps/search/?api=1&query=Covered+Bridge+Golf+Club+Louisville',
   },
   {
-    id: 'round-4',
-    dayIndex: 3,
+    id: 'round-3',
+    dayIndex: 2,
     courseName: 'Heritage Hill Golf Club',
     coursePar: [...DEFAULT_PAR],
     teeTime: 'TBD (requested 10:30 AM)',
@@ -110,10 +94,9 @@ export const DEFAULT_PLAYERS: Player[] = [
 ];
 
 export const DAY_LABELS = [
-  'Day 1 — Thu 7/30 · Lexington',
-  'Day 2 — Fri 7/31 · Louisville',
-  'Day 3 — Sat 8/1 · Louisville',
-  'Day 4 — Sun 8/2 · Louisville',
+  'Day 1 — Fri 7/31 · Louisville',
+  'Day 2 — Sat 8/1 · Louisville',
+  'Day 3 — Sun 8/2 · Louisville',
 ];
 
 /** Free-text live status shown on Home and Schedule (empty = hidden). */

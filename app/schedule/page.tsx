@@ -14,10 +14,10 @@ export default function SchedulePage() {
       <div className="space-y-1">
         <h1 className="text-xl font-bold text-primary">{TRIP_NAME} — Schedule</h1>
         <p className="text-sm text-gray-500 dark:text-gray-400">
-          Thu 7/30 Lexington → Fri–Sun Louisville · July 30 – August 2, 2026
+          Fri–Sun Louisville · July 31 – August 2, 2026
         </p>
         <p className="text-xs text-gray-500 dark:text-gray-500">
-          The highlighted day matches today on the calendar (local time). Before the trip it shows Day 1; after the trip, the last day.
+          A day is highlighted only on its actual calendar date (local time).
         </p>
       </div>
 
