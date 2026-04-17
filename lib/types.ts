@@ -21,6 +21,8 @@ export type Round = {
   coursePar: number[]; // 18 entries, par for each hole
   teeTime: string;
   playerRounds: PlayerRound[];
+  /** External map URL (e.g. Google Maps search link). */
+  mapUrl?: string;
 };
 
 export type TripDay = {
@@ -28,7 +30,6 @@ export type TripDay = {
   label: string; // e.g. day headline
   description: string;
   activities: string[]; // schedule items
-  isActive: boolean;
   /** Shown on schedule & scorecards (e.g. Lexington vs Louisville). */
   city?: string;
 };
@@ -38,7 +39,6 @@ export type TripState = {
   rounds: Round[];
   schedule: TripDay[];
   currentStatus: string; // free-text live status
-  activeDayIndex: number; // 0…schedule.length−1
-  /** When true, active day tracks the device calendar (see activeDay.ts). */
-  activeDayFollowCalendar: boolean;
+  /** Index of today's trip day, or null if today isn't a trip day. */
+  activeDayIndex: number | null;
 };

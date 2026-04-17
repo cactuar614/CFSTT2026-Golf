@@ -3,14 +3,17 @@
 import { TripDay } from '@/lib/types';
 import { DAY_LABELS } from '@/lib/constants';
 import { formatTripDayDate } from '@/lib/formatTrip';
+import MapLink from './MapLink';
 
 type Props = {
   day: TripDay;
   dayIndex: number;
   isActiveDay: boolean;
+  courseName?: string;
+  courseMapUrl?: string;
 };
 
-export default function ScheduleDayReadOnly({ day, dayIndex, isActiveDay }: Props) {
+export default function ScheduleDayReadOnly({ day, dayIndex, isActiveDay, courseName, courseMapUrl }: Props) {
   return (
     <div
       className={`rounded-xl border-2 p-4 transition-colors ${
@@ -42,6 +45,12 @@ export default function ScheduleDayReadOnly({ day, dayIndex, isActiveDay }: Prop
           <li key={i}>{activity}</li>
         ))}
       </ul>
+
+      {courseMapUrl ? (
+        <div className="mt-3">
+          <MapLink href={courseMapUrl} label={courseName ? `Map · ${courseName}` : 'Map'} />
+        </div>
+      ) : null}
     </div>
   );
 }
