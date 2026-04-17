@@ -42,11 +42,11 @@ export const DEFAULT_SCHEDULE: TripDay[] = [
   {
     date: '2026-08-02',
     label: 'Sunday — Louisville · Round 3',
-    description: 'Heritage Hill Golf Club · Check-out',
+    description: 'Course TBD · Check-out',
     city: 'Louisville, KY',
     activities: [
-      'Heritage Hill Golf Club',
-      'Tee time: TBD (requested 10:30 AM)',
+      'Course TBD',
+      'Tee time: TBD',
       'AC Hotel Louisville Downtown — check-out',
       'Drive home',
     ],
@@ -75,11 +75,10 @@ export const DEFAULT_ROUNDS: Round[] = [
   {
     id: 'round-3',
     dayIndex: 2,
-    courseName: 'Heritage Hill Golf Club',
+    courseName: 'TBD',
     coursePar: [...DEFAULT_PAR],
-    teeTime: 'TBD (requested 10:30 AM)',
+    teeTime: 'TBD',
     playerRounds: [],
-    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Heritage+Hill+Golf+Club+Louisville',
   },
 ];
 
