@@ -3,16 +3,10 @@
 import { useMemo } from 'react';
 import { Player, Round } from '@/lib/types';
 import { sumPar, scoreRelativeToPar } from '@/lib/scoring';
-import ScoreInput from './ScoreInput';
 
 type ScorecardTableProps = {
   round: Round;
   players: Player[];
-  readOnly?: boolean;
-  onScoreChange: (playerId: string, hole: number, strokes: number | null) => void;
-  onParChange: (hole: number, par: number) => void;
-  onCourseNameChange: (name: string) => void;
-  onTeeTimeChange: (time: string) => void;
 };
 
 function cellColorClass(strokes: number | null, par: number): string {
@@ -25,15 +19,7 @@ function cellColorClass(strokes: number | null, par: number): string {
   return 'bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300';
 }
 
-export default function ScorecardTable({
-  round,
-  players,
-  readOnly = false,
-  onScoreChange,
-  onParChange,
-  onCourseNameChange,
-  onTeeTimeChange,
-}: ScorecardTableProps) {
+export default function ScorecardTable({ round, players }: ScorecardTableProps) {
   const frontHoles = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   const backHoles = [10, 11, 12, 13, 14, 15, 16, 17, 18];
 
@@ -82,22 +68,9 @@ export default function ScorecardTable({
             <td className="px-2 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 md:py-1 md:text-xs">Par</td>
             {holes.map((h) => (
               <td key={h} className="px-0.5 py-1.5 text-center md:py-1">
-                {readOnly ? (
-                  <span className="inline-block min-w-[2.75rem] text-center text-sm tabular-nums md:text-xs">
-                    {round.coursePar[h - 1]}
-                  </span>
-                ) : (
-                  <input
-                    type="number"
-                    inputMode="numeric"
-                    value={round.coursePar[h - 1]}
-                    onChange={(e) => onParChange(h, parseInt(e.target.value, 10) || 3)}
-                    className="h-10 w-11 min-h-[44px] rounded border border-gray-200 bg-white text-center text-base outline-none focus:ring-2 focus:ring-primary dark:border-gray-600 dark:bg-gray-600 dark:text-gray-100 md:h-6 md:min-h-0 md:w-10 md:text-xs"
-                    min="3"
-                    max="5"
-                    aria-label={`Par hole ${h}`}
-                  />
-                )}
+                <span className="inline-block min-w-[2.75rem] text-center text-sm tabular-nums md:text-xs">
+                  {round.coursePar[h - 1]}
+                </span>
               </td>
             ))}
             <td className="px-2 py-2 text-center text-sm font-bold text-gray-700 dark:text-gray-300 md:py-1 md:text-xs">
@@ -125,19 +98,11 @@ export default function ScorecardTable({
                   const par = round.coursePar[h - 1];
                   return (
                     <td key={h} className="px-0.5 py-1.5 text-center md:py-1">
-                      {readOnly ? (
-                        <span
-                          className={`inline-flex h-11 w-11 items-center justify-center rounded-md border border-gray-200 text-base tabular-nums dark:border-gray-600 md:h-8 md:w-10 md:text-sm ${cellColorClass(v, par)}`}
-                        >
-                          {v ?? '—'}
-                        </span>
-                      ) : (
-                        <ScoreInput
-                          value={v}
-                          par={par}
-                          onChange={(nv) => onScoreChange(player.id, h, nv)}
-                        />
-                      )}
+                      <span
+                        className={`inline-flex h-11 w-11 items-center justify-center rounded-md border border-gray-200 text-base tabular-nums dark:border-gray-600 md:h-8 md:w-10 md:text-sm ${cellColorClass(v, par)}`}
+                      >
+                        {v ?? '—'}
+                      </span>
                     </td>
                   );
                 })}
@@ -157,41 +122,15 @@ export default function ScorecardTable({
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:gap-4">
         <div className="min-w-0 flex-1">
           <span className="mb-1 block text-xs font-medium text-gray-500 dark:text-gray-400">Course</span>
-          {readOnly ? (
-            <p className="min-h-[48px] rounded-lg border border-gray-100 bg-gray-50 px-3 py-2.5 text-base font-semibold text-gray-900 dark:border-gray-700 dark:bg-gray-900/40 dark:text-gray-100 md:min-h-0 md:border-0 md:bg-transparent md:px-0 md:py-1 md:text-lg">
-              {round.courseName === 'TBD' ? 'TBD' : round.courseName}
-            </p>
-          ) : (
-            <label className="block">
-              <input
-                type="text"
-                value={round.courseName}
-                onChange={(e) => onCourseNameChange(e.target.value)}
-                className="min-h-[48px] w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-base font-semibold text-gray-900 outline-none focus:border-primary focus:ring-2 focus:ring-primary dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 md:min-h-0 md:border-0 md:border-b-2 md:border-dashed md:bg-transparent md:px-0 md:py-1 md:text-lg"
-                placeholder="Course name"
-                autoComplete="off"
-              />
-            </label>
-          )}
+          <p className="min-h-[48px] rounded-lg border border-gray-100 bg-gray-50 px-3 py-2.5 text-base font-semibold text-gray-900 dark:border-gray-700 dark:bg-gray-900/40 dark:text-gray-100 md:min-h-0 md:border-0 md:bg-transparent md:px-0 md:py-1 md:text-lg">
+            {round.courseName === 'TBD' ? 'TBD' : round.courseName}
+          </p>
         </div>
         <div className="w-full sm:w-auto sm:min-w-[11rem]">
           <span className="mb-1 block text-xs font-medium text-gray-500 dark:text-gray-400">Tee time</span>
-          {readOnly ? (
-            <p className="min-h-[48px] rounded-lg border border-gray-100 bg-gray-50 px-3 py-2.5 text-base text-gray-800 dark:border-gray-700 dark:bg-gray-900/40 dark:text-gray-100 md:min-h-0 md:border-0 md:bg-transparent md:px-0 md:py-1 md:text-sm">
-              {round.teeTime}
-            </p>
-          ) : (
-            <label className="block">
-              <input
-                type="text"
-                value={round.teeTime}
-                onChange={(e) => onTeeTimeChange(e.target.value)}
-                className="min-h-[48px] w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-base text-gray-800 outline-none focus:border-primary focus:ring-2 focus:ring-primary dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 md:min-h-0 md:border-0 md:border-b md:border-dashed md:bg-transparent md:px-0 md:py-1 md:text-sm"
-                placeholder="e.g. 10:30 AM"
-                autoComplete="off"
-              />
-            </label>
-          )}
+          <p className="min-h-[48px] rounded-lg border border-gray-100 bg-gray-50 px-3 py-2.5 text-base text-gray-800 dark:border-gray-700 dark:bg-gray-900/40 dark:text-gray-100 md:min-h-0 md:border-0 md:bg-transparent md:px-0 md:py-1 md:text-sm">
+            {round.teeTime}
+          </p>
         </div>
       </div>
 

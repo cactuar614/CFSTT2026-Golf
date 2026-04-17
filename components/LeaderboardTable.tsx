@@ -11,9 +11,7 @@ type LeaderboardTableProps = {
 export default function LeaderboardTable({ entries, roundCount }: LeaderboardTableProps) {
   if (entries.length === 0) {
     return (
-      <p className="py-8 text-center text-gray-500 dark:text-gray-400">
-        No players yet. Add players on the Players page.
-      </p>
+      <p className="py-8 text-center text-gray-500 dark:text-gray-400">No players yet.</p>
     );
   }
 

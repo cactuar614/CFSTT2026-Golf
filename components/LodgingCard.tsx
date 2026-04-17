@@ -1,4 +1,5 @@
 import { LODGING, TRIP_DATES } from '@/lib/constants';
+import MapLink from './MapLink';
 
 export default function LodgingCard() {
   return (
@@ -14,8 +15,13 @@ export default function LodgingCard() {
       </div>
       <div>
         <p className="font-semibold text-gray-900 dark:text-gray-100">{LODGING.hotel}</p>
+        {LODGING.mapUrl ? (
+          <div className="mt-1">
+            <MapLink href={LODGING.mapUrl} label="Map · Hotel" />
+          </div>
+        ) : null}
         <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-          Thursday Round 1 is in Lexington. Hotel nights are Friday–Sunday in Louisville.
+          Hotel nights are Friday–Sunday in Louisville.
         </p>
         <ul className="mt-3 space-y-1.5 text-sm text-gray-600 dark:text-gray-400">
           <li>

@@ -17,14 +17,14 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: 'Lexington & Louisville Golf 2026',
+  title: 'The Kentucky Bourbon Scramble 2026',
   description:
-    'Golf trip: Lexington Thu 7/30, Louisville Fri–Sun — itinerary, lodging, four rounds, scoring — July 30–August 2, 2026',
+    'The Kentucky Bourbon Scramble — Louisville Fri–Sun: itinerary, lodging, three rounds, scoring — July 31–August 2, 2026',
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
-    title: 'Louisville Golf',
+    title: 'Bourbon Scramble',
   },
   icons: {
     icon: '/icon-192.png',

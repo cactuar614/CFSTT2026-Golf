@@ -9,19 +9,15 @@ export function localDateISO(d: Date = new Date()): string {
 }
 
 /**
- * Index of the schedule day that should be "active" for the given calendar date.
- * On a trip day, that day; before the trip, first day; after the trip, last day.
+ * Index of the schedule day that matches the given calendar date,
+ * or null if today isn't one of the trip days.
  */
-export function getActiveDayIndexForDate(schedule: TripDay[], date: Date): number {
-  if (!schedule.length) return 0;
+export function getCurrentTripDayIndex(
+  schedule: TripDay[],
+  date: Date = new Date()
+): number | null {
+  if (!schedule.length) return null;
   const iso = localDateISO(date);
   const idx = schedule.findIndex((day) => day.date === iso);
-  if (idx !== -1) return idx;
-  if (iso < schedule[0].date) return 0;
-  if (iso > schedule[schedule.length - 1].date) return schedule.length - 1;
-  return 0;
-}
-
-export function getActiveDayIndexForToday(schedule: TripDay[]): number {
-  return getActiveDayIndexForDate(schedule, new Date());
+  return idx === -1 ? null : idx;
 }

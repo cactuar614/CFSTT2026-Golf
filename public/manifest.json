@@ -1,7 +1,7 @@
 {
-  "name": "Lexington & Louisville Golf 2026",
-  "short_name": "KY Golf",
-  "description": "Lexington Thu + Louisville Fri–Sun — four rounds, lodging, scoring (Jul 30–Aug 2, 2026)",
+  "name": "The Kentucky Bourbon Scramble 2026",
+  "short_name": "Bourbon Scramble",
+  "description": "The Kentucky Bourbon Scramble — Louisville Fri–Sun: three rounds, lodging, scoring (Jul 31–Aug 2, 2026)",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
