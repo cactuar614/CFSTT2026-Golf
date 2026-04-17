@@ -21,6 +21,8 @@ export type Round = {
   coursePar: number[]; // 18 entries, par for each hole
   teeTime: string;
   playerRounds: PlayerRound[];
+  /** External map URL (e.g. Google Maps search link). */
+  mapUrl?: string;
 };
 
 export type TripDay = {

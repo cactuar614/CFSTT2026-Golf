@@ -11,6 +11,7 @@ export const LODGING = {
   status: 'Confirmed (see notes)',
   rooms: '(4) Two Queen rooms',
   groupSize: 8,
+  mapUrl: 'https://www.google.com/maps/search/?api=1&query=AC+Hotel+Louisville+Downtown',
 } as const;
 
 export const DEFAULT_PAR: number[] = [
@@ -67,6 +68,7 @@ export const DEFAULT_ROUNDS: Round[] = [
     coursePar: [...DEFAULT_PAR],
     teeTime: 'TBD (confirm with group)',
     playerRounds: [],
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Cherry+Blossom+Golf+Course+Lexington+KY',
   },
   {
     id: 'round-2',
@@ -75,6 +77,7 @@ export const DEFAULT_ROUNDS: Round[] = [
     coursePar: [...DEFAULT_PAR],
     teeTime: '12:30 PM',
     playerRounds: [],
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Champions+Pointe+Golf+Club+Louisville',
   },
   {
     id: 'round-3',
@@ -83,6 +86,7 @@ export const DEFAULT_ROUNDS: Round[] = [
     coursePar: [...DEFAULT_PAR],
     teeTime: '10:30 AM',
     playerRounds: [],
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Covered+Bridge+Golf+Club+Louisville',
   },
   {
     id: 'round-4',
@@ -91,6 +95,7 @@ export const DEFAULT_ROUNDS: Round[] = [
     coursePar: [...DEFAULT_PAR],
     teeTime: 'TBD (requested 10:30 AM)',
     playerRounds: [],
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Heritage+Hill+Golf+Club+Louisville',
   },
 ];
 
