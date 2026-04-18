@@ -3,6 +3,7 @@ import './globals.css';
 import Navbar from '@/components/Navbar';
 import Providers from '@/components/Providers';
 import ServiceWorkerRegister from '@/components/ServiceWorkerRegister';
+import { Analytics } from '@vercel/analytics/react';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -45,6 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Navbar />
         </Providers>
         <ServiceWorkerRegister />
+        <Analytics />
       </body>
     </html>
   );
