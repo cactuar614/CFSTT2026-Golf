@@ -8,9 +8,9 @@ export default function ScorecardIndexPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-xl font-bold text-primary">Scorecards</h1>
-        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">View-only.</p>
+      <div className="space-y-1">
+        <p className="eyebrow">View-only</p>
+        <h1 className="page-title">Scorecards</h1>
       </div>
 
       <div className="space-y-3">
@@ -21,28 +21,32 @@ export default function ScorecardIndexPage() {
             <Link
               key={round.id}
               href={`/scorecard/${round.id}`}
-              className="block min-h-[6rem] touch-manipulation rounded-xl border border-gray-200 bg-white p-4 transition-colors active:border-primary active:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:active:bg-gray-700/80 md:hover:border-primary"
+              className="card block min-h-[6rem] touch-manipulation p-4 transition-colors active:bg-parchment dark:active:bg-char-700 md:hover:border-accent"
             >
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                <div className="min-w-0 space-y-1">
-                  <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0">
-                    <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">Round {i + 1}</h2>
-                    <span className="text-sm text-gray-500 dark:text-gray-400">{DAY_LABELS[round.dayIndex]}</span>
+              <div className="flex gap-3">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-accent/60 font-display text-lg font-bold text-primary dark:text-accent">
+                  {i + 1}
+                </span>
+                <div className="flex min-w-0 flex-1 flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                  <div className="min-w-0 space-y-1">
+                    <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0">
+                      <h2 className="font-display text-lg font-bold">{courseLabel}</h2>
+                      <span className="text-sm text-ink-soft dark:text-chalk/60">{DAY_LABELS[round.dayIndex]}</span>
+                    </div>
+                    {day ? (
+                      <>
+                        <p className="text-sm text-ink-soft dark:text-chalk/70">
+                          {formatTripDayDate(day.date)}
+                          {day.city ? ` · ${day.city}` : ''}
+                        </p>
+                        <p className="text-sm text-ink-soft dark:text-chalk/60">{day.label}</p>
+                      </>
+                    ) : null}
+                    <p className="text-sm text-ink-soft dark:text-chalk/60">Tee: {round.teeTime}</p>
                   </div>
-                  {day ? (
-                    <>
-                      <p className="text-sm text-gray-600 dark:text-gray-300">{formatTripDayDate(day.date)}</p>
-                      {day.city ? (
-                        <p className="text-sm font-semibold text-primary">{day.city}</p>
-                      ) : null}
-                      <p className="text-sm text-gray-600 dark:text-gray-400">{day.label}</p>
-                    </>
-                  ) : null}
-                  <p className="text-base font-medium text-gray-800 dark:text-gray-200">{courseLabel}</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Tee: {round.teeTime}</p>
-                </div>
-                <div className="shrink-0 text-right sm:pt-1">
-                  <div className="text-sm font-medium text-primary">Open scorecard →</div>
+                  <div className="shrink-0 text-right sm:pt-1">
+                    <div className="text-sm font-semibold text-copper dark:text-accent">Open scorecard →</div>
+                  </div>
                 </div>
               </div>
             </Link>

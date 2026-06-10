@@ -1,9 +1,22 @@
 import type { Metadata, Viewport } from 'next';
+import { Playfair_Display, Source_Sans_3 } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Providers from '@/components/Providers';
 import ServiceWorkerRegister from '@/components/ServiceWorkerRegister';
 import { Analytics } from '@vercel/analytics/react';
+
+const displayFont = Playfair_Display({
+  subsets: ['latin'],
+  variable: '--font-display',
+  display: 'swap',
+});
+
+const bodyFont = Source_Sans_3({
+  subsets: ['latin'],
+  variable: '--font-body',
+  display: 'swap',
+});
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -12,8 +25,8 @@ export const viewport: Viewport = {
   userScalable: true,
   viewportFit: 'cover',
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#1a5632' },
-    { media: '(prefers-color-scheme: dark)', color: '#111827' },
+    { media: '(prefers-color-scheme: light)', color: '#0e3b21' },
+    { media: '(prefers-color-scheme: dark)', color: '#140e0b' },
   ],
 };
 
@@ -36,7 +49,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="min-h-screen">
+      <body className={`${displayFont.variable} ${bodyFont.variable} min-h-screen font-sans`}>
         <Providers>
           <div className="md:pt-14">
             <main className="max-w-4xl mx-auto px-4 py-4 pt-[max(1rem,env(safe-area-inset-top,0px))] md:pt-4">

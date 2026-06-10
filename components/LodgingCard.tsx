@@ -1,46 +1,43 @@
 import { LODGING, TRIP_DATES } from '@/lib/constants';
 import MapLink from './MapLink';
+import { BedIcon } from './icons';
+
+const details: Array<[string, string]> = [
+  ['Check-in', LODGING.checkIn],
+  ['Check-out', LODGING.checkOut],
+  ['Rooms', LODGING.rooms],
+  ['Group', `${LODGING.groupSize} golfers`],
+];
 
 export default function LodgingCard() {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 space-y-3">
-      <div className="flex items-center gap-2 border-b border-gray-100 dark:border-gray-700 pb-2">
-        <span className="text-xl" aria-hidden>
-          🏨
+    <section className="card p-4">
+      <div className="flex items-center gap-3 border-b border-linen pb-3 dark:border-char-700">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary dark:bg-accent/10 dark:text-accent">
+          <BedIcon className="h-5 w-5" />
         </span>
-        <div>
-          <h2 className="font-bold text-primary">Lodging</h2>
-          <p className="text-xs text-gray-500 dark:text-gray-400">{TRIP_DATES}</p>
+        <div className="min-w-0">
+          <p className="eyebrow">Lodging</p>
+          <h2 className="font-display text-lg font-bold leading-snug">{LODGING.hotel}</h2>
         </div>
+        <span className="ml-auto shrink-0 rounded-full bg-primary/10 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-primary dark:bg-accent/15 dark:text-accent">
+          {LODGING.status}
+        </span>
       </div>
-      <div>
-        <p className="font-semibold text-gray-900 dark:text-gray-100">{LODGING.hotel}</p>
-        {LODGING.mapUrl ? (
-          <div className="mt-1">
-            <MapLink href={LODGING.mapUrl} label="Map · Hotel" />
+      <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2.5 text-sm">
+        {details.map(([label, value]) => (
+          <div key={label}>
+            <dt className="text-xs text-ink-soft dark:text-chalk/50">{label}</dt>
+            <dd className="font-medium">{value}</dd>
           </div>
-        ) : null}
-        <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-          Hotel nights are Friday–Sunday in Louisville.
+        ))}
+      </dl>
+      <div className="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-linen pt-3 dark:border-char-700">
+        <p className="text-xs text-ink-soft dark:text-chalk/50">
+          Hotel nights are Friday–Sunday in Louisville · {TRIP_DATES}
         </p>
-        <ul className="mt-3 space-y-1.5 text-sm text-gray-600 dark:text-gray-400">
-          <li>
-            <span className="text-gray-500 dark:text-gray-500">Check-in:</span> {LODGING.checkIn}
-          </li>
-          <li>
-            <span className="text-gray-500 dark:text-gray-500">Check-out:</span> {LODGING.checkOut}
-          </li>
-          <li>
-            <span className="text-gray-500 dark:text-gray-500">Status:</span> {LODGING.status}
-          </li>
-          <li>
-            <span className="text-gray-500 dark:text-gray-500">Rooms:</span> {LODGING.rooms}
-          </li>
-          <li>
-            <span className="text-gray-500 dark:text-gray-500">Group:</span> {LODGING.groupSize} golfers
-          </li>
-        </ul>
+        {LODGING.mapUrl ? <MapLink href={LODGING.mapUrl} label="Map · Hotel" /> : null}
       </div>
-    </div>
+    </section>
   );
 }
