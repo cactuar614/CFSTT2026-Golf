@@ -9,18 +9,21 @@ export default function LeaderboardPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-xl font-bold text-primary">Leaderboard</h1>
+      <div className="space-y-1">
+        <p className="eyebrow">Standings</p>
+        <h1 className="page-title">Leaderboard</h1>
+      </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+      <div className="card overflow-hidden">
         <LeaderboardTable entries={entries} roundCount={state.rounds.length} />
       </div>
 
-      <p className="text-center text-xs text-gray-400">
+      <p className="text-center text-xs text-ink-soft/80 dark:text-chalk/40">
         Net = Gross − Handicap · Sorted by total net score (lowest wins)
       </p>
 
       {noScoresYet && (
-        <p className="text-center text-gray-500 dark:text-gray-400 text-sm">No scores entered yet.</p>
+        <p className="text-center text-sm text-ink-soft dark:text-chalk/60">No scores entered yet.</p>
       )}
     </div>
   );

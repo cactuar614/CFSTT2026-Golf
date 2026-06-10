@@ -25,8 +25,8 @@ export default function RoundScorecardClient() {
   if (roundIndex === -1) {
     return (
       <div className="py-8 text-center">
-        <p className="text-gray-500 dark:text-gray-400">Round not found.</p>
-        <Link href="/scorecard" className="text-sm text-primary underline">
+        <p className="text-ink-soft dark:text-chalk/60">Round not found.</p>
+        <Link href="/scorecard" className="text-sm font-semibold text-copper underline dark:text-accent">
           Back to rounds
         </Link>
       </div>
@@ -50,28 +50,28 @@ export default function RoundScorecardClient() {
         <div>
           <Link
             href="/scorecard"
-            className="-ml-2 inline-flex min-h-[44px] items-center rounded-lg px-2 py-2 text-base text-primary touch-manipulation active:bg-primary/10 md:text-sm"
+            className="-ml-2 inline-flex min-h-[44px] items-center rounded-lg px-2 py-2 text-base font-semibold text-copper touch-manipulation active:bg-accent/10 dark:text-accent md:text-sm"
           >
             ← All Rounds
           </Link>
-          <h1 className="text-xl font-bold text-primary">Round {roundIndex + 1}</h1>
-          <p className="text-sm text-gray-500 dark:text-gray-400">{DAY_LABELS[round.dayIndex]}</p>
+          <p className="eyebrow">{DAY_LABELS[round.dayIndex]}</p>
+          <h1 className="page-title">Round {roundIndex + 1}</h1>
         </div>
 
         {scheduleDay ? (
-          <div className="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
-            <p className="text-sm text-gray-600 dark:text-gray-300">{formatTripDayDate(scheduleDay.date)}</p>
+          <div className="card p-4">
+            <p className="text-sm text-ink-soft dark:text-chalk/70">{formatTripDayDate(scheduleDay.date)}</p>
             {scheduleDay.city ? (
-              <p className="mt-1 text-sm font-semibold text-primary">{scheduleDay.city}</p>
+              <p className="mt-1 text-sm font-semibold text-primary dark:text-accent">{scheduleDay.city}</p>
             ) : null}
-            <p className="mt-1 font-medium text-gray-900 dark:text-gray-100">{scheduleDay.label}</p>
-            <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">{scheduleDay.description}</p>
-            <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">
-              <span className="font-medium">Course:</span>{' '}
+            <p className="mt-1 font-display font-bold">{scheduleDay.label}</p>
+            <p className="mt-1 text-sm text-ink-soft dark:text-chalk/60">{scheduleDay.description}</p>
+            <p className="mt-2 text-sm">
+              <span className="font-semibold">Course:</span>{' '}
               {round.courseName === 'TBD' ? 'TBD' : round.courseName}
             </p>
-            <p className="text-sm text-gray-700 dark:text-gray-300">
-              <span className="font-medium">Tee time:</span> {round.teeTime}
+            <p className="text-sm">
+              <span className="font-semibold">Tee time:</span> {round.teeTime}
             </p>
           </div>
         ) : null}

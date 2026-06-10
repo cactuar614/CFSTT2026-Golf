@@ -12,11 +12,12 @@ export default function SchedulePage() {
   return (
     <div className="space-y-6">
       <div className="space-y-1">
-        <h1 className="text-xl font-bold text-primary">{TRIP_NAME} — Schedule</h1>
-        <p className="text-sm text-gray-500 dark:text-gray-400">
+        <p className="eyebrow">{TRIP_NAME}</p>
+        <h1 className="page-title">Schedule</h1>
+        <p className="text-sm text-ink-soft dark:text-chalk/60">
           Fri–Sun Louisville · July 31 – August 2, 2026
         </p>
-        <p className="text-xs text-gray-500 dark:text-gray-500">
+        <p className="text-xs text-ink-soft/80 dark:text-chalk/40">
           A day is highlighted only on its actual calendar date (local time).
         </p>
       </div>

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100;
+  @apply bg-cream text-ink dark:bg-char-950 dark:text-chalk;
 }
 
 /* Space for bottom tab bar + iPhone home indicator */
@@ -24,5 +24,21 @@ main {
   [role='button'],
   a[href] {
     touch-action: manipulation;
+  }
+}
+
+@layer components {
+  /* Warm "label" card surface used across the app */
+  .card {
+    @apply rounded-2xl border border-linen bg-white shadow-card dark:border-char-700 dark:bg-char-800;
+  }
+
+  /* Small-caps section label, bourbon-label style */
+  .eyebrow {
+    @apply text-[11px] font-semibold uppercase tracking-[0.18em] text-copper dark:text-accent;
+  }
+
+  .page-title {
+    @apply font-display text-2xl font-bold tracking-tight text-primary dark:text-accent-light;
   }
 }
