@@ -53,6 +53,12 @@ export const DEFAULT_PAR: number[] = [
   4, 4, 4, 4, 4, 4, 4, 4, 4, // Back 9
 ];
 
+/** Real card (iga.bluegolf.com): front 36 / back 36, par 72. */
+export const COVERED_BRIDGE_PAR: number[] = [
+  4, 4, 3, 4, 5, 4, 4, 3, 5, // Front 9 — 36
+  4, 4, 3, 4, 5, 4, 4, 3, 5, // Back 9 — 36
+];
+
 export const DEFAULT_SCHEDULE: TripDay[] = [
   {
     date: '2026-07-31',
@@ -109,7 +115,7 @@ export const DEFAULT_ROUNDS: Round[] = [
     id: 'round-2',
     dayIndex: 1,
     courseName: 'Covered Bridge Golf Club',
-    coursePar: [...DEFAULT_PAR],
+    coursePar: [...COVERED_BRIDGE_PAR],
     teeTime: '10:00 AM',
     game: 'stableford',
     playerRounds: [],
