@@ -45,15 +45,15 @@ export function scoreRelativeToPar(strokes: number | null, par: number): number 
 }
 
 /**
- * Standard Stableford points for one hole (gross; net vs gross still TBD):
- * albatross 5 · eagle 4 · birdie 3 · par 2 · bogey 1 · worse 0.
+ * Trip Stableford points for one hole (gross; net vs gross still TBD):
+ * double eagle 9 · eagle 6 · birdie 4 · par 2 · bogey 1 · double bogey+ 0.
  */
 export function stablefordPoints(strokes: number | null, par: number): number | null {
   if (strokes === null) return null;
   const diff = strokes - par;
-  if (diff <= -3) return 5;
-  if (diff === -2) return 4;
-  if (diff === -1) return 3;
+  if (diff <= -3) return 9;
+  if (diff === -2) return 6;
+  if (diff === -1) return 4;
   if (diff === 0) return 2;
   if (diff === 1) return 1;
   return 0;

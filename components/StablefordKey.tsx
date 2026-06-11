@@ -1,9 +1,10 @@
 const POINTS_KEY = [
-  { label: 'Eagle', points: 4 },
-  { label: 'Birdie', points: 3 },
+  { label: 'Dbl Eagle', points: 9 },
+  { label: 'Eagle', points: 6 },
+  { label: 'Birdie', points: 4 },
   { label: 'Par', points: 2 },
   { label: 'Bogey', points: 1 },
-  { label: 'Worse', points: 0 },
+  { label: 'Dbl Bogey+', points: 0 },
 ];
 
 /** Compact Stableford points key shown atop Stableford views. */
