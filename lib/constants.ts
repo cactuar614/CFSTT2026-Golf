@@ -42,11 +42,11 @@ export const DEFAULT_SCHEDULE: TripDay[] = [
   {
     date: '2026-08-02',
     label: 'Sunday — Louisville · Round 3',
-    description: 'Course TBD · Check-out',
+    description: 'Valley View Golf Club · Check-out',
     city: 'Louisville, KY',
     activities: [
-      'Course TBD',
-      'Tee time: TBD',
+      'Valley View Golf Club',
+      'Tee time: 11:00 AM',
       'AC Hotel Louisville Downtown — check-out',
       'Drive home',
     ],
@@ -75,10 +75,11 @@ export const DEFAULT_ROUNDS: Round[] = [
   {
     id: 'round-3',
     dayIndex: 2,
-    courseName: 'TBD',
+    courseName: 'Valley View Golf Club',
     coursePar: [...DEFAULT_PAR],
-    teeTime: 'TBD',
+    teeTime: '11:00 AM',
     playerRounds: [],
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Valley+View+Golf+Club+Floyds+Knobs',
   },
 ];
 
