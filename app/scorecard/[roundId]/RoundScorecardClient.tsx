@@ -80,7 +80,7 @@ export default function RoundScorecardClient() {
           </div>
         ) : null}
 
-        {round.game === 'stableford' ? <StablefordKey /> : null}
+        {round.game !== 'scramble' ? <StablefordKey /> : null}
       </div>
 
       {round.game === 'scramble' && SCRAMBLE_TEAMS.length === 0 ? (

@@ -59,5 +59,7 @@ Sans 3 (body) via `next/font`. Shared classes in `globals.css`: `.card`, `.eyebr
 ## Conventions
 
 - `npm run build` must pass before pushing (static export of all pages).
+- Individual scorecards (Friday & Saturday) show both GROSS and Stableford PTS totals,
+  with the points key on top; only the Board scores each day in its own game's terms.
 - Course pars are placeholder all-4s (`DEFAULT_PAR`) until real cards are entered.
 - Scores live in `Round.playerRounds` (empty = dashes everywhere until entered).
