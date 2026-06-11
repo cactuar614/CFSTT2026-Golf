@@ -168,9 +168,7 @@ export default function ScorecardTable({ round, players }: ScorecardTableProps) 
               <th className="px-2 py-3 text-center text-sm font-bold md:py-2 md:text-xs">OUT</th>
               <th className="px-2 py-3 text-center text-sm font-bold md:py-2 md:text-xs">IN</th>
               <th className="px-2 py-3 text-center text-sm font-bold md:py-2 md:text-xs">GROSS</th>
-              {isStableford ? (
-                <th className="px-2 py-3 text-center text-sm font-bold md:py-2 md:text-xs">PTS</th>
-              ) : null}
+              <th className="px-2 py-3 text-center text-sm font-bold md:py-2 md:text-xs">PTS</th>
             </tr>
           </thead>
           <tbody>
@@ -191,11 +189,9 @@ export default function ScorecardTable({ round, players }: ScorecardTableProps) 
                   <td className="px-2 py-3 text-center text-sm tabular-nums md:py-2 md:text-xs">{f ?? '—'}</td>
                   <td className="px-2 py-3 text-center text-sm tabular-nums md:py-2 md:text-xs">{b ?? '—'}</td>
                   <td className="px-2 py-3 text-center text-sm font-bold tabular-nums md:py-2 md:text-xs">{gross ?? '—'}</td>
-                  {isStableford ? (
-                    <td className="px-2 py-3 text-center text-sm font-bold tabular-nums text-copper dark:text-accent md:py-2 md:text-xs">
-                      {points ?? '—'}
-                    </td>
-                  ) : null}
+                  <td className="px-2 py-3 text-center text-sm font-bold tabular-nums text-copper dark:text-accent md:py-2 md:text-xs">
+                    {points ?? '—'}
+                  </td>
                 </tr>
               );
             })}
