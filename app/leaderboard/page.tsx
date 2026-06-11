@@ -1,5 +1,5 @@
 import { getTripState } from '@/lib/tripState';
-import { buildNetStrokeBoard, buildStablefordBoard } from '@/lib/scoring';
+import { buildStrokeBoard, buildStablefordBoard } from '@/lib/scoring';
 import { DAY_LABELS, GAME_LABELS, SATURDAY_CONTESTS, SCRAMBLE_TEAMS } from '@/lib/constants';
 import { Round, Player } from '@/lib/types';
 import TierBadge, { TierLegend } from '@/components/TierBadge';
@@ -38,33 +38,27 @@ function PlayerCell({ player, showTier = true }: { player: Player; showTier?: bo
   );
 }
 
-function NetStrokeBoard({ players, round }: { players: Player[]; round: Round }) {
-  const entries = buildNetStrokeBoard(players, round);
+function StrokeBoard({ players, round }: { players: Player[]; round: Round }) {
+  const entries = buildStrokeBoard(players, round);
   return (
     <div className="-mx-1 overflow-x-auto overscroll-x-contain px-1">
-      <table className="w-full min-w-[340px] border-collapse text-sm">
+      <table className="w-full min-w-[280px] border-collapse text-sm">
         <thead>
           <tr className="bg-primary-dark text-[11px] uppercase tracking-wider text-accent-light">
             <th className={`${headerCell} text-left`}>#</th>
             <th className={`${headerCell} text-left`}>Player</th>
             <th className={`${headerCell} text-center`}>Gross</th>
-            <th className={`${headerCell} text-center`}>Strokes</th>
-            <th className={`${headerCell} text-center`}>Net</th>
           </tr>
         </thead>
         <tbody>
           {entries.map((entry, i) => {
-            const isLeader = i === 0 && entry.net !== null;
+            const isLeader = i === 0 && entry.gross !== null;
             return (
               <tr key={entry.player.id} className={leaderRowClass(isLeader)}>
                 <RankCell rank={i + 1} isLeader={isLeader} />
-                <PlayerCell player={entry.player} />
-                <td className={`${bodyCell} text-center tabular-nums`}>{entry.gross ?? '—'}</td>
-                <td className={`${bodyCell} text-center tabular-nums text-ink-soft dark:text-chalk/60`}>
-                  {entry.strokes}
-                </td>
+                <PlayerCell player={entry.player} showTier={false} />
                 <td className={`${bodyCell} text-center text-base font-bold tabular-nums text-copper dark:text-accent md:text-sm`}>
-                  {entry.net ?? '—'}
+                  {entry.gross ?? '—'}
                 </td>
               </tr>
             );
@@ -141,19 +135,18 @@ export default function BoardPage() {
         </p>
       </div>
 
-      {/* Friday — Net Stroke Play */}
+      {/* Friday — Stroke Play */}
       <section className="space-y-2">
         <div>
           <p className="eyebrow">{DAY_LABELS[friday.dayIndex]}</p>
           <h2 className="font-display text-xl font-bold">{GAME_LABELS[friday.game]}</h2>
           <p className="text-xs text-ink-soft dark:text-chalk/50">
-            {friday.courseName} · Tee: {friday.teeTime} · Lowest net wins
+            {friday.courseName} · Tee: {friday.teeTime} · Lowest gross wins
           </p>
         </div>
         <div className="card overflow-hidden">
-          <NetStrokeBoard players={players} round={friday} />
+          <StrokeBoard players={players} round={friday} />
         </div>
-        <TierLegend />
       </section>
 
       {/* Saturday — Stableford + contests */}
@@ -181,6 +174,7 @@ export default function BoardPage() {
         <p className="text-xs text-ink-soft/80 dark:text-chalk/40">
           Points: Eagle 4 · Birdie 3 · Par 2 · Bogey 1 · Net vs gross TBD
         </p>
+        <TierLegend />
       </section>
 
       {/* Sunday — Team Scramble */}

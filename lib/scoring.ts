@@ -72,27 +72,23 @@ export function stablefordTotal(scores: HoleScore[], pars: number[]): number | n
   return any ? total : null;
 }
 
-export type NetStrokeEntry = {
+export type StrokeEntry = {
   player: Player;
   gross: number | null;
-  strokes: number;
-  net: number | null;
 };
 
-/** Friday board: individual net stroke play, lowest net wins. */
-export function buildNetStrokeBoard(players: Player[], round: Round): NetStrokeEntry[] {
+/** Friday board: individual gross stroke play, lowest gross wins. */
+export function buildStrokeBoard(players: Player[], round: Round): StrokeEntry[] {
   return players
     .map((player) => {
       const pr = round.playerRounds.find((r) => r.playerId === player.id);
-      const gross = pr ? grossTotal(pr.scores) : null;
-      const strokes = strokesForTier(player.tier);
-      return { player, gross, strokes, net: gross === null ? null : gross - strokes };
+      return { player, gross: pr ? grossTotal(pr.scores) : null };
     })
     .sort((a, b) => {
-      if (a.net === null && b.net === null) return 0;
-      if (a.net === null) return 1;
-      if (b.net === null) return -1;
-      return a.net - b.net;
+      if (a.gross === null && b.gross === null) return 0;
+      if (a.gross === null) return 1;
+      if (b.gross === null) return -1;
+      return a.gross - b.gross;
     });
 }
 

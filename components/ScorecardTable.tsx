@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import { Player, Round } from '@/lib/types';
-import { sumPar, scoreRelativeToPar, strokesForTier, stablefordPoints } from '@/lib/scoring';
+import { sumPar, scoreRelativeToPar, stablefordPoints } from '@/lib/scoring';
 import TierBadge from './TierBadge';
 
 type ScorecardTableProps = {
@@ -170,12 +170,7 @@ export default function ScorecardTable({ round, players }: ScorecardTableProps) 
               <th className="px-2 py-3 text-center text-sm font-bold md:py-2 md:text-xs">GROSS</th>
               {isStableford ? (
                 <th className="px-2 py-3 text-center text-sm font-bold md:py-2 md:text-xs">PTS</th>
-              ) : (
-                <>
-                  <th className="px-2 py-3 text-center text-sm font-bold md:py-2 md:text-xs">STR</th>
-                  <th className="px-2 py-3 text-center text-sm font-bold md:py-2 md:text-xs">NET</th>
-                </>
-              )}
+              ) : null}
             </tr>
           </thead>
           <tbody>
@@ -184,15 +179,13 @@ export default function ScorecardTable({ round, players }: ScorecardTableProps) 
               const f = sumStrokesForRange(strokes, 1, 9);
               const b = sumStrokesForRange(strokes, 10, 18);
               const gross = f === null && b === null ? null : (f ?? 0) + (b ?? 0);
-              const allowance = strokesForTier(player.tier);
-              const net = gross === null ? null : gross - allowance;
               const points = pointsTotal(strokes);
               return (
                 <tr key={player.id} className="border-b border-linen dark:border-char-700">
                   <td className="px-2 py-3 text-sm font-medium md:py-2 md:text-xs">
                     <span className="flex items-center gap-1.5">
                       <span className="max-w-[6rem] truncate">{player.name}</span>
-                      <TierBadge tier={player.tier} />
+                      {isStableford ? <TierBadge tier={player.tier} /> : null}
                     </span>
                   </td>
                   <td className="px-2 py-3 text-center text-sm tabular-nums md:py-2 md:text-xs">{f ?? '—'}</td>
@@ -202,16 +195,7 @@ export default function ScorecardTable({ round, players }: ScorecardTableProps) 
                     <td className="px-2 py-3 text-center text-sm font-bold tabular-nums text-copper dark:text-accent md:py-2 md:text-xs">
                       {points ?? '—'}
                     </td>
-                  ) : (
-                    <>
-                      <td className="px-2 py-3 text-center text-sm text-ink-soft tabular-nums dark:text-chalk/60 md:py-2 md:text-xs">
-                        {allowance}
-                      </td>
-                      <td className="px-2 py-3 text-center text-sm font-bold tabular-nums text-copper dark:text-accent md:py-2 md:text-xs">
-                        {net ?? '—'}
-                      </td>
-                    </>
-                  )}
+                  ) : null}
                 </tr>
               );
             })}
