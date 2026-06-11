@@ -38,9 +38,14 @@ nav label "Board") shows three sections, one per day:
 3. **Sunday — Team scramble.** No individual handicaps or cards; teams in
    `SCRAMBLE_TEAMS` (empty until drafted → placeholder UI).
 
-Presentation rule: tiers are always framed as **stroke allowances to balance stroke
-play** (badges via `components/TierBadge.tsx`, legend via `TierLegend`). Never display
-them as "+N" or anything implying strokes are added to a score.
+Presentation rules:
+- **Tiers are data-only** — A/B/HM badges and the stroke-allowance legend were removed
+  from the UI entirely (June 2026). `Player.tier` and `TIER_STROKES` remain in the model
+  in case Saturday's Stableford goes net. If tiers ever resurface in UI, frame them as
+  stroke allowances, never as "+N" added to a score.
+- Hole scores use classic card notation (`cellNotationClass` in `ScorecardTable`):
+  birdie circled, eagle+ double-circled, bogey squared, double bogey+ double-squared,
+  par plain.
 
 ### Still undecided (kept as single constants so they're one-line changes)
 

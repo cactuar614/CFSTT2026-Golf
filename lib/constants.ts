@@ -26,13 +26,6 @@ export const TIER_STROKES: Record<Tier, number> = {
   M: 18,
 };
 
-/** Short badge label per tier ('M' is Hippy Mike's own allowance). */
-export const TIER_BADGES: Record<Tier, string> = {
-  A: 'A',
-  B: 'B',
-  M: 'HM',
-};
-
 export const GAME_LABELS: Record<GameType, string> = {
   stroke: 'Individual Stroke Play',
   stableford: 'Stableford',
