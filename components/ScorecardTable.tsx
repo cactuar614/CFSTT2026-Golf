@@ -43,6 +43,8 @@ export default function ScorecardTable({ round, players }: ScorecardTableProps) 
     return map;
   }, [round.playerRounds]);
 
+  const isStableford = round.game === 'stableford';
+
   const pointsTotal = (strokes: Array<number | null>): number | null => {
     let total = 0;
     let any = false;
@@ -175,7 +177,9 @@ export default function ScorecardTable({ round, players }: ScorecardTableProps) 
               <th className="px-2 py-3 text-center text-sm font-bold md:py-2 md:text-xs">OUT</th>
               <th className="px-2 py-3 text-center text-sm font-bold md:py-2 md:text-xs">IN</th>
               <th className="px-2 py-3 text-center text-sm font-bold md:py-2 md:text-xs">GROSS</th>
-              <th className="px-2 py-3 text-center text-sm font-bold md:py-2 md:text-xs">PTS</th>
+              {isStableford ? (
+                <th className="px-2 py-3 text-center text-sm font-bold md:py-2 md:text-xs">PTS</th>
+              ) : null}
             </tr>
           </thead>
           <tbody>
@@ -193,9 +197,11 @@ export default function ScorecardTable({ round, players }: ScorecardTableProps) 
                   <td className="px-2 py-3 text-center text-sm tabular-nums md:py-2 md:text-xs">{f ?? '—'}</td>
                   <td className="px-2 py-3 text-center text-sm tabular-nums md:py-2 md:text-xs">{b ?? '—'}</td>
                   <td className="px-2 py-3 text-center text-sm font-bold tabular-nums md:py-2 md:text-xs">{gross ?? '—'}</td>
-                  <td className="px-2 py-3 text-center text-sm font-bold tabular-nums text-copper dark:text-accent md:py-2 md:text-xs">
-                    {points ?? '—'}
-                  </td>
+                  {isStableford ? (
+                    <td className="px-2 py-3 text-center text-sm font-bold tabular-nums text-copper dark:text-accent md:py-2 md:text-xs">
+                      {points ?? '—'}
+                    </td>
+                  ) : null}
                 </tr>
               );
             })}
