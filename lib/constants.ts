@@ -16,6 +16,8 @@ export const LODGING = {
 
 /**
  * Stroke allowances per round, by tier. Net = Gross − strokes.
+ * Currently only relevant if Saturday's Stableford goes net (TBD) —
+ * Friday is plain gross stroke play.
  * Final values pending confirmation (B may become 8, M may become 20).
  */
 export const TIER_STROKES: Record<Tier, number> = {
@@ -32,7 +34,7 @@ export const TIER_BADGES: Record<Tier, string> = {
 };
 
 export const GAME_LABELS: Record<GameType, string> = {
-  'net-stroke': 'Individual Net Stroke Play',
+  stroke: 'Individual Stroke Play',
   stableford: 'Stableford',
   scramble: 'Team Scramble',
 };
@@ -61,7 +63,7 @@ export const DEFAULT_SCHEDULE: TripDay[] = [
       'AC Hotel Louisville Downtown — check-in (confirmed)',
       'Champions Pointe Golf Club',
       'Tee time: 12:30 PM',
-      'Game: Individual net stroke play',
+      'Game: Individual stroke play',
       'Dinner',
     ],
   },
@@ -99,7 +101,7 @@ export const DEFAULT_ROUNDS: Round[] = [
     courseName: 'Champions Pointe Golf Club',
     coursePar: [...DEFAULT_PAR],
     teeTime: '12:30 PM',
-    game: 'net-stroke',
+    game: 'stroke',
     playerRounds: [],
     mapUrl: 'https://www.google.com/maps/search/?api=1&query=Champions+Pointe+Golf+Club+Louisville',
   },

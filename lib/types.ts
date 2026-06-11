@@ -2,7 +2,7 @@
 export type Tier = 'A' | 'B' | 'M';
 
 /** Scoring format for a round. */
-export type GameType = 'net-stroke' | 'stableford' | 'scramble';
+export type GameType = 'stroke' | 'stableford' | 'scramble';
 
 export type Player = {
   id: string;

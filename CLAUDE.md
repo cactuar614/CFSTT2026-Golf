@@ -25,15 +25,16 @@ lodging, scores), edit `lib/constants.ts` and redeploy.
 self-contained game with its own winner. The Board page (`app/leaderboard/page.tsx`,
 nav label "Board") shows three sections, one per day:
 
-1. **Friday — Individual net stroke play.** Handicaps are simplified into stroke-allowance
-   tiers (`Player.tier`, strokes in `TIER_STROKES` in constants):
+1. **Friday — Individual stroke play, GROSS.** No tiers, no strokes — lowest gross wins.
+   Tier badges/legend are intentionally absent from the Friday board and scorecard.
+2. **Saturday — Stableford** (eagle 4 · birdie 3 · par 2 · bogey 1 · worse 0), most points
+   wins, **plus Longest Drive and Closest to the Pin** contests (winner slots in
+   `SATURDAY_CONTESTS`, null until decided on the course). Players still carry
+   stroke-allowance tiers (`Player.tier`, values in `TIER_STROKES`) which only matter
+   here, if Stableford goes net (TBD):
    - **A = 0 strokes:** Matt Huber, Adam Wakeland, Alex Rogers, Matt Sweeney, Kevin OCallahan
    - **B = 7 strokes/round:** Jason Karns, Mike Kennedy
    - **M ("HM") = 18 strokes/round:** Hippy Mike (his own number, not a real tier)
-   - Net = Gross − strokes. Lowest net wins.
-2. **Saturday — Stableford** (eagle 4 · birdie 3 · par 2 · bogey 1 · worse 0), most points
-   wins, **plus Longest Drive and Closest to the Pin** contests (winner slots in
-   `SATURDAY_CONTESTS`, null until decided on the course).
 3. **Sunday — Team scramble.** No individual handicaps or cards; teams in
    `SCRAMBLE_TEAMS` (empty until drafted → placeholder UI).
 
