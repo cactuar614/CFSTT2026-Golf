@@ -48,15 +48,22 @@ export const SATURDAY_CONTESTS: { label: string; winner: string | null }[] = [
 /** Sunday scramble teams — empty until drafted. */
 export const SCRAMBLE_TEAMS: ScrambleTeam[] = [];
 
-export const DEFAULT_PAR: number[] = [
-  4, 4, 4, 4, 4, 4, 4, 4, 4, // Front 9
-  4, 4, 4, 4, 4, 4, 4, 4, 4, // Back 9
+/** Real card: front 36 / back 36, par 72. */
+export const CHAMPIONS_POINTE_PAR: number[] = [
+  4, 3, 5, 3, 4, 5, 4, 4, 4, // Front 9 — 36
+  4, 3, 5, 4, 4, 3, 5, 4, 4, // Back 9 — 36
 ];
 
 /** Real card (iga.bluegolf.com): front 36 / back 36, par 72. */
 export const COVERED_BRIDGE_PAR: number[] = [
   4, 4, 3, 4, 5, 4, 4, 3, 5, // Front 9 — 36
   4, 4, 3, 4, 5, 4, 4, 3, 5, // Back 9 — 36
+];
+
+/** Real card: front 36 / back 36, par 72. */
+export const VALLEY_VIEW_PAR: number[] = [
+  4, 3, 5, 4, 3, 4, 5, 4, 4, // Front 9 — 36
+  4, 4, 3, 4, 5, 3, 5, 4, 4, // Back 9 — 36
 ];
 
 export const DEFAULT_SCHEDULE: TripDay[] = [
@@ -105,7 +112,7 @@ export const DEFAULT_ROUNDS: Round[] = [
     id: 'round-1',
     dayIndex: 0,
     courseName: 'Champions Pointe Golf Club',
-    coursePar: [...DEFAULT_PAR],
+    coursePar: [...CHAMPIONS_POINTE_PAR],
     teeTime: '12:30 PM',
     game: 'stroke',
     playerRounds: [],
@@ -125,7 +132,7 @@ export const DEFAULT_ROUNDS: Round[] = [
     id: 'round-3',
     dayIndex: 2,
     courseName: 'Valley View Golf Club',
-    coursePar: [...DEFAULT_PAR],
+    coursePar: [...VALLEY_VIEW_PAR],
     teeTime: '11:00 AM',
     game: 'scramble',
     playerRounds: [],
