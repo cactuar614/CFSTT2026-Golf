@@ -1,4 +1,5 @@
-import { HoleScore, PlayerRound, Round, Player } from './types';
+import { HoleScore, Round, Player, Tier } from './types';
+import { TIER_STROKES } from './constants';
 
 export function sumStrokes(scores: HoleScore[], from: number, to: number): number | null {
   const slice = scores.filter((s) => s.hole >= from && s.hole <= to);
@@ -23,10 +24,15 @@ export function grossTotal(scores: HoleScore[]): number | null {
   return (f ?? 0) + (b ?? 0);
 }
 
-export function netTotal(scores: HoleScore[], handicap: number): number | null {
+/** Per-round stroke allowance for a tier. Net = Gross − strokes. */
+export function strokesForTier(tier: Tier): number {
+  return TIER_STROKES[tier];
+}
+
+export function netTotal(scores: HoleScore[], tier: Tier): number | null {
   const gross = grossTotal(scores);
   if (gross === null) return null;
-  return gross - handicap;
+  return gross - strokesForTier(tier);
 }
 
 export function sumPar(pars: number[], from: number, to: number): number {
@@ -38,43 +44,74 @@ export function scoreRelativeToPar(strokes: number | null, par: number): number 
   return strokes - par;
 }
 
-export type LeaderboardEntry = {
+/**
+ * Standard Stableford points for one hole (gross; net vs gross still TBD):
+ * albatross 5 · eagle 4 · birdie 3 · par 2 · bogey 1 · worse 0.
+ */
+export function stablefordPoints(strokes: number | null, par: number): number | null {
+  if (strokes === null) return null;
+  const diff = strokes - par;
+  if (diff <= -3) return 5;
+  if (diff === -2) return 4;
+  if (diff === -1) return 3;
+  if (diff === 0) return 2;
+  if (diff === 1) return 1;
+  return 0;
+}
+
+export function stablefordTotal(scores: HoleScore[], pars: number[]): number | null {
+  let total = 0;
+  let any = false;
+  for (const s of scores) {
+    const points = stablefordPoints(s.strokes, pars[s.hole - 1]);
+    if (points !== null) {
+      total += points;
+      any = true;
+    }
+  }
+  return any ? total : null;
+}
+
+export type NetStrokeEntry = {
   player: Player;
-  roundNets: (number | null)[];
-  totalNet: number | null;
-  totalGross: number | null;
+  gross: number | null;
+  strokes: number;
+  net: number | null;
 };
 
-export function buildLeaderboard(players: Player[], rounds: Round[]): LeaderboardEntry[] {
+/** Friday board: individual net stroke play, lowest net wins. */
+export function buildNetStrokeBoard(players: Player[], round: Round): NetStrokeEntry[] {
   return players
     .map((player) => {
-      const roundNets: (number | null)[] = [];
-      let totalNetSum: number | null = null;
-      let totalGrossSum: number | null = null;
-
-      for (const round of rounds) {
-        const pr = round.playerRounds.find((pr) => pr.playerId === player.id);
-        if (!pr) {
-          roundNets.push(null);
-          continue;
-        }
-        const gross = grossTotal(pr.scores);
-        const net = netTotal(pr.scores, player.handicap);
-        roundNets.push(net);
-        if (gross !== null) {
-          totalGrossSum = (totalGrossSum ?? 0) + gross;
-        }
-        if (net !== null) {
-          totalNetSum = (totalNetSum ?? 0) + net;
-        }
-      }
-
-      return { player, roundNets, totalNet: totalNetSum, totalGross: totalGrossSum };
+      const pr = round.playerRounds.find((r) => r.playerId === player.id);
+      const gross = pr ? grossTotal(pr.scores) : null;
+      const strokes = strokesForTier(player.tier);
+      return { player, gross, strokes, net: gross === null ? null : gross - strokes };
     })
     .sort((a, b) => {
-      if (a.totalNet === null && b.totalNet === null) return 0;
-      if (a.totalNet === null) return 1;
-      if (b.totalNet === null) return -1;
-      return a.totalNet - b.totalNet;
+      if (a.net === null && b.net === null) return 0;
+      if (a.net === null) return 1;
+      if (b.net === null) return -1;
+      return a.net - b.net;
+    });
+}
+
+export type StablefordEntry = {
+  player: Player;
+  points: number | null;
+};
+
+/** Saturday board: Stableford points, highest wins. */
+export function buildStablefordBoard(players: Player[], round: Round): StablefordEntry[] {
+  return players
+    .map((player) => {
+      const pr = round.playerRounds.find((r) => r.playerId === player.id);
+      return { player, points: pr ? stablefordTotal(pr.scores, round.coursePar) : null };
+    })
+    .sort((a, b) => {
+      if (a.points === null && b.points === null) return 0;
+      if (a.points === null) return 1;
+      if (b.points === null) return -1;
+      return b.points - a.points;
     });
 }

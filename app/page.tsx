@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { getTripState } from '@/lib/tripState';
-import { TRIP_NAME, TRIP_DATES, TRIP_LOCATION, DAY_LABELS } from '@/lib/constants';
+import { TRIP_NAME, TRIP_DATES, TRIP_LOCATION, DAY_LABELS, GAME_LABELS } from '@/lib/constants';
 import { formatTripDayDate } from '@/lib/formatTrip';
 import StatusBanner from '@/components/StatusBanner';
 import LodgingCard from '@/components/LodgingCard';
@@ -39,7 +39,7 @@ export default function Dashboard() {
           <span>&#9670;</span>
           <span className="h-px flex-1 bg-accent/50" />
         </div>
-        <p className="mt-3 text-sm text-cream/80">{TRIP_DATES} &middot; Three rounds, one champion</p>
+        <p className="mt-3 text-sm text-cream/80">{TRIP_DATES} &middot; Three days, three games</p>
       </header>
 
       <LodgingCard />
@@ -118,7 +118,9 @@ export default function Dashboard() {
                         {day.city ? ` · ${day.city}` : ''}
                       </p>
                     ) : null}
-                    <p className="text-xs text-ink-soft/80 dark:text-chalk/50">Tee: {round.teeTime}</p>
+                    <p className="text-xs text-ink-soft/80 dark:text-chalk/50">
+                      Tee: {round.teeTime} · {GAME_LABELS[round.game]}
+                    </p>
                   </div>
                   <span className="hidden shrink-0 text-xs text-ink-soft/80 dark:text-chalk/50 sm:block">
                     {DAY_LABELS[round.dayIndex]}

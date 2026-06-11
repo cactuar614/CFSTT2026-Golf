@@ -1,7 +1,13 @@
+/** Stroke-allowance tier: A/B buckets plus 'M' = Hippy Mike's own number. */
+export type Tier = 'A' | 'B' | 'M';
+
+/** Scoring format for a round. */
+export type GameType = 'net-stroke' | 'stableford' | 'scramble';
+
 export type Player = {
   id: string;
   name: string;
-  handicap: number;
+  tier: Tier;
 };
 
 export type HoleScore = {
@@ -20,9 +26,15 @@ export type Round = {
   courseName: string;
   coursePar: number[]; // 18 entries, par for each hole
   teeTime: string;
+  game: GameType;
   playerRounds: PlayerRound[];
   /** External map URL (e.g. Google Maps search link). */
   mapUrl?: string;
+};
+
+export type ScrambleTeam = {
+  name: string;
+  playerIds: string[];
 };
 
 export type TripDay = {

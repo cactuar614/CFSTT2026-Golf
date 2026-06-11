@@ -4,7 +4,7 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { getTripState } from '@/lib/tripState';
 import { HoleScore, PlayerRound } from '@/lib/types';
-import { DAY_LABELS } from '@/lib/constants';
+import { DAY_LABELS, GAME_LABELS, SCRAMBLE_TEAMS } from '@/lib/constants';
 import { formatTripDayDate } from '@/lib/formatTrip';
 import ScorecardTable from '@/components/ScorecardTable';
 
@@ -73,11 +73,24 @@ export default function RoundScorecardClient() {
             <p className="text-sm">
               <span className="font-semibold">Tee time:</span> {round.teeTime}
             </p>
+            <p className="text-sm">
+              <span className="font-semibold">Game:</span> {GAME_LABELS[round.game]}
+            </p>
           </div>
         ) : null}
       </div>
 
-      <ScorecardTable round={roundWithAllPlayers} players={state.players} />
+      {round.game === 'scramble' && SCRAMBLE_TEAMS.length === 0 ? (
+        <div className="card p-6 text-center">
+          <p className="font-display text-lg font-bold">Team Scramble</p>
+          <p className="mt-1 text-sm text-ink-soft dark:text-chalk/60">
+            No individual cards for Sunday — teams are still to be drafted. Team scorecards will
+            appear here once they're set.
+          </p>
+        </div>
+      ) : (
+        <ScorecardTable round={roundWithAllPlayers} players={state.players} />
+      )}
     </div>
   );
 }
