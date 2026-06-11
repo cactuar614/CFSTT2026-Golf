@@ -3,6 +3,7 @@ import { buildStrokeBoard, buildStablefordBoard } from '@/lib/scoring';
 import { DAY_LABELS, GAME_LABELS, SATURDAY_CONTESTS, SCRAMBLE_TEAMS } from '@/lib/constants';
 import { Round, Player } from '@/lib/types';
 import TierBadge, { TierLegend } from '@/components/TierBadge';
+import StablefordKey from '@/components/StablefordKey';
 
 const headerCell = 'px-3 py-3 md:py-2';
 const bodyCell = 'px-3 py-3 md:py-2';
@@ -158,6 +159,7 @@ export default function BoardPage() {
             {saturday.courseName} · Tee: {saturday.teeTime} · Most points wins
           </p>
         </div>
+        <StablefordKey />
         <div className="card overflow-hidden">
           <StablefordBoard players={players} round={saturday} />
         </div>
@@ -171,9 +173,6 @@ export default function BoardPage() {
             </div>
           ))}
         </div>
-        <p className="text-xs text-ink-soft/80 dark:text-chalk/40">
-          Points: Eagle 4 · Birdie 3 · Par 2 · Bogey 1 · Net vs gross TBD
-        </p>
         <TierLegend />
       </section>
 
