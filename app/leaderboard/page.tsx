@@ -2,7 +2,6 @@ import { getTripState } from '@/lib/tripState';
 import { buildStrokeBoard, buildStablefordBoard } from '@/lib/scoring';
 import { DAY_LABELS, GAME_LABELS, SATURDAY_CONTESTS, SCRAMBLE_TEAMS } from '@/lib/constants';
 import { Round, Player } from '@/lib/types';
-import TierBadge, { TierLegend } from '@/components/TierBadge';
 import StablefordKey from '@/components/StablefordKey';
 
 const headerCell = 'px-3 py-3 md:py-2';
@@ -28,13 +27,10 @@ function RankCell({ rank, isLeader }: { rank: number; isLeader: boolean }) {
   );
 }
 
-function PlayerCell({ player, showTier = true }: { player: Player; showTier?: boolean }) {
+function PlayerCell({ player }: { player: Player }) {
   return (
     <td className={`${bodyCell} font-medium`}>
-      <span className="flex items-center gap-1.5">
-        <span className="max-w-[8.5rem] truncate">{player.name}</span>
-        {showTier ? <TierBadge tier={player.tier} /> : null}
-      </span>
+      <span className="block max-w-[10rem] truncate">{player.name}</span>
     </td>
   );
 }
@@ -57,7 +53,7 @@ function StrokeBoard({ players, round }: { players: Player[]; round: Round }) {
             return (
               <tr key={entry.player.id} className={leaderRowClass(isLeader)}>
                 <RankCell rank={i + 1} isLeader={isLeader} />
-                <PlayerCell player={entry.player} showTier={false} />
+                <PlayerCell player={entry.player} />
                 <td className={`${bodyCell} text-center text-base font-bold tabular-nums text-copper dark:text-accent md:text-sm`}>
                   {entry.gross ?? '—'}
                 </td>
@@ -173,7 +169,6 @@ export default function BoardPage() {
             </div>
           ))}
         </div>
-        <TierLegend />
       </section>
 
       {/* Sunday — Team Scramble */}

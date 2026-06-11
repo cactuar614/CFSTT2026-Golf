@@ -2,22 +2,28 @@
 
 import { useMemo } from 'react';
 import { Player, Round } from '@/lib/types';
-import { sumPar, scoreRelativeToPar, stablefordPoints } from '@/lib/scoring';
-import TierBadge from './TierBadge';
+import { sumPar, stablefordPoints } from '@/lib/scoring';
 
 type ScorecardTableProps = {
   round: Round;
   players: Player[];
 };
 
-function cellColorClass(strokes: number | null, par: number): string {
-  if (strokes === null) return '';
-  const diff = scoreRelativeToPar(strokes, par);
-  if (diff === null) return '';
-  if (diff <= -1) return 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-400';
-  if (diff === 0) return 'bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400';
-  if (diff === 1) return 'bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400';
-  return 'bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300';
+/**
+ * Classic card notation: birdie circled, eagle+ double-circled,
+ * bogey squared, double bogey+ double-squared, par plain.
+ */
+function cellNotationClass(strokes: number | null, par: number): string {
+  if (strokes === null) return 'rounded-md border border-linen dark:border-char-600';
+  const diff = strokes - par;
+  if (diff <= -2)
+    return 'rounded-full border-2 border-red-500 text-red-600 outline outline-1 outline-offset-1 outline-red-500 dark:border-red-400 dark:text-red-400 dark:outline-red-400';
+  if (diff === -1)
+    return 'rounded-full border-2 border-red-500 text-red-600 dark:border-red-400 dark:text-red-400';
+  if (diff === 0) return 'font-semibold';
+  if (diff === 1)
+    return 'rounded-sm border-2 border-blue-500 text-blue-600 dark:border-blue-400 dark:text-blue-400';
+  return 'rounded-sm border-2 border-blue-500 text-blue-600 outline outline-1 outline-offset-1 outline-blue-500 dark:border-blue-400 dark:text-blue-400 dark:outline-blue-400';
 }
 
 export default function ScorecardTable({ round, players }: ScorecardTableProps) {
@@ -36,8 +42,6 @@ export default function ScorecardTable({ round, players }: ScorecardTableProps) 
     }
     return map;
   }, [round.playerRounds]);
-
-  const isStableford = round.game === 'stableford';
 
   const pointsTotal = (strokes: Array<number | null>): number | null => {
     let total = 0;
@@ -115,7 +119,7 @@ export default function ScorecardTable({ round, players }: ScorecardTableProps) 
                   return (
                     <td key={h} className="px-0.5 py-1.5 text-center md:py-1">
                       <span
-                        className={`inline-flex h-11 w-11 items-center justify-center rounded-md border border-linen text-base tabular-nums dark:border-char-600 md:h-8 md:w-10 md:text-sm ${cellColorClass(v, par)}`}
+                        className={`inline-flex h-10 w-10 items-center justify-center text-base tabular-nums md:h-8 md:w-8 md:text-sm ${cellNotationClass(v, par)}`}
                       >
                         {v ?? '—'}
                       </span>
@@ -158,6 +162,9 @@ export default function ScorecardTable({ round, players }: ScorecardTableProps) 
       <div>
         <h3 className="eyebrow mb-1">Back 9</h3>
         {renderHalf(backHoles, 'IN')}
+        <p className="mt-2 text-xs text-ink-soft/80 dark:text-chalk/40">
+          Circle = birdie (double circle = eagle+) · Square = bogey (double square = double bogey+)
+        </p>
       </div>
 
       <div className="-mx-1 overflow-x-auto overscroll-x-contain px-1">
@@ -180,11 +187,8 @@ export default function ScorecardTable({ round, players }: ScorecardTableProps) 
               const points = pointsTotal(strokes);
               return (
                 <tr key={player.id} className="border-b border-linen dark:border-char-700">
-                  <td className="px-2 py-3 text-sm font-medium md:py-2 md:text-xs">
-                    <span className="flex items-center gap-1.5">
-                      <span className="max-w-[6rem] truncate">{player.name}</span>
-                      {isStableford ? <TierBadge tier={player.tier} /> : null}
-                    </span>
+                  <td className="max-w-[7rem] truncate px-2 py-3 text-sm font-medium md:py-2 md:text-xs">
+                    {player.name}
                   </td>
                   <td className="px-2 py-3 text-center text-sm tabular-nums md:py-2 md:text-xs">{f ?? '—'}</td>
                   <td className="px-2 py-3 text-center text-sm tabular-nums md:py-2 md:text-xs">{b ?? '—'}</td>
