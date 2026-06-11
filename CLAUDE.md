@@ -64,8 +64,8 @@ Sans 3 (body) via `next/font`. Shared classes in `globals.css`: `.card`, `.eyebr
 ## Conventions
 
 - `npm run build` must pass before pushing (static export of all pages).
-- Individual scorecards (Friday & Saturday) show both GROSS and Stableford PTS totals,
-  with the points key on top; only the Board scores each day in its own game's terms.
+- Stableford (PTS column + points key) appears ONLY on Saturday's round; Friday's
+  scorecard is gross-only. Each day is shown strictly in its own game's terms.
 - All three courses use their real cards (`CHAMPIONS_POINTE_PAR`, `COVERED_BRIDGE_PAR`,
   `VALLEY_VIEW_PAR` — each 36/36, par 72).
 - Scores live in `Round.playerRounds` (empty = dashes everywhere until entered).
