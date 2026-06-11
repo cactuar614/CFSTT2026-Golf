@@ -87,9 +87,10 @@ export const DEFAULT_PLAYERS: Player[] = [
   { id: 'player-2', name: 'Adam Wakeland', handicap: 12 },
   { id: 'player-3', name: 'Jason Karns', handicap: 18 },
   { id: 'player-4', name: 'Mike Kennedy', handicap: 20 },
-  { id: 'player-5', name: 'Matt Lanning', handicap: 25 },
+  { id: 'player-5', name: 'Matt Sweeney', handicap: 15 },
   { id: 'player-6', name: 'Hippy Mike', handicap: 36 },
   { id: 'player-7', name: 'Alex Rogers', handicap: 12 },
+  { id: 'player-8', name: 'Kevin OCallahan', handicap: 15 },
 ];
 
 export const DAY_LABELS = [
