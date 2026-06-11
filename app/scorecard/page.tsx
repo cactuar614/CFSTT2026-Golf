@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { getTripState } from '@/lib/tripState';
-import { DAY_LABELS } from '@/lib/constants';
+import { DAY_LABELS, GAME_LABELS } from '@/lib/constants';
 import { formatTripDayDate } from '@/lib/formatTrip';
 
 export default function ScorecardIndexPage() {
@@ -43,6 +43,9 @@ export default function ScorecardIndexPage() {
                       </>
                     ) : null}
                     <p className="text-sm text-ink-soft dark:text-chalk/60">Tee: {round.teeTime}</p>
+                    <p className="text-sm font-semibold text-primary dark:text-accent">
+                      {GAME_LABELS[round.game]}
+                    </p>
                   </div>
                   <div className="shrink-0 text-right sm:pt-1">
                     <div className="text-sm font-semibold text-copper dark:text-accent">Open scorecard →</div>
