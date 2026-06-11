@@ -1,15 +1,9 @@
-const CACHE_NAME = 'cfstt-golf-v1';
-const BASE_PATH = '/CFSTT2026-Golf';
+const CACHE_NAME = 'cfstt-golf-v2';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll([
-        `${BASE_PATH}/`,
-        `${BASE_PATH}/schedule`,
-        `${BASE_PATH}/scorecard`,
-        `${BASE_PATH}/leaderboard`,
-      ]);
+      return cache.addAll(['/', '/schedule', '/scorecard', '/leaderboard']);
     })
   );
   self.skipWaiting();

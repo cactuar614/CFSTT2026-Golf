@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:ios": "NEXT_PUBLIC_BASE_PATH='' next build",
+    "build:ios": "next build",
     "cap:sync": "npx cap sync",
     "start": "next start",
     "lint": "next lint"
