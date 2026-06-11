@@ -7,6 +7,7 @@ import { HoleScore, PlayerRound } from '@/lib/types';
 import { DAY_LABELS, GAME_LABELS, SCRAMBLE_TEAMS } from '@/lib/constants';
 import { formatTripDayDate } from '@/lib/formatTrip';
 import ScorecardTable from '@/components/ScorecardTable';
+import StablefordKey from '@/components/StablefordKey';
 
 function ensurePlayerRound(playerId: string): PlayerRound {
   const scores: HoleScore[] = Array.from({ length: 18 }, (_, i) => ({
@@ -78,6 +79,8 @@ export default function RoundScorecardClient() {
             </p>
           </div>
         ) : null}
+
+        {round.game === 'stableford' ? <StablefordKey /> : null}
       </div>
 
       {round.game === 'scramble' && SCRAMBLE_TEAMS.length === 0 ? (
