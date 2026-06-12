@@ -39,7 +39,7 @@ export default function Dashboard() {
           <span>&#9670;</span>
           <span className="h-px flex-1 bg-accent/50" />
         </div>
-        <p className="mt-3 text-sm text-cream/80">{TRIP_DATES} &middot; Three days, three games</p>
+        <p className="mt-3 text-sm text-cream/80">{TRIP_DATES}</p>
       </header>
 
       <LodgingCard />
