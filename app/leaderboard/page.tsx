@@ -138,7 +138,8 @@ export default function BoardPage() {
           <p className="eyebrow">{DAY_LABELS[friday.dayIndex]}</p>
           <h2 className="font-display text-xl font-bold">{GAME_LABELS[friday.game]}</h2>
           <p className="text-xs text-ink-soft dark:text-chalk/50">
-            {friday.courseName} · Tee: {friday.teeTime} · Lowest gross wins
+            {friday.courseName} · Tee: {friday.teeTime}
+            {friday.tees ? ` · ${friday.tees}` : ''} · Lowest gross wins
           </p>
         </div>
         <div className="card overflow-hidden">
@@ -178,7 +179,8 @@ export default function BoardPage() {
           <p className="eyebrow">{DAY_LABELS[sunday.dayIndex]}</p>
           <h2 className="font-display text-xl font-bold">{GAME_LABELS[sunday.game]}</h2>
           <p className="text-xs text-ink-soft dark:text-chalk/50">
-            {sunday.courseName} · Tee: {sunday.teeTime} · One ball, lowest team score wins
+            {sunday.courseName} · Tee: {sunday.teeTime}
+            {sunday.tees ? ` · ${sunday.tees}` : ''} · One ball, lowest team score wins
           </p>
         </div>
         <div className="card overflow-hidden">
