@@ -125,7 +125,6 @@ export default function BoardPage() {
   return (
     <div className="space-y-8">
       <div className="space-y-1">
-        <p className="eyebrow">Three days · three games</p>
         <h1 className="page-title">The Board</h1>
         <p className="text-sm text-ink-soft dark:text-chalk/60">
           Each day is its own game with its own winner — no cumulative standings.
