@@ -12,6 +12,16 @@ no admin UI. Pages are view-only and read everything via `getTripState()`
 (`lib/tripState.ts`). To change trip facts (players, courses, tee times, schedule,
 lodging, scores), edit `lib/constants.ts` and redeploy.
 
+## Auth
+
+Google sign-in via Auth.js / NextAuth v5 (`lib/auth.ts`, `middleware.ts`,
+`app/signin/page.tsx`). **Feature-flagged:** the site is public until
+`AUTH_SECRET` + `AUTH_GOOGLE_ID` + `AUTH_GOOGLE_SECRET` are set (Vercel env vars).
+Access is restricted to the hardcoded `ALLOWED_EMAILS` list in `lib/auth.ts`
+(server-side only — most golfer emails still TBD). JWT sessions, no database.
+Note: the Capacitor iOS shell serves static files directly, so middleware/auth
+does not gate it.
+
 ## Trip facts
 
 - Lodging: AC Hotel Louisville Downtown, Fri 7/31 – Sun 8/2, (4) two-queen rooms, 8 golfers (confirmed).
