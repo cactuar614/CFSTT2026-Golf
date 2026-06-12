@@ -74,6 +74,11 @@ export default function RoundScorecardClient() {
             <p className="text-sm">
               <span className="font-semibold">Tee time:</span> {round.teeTime}
             </p>
+            {round.tees ? (
+              <p className="text-sm">
+                <span className="font-semibold">Tees:</span> {round.tees}
+              </p>
+            ) : null}
             <p className="text-sm">
               <span className="font-semibold">Game:</span> {GAME_LABELS[round.game]}
             </p>

@@ -26,6 +26,8 @@ export type Round = {
   courseName: string;
   coursePar: number[]; // 18 entries, par for each hole
   teeTime: string;
+  /** Which tees the group is playing, e.g. "Gold — 6,453 yards". */
+  tees?: string;
   game: GameType;
   playerRounds: PlayerRound[];
   /** External map URL (e.g. Google Maps search link). */

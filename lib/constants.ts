@@ -34,8 +34,10 @@ export const GAME_LABELS: Record<GameType, string> = {
 
 /** Saturday side contests; fill in winner names once decided on the course. */
 export const SATURDAY_CONTESTS: { label: string; winner: string | null }[] = [
-  { label: 'Longest Drive', winner: null },
-  { label: 'Closest to the Pin', winner: null },
+  { label: 'Closest to the Pin — Hole 3', winner: null },
+  { label: 'Closest to the Pin — Hole 17', winner: null },
+  { label: 'Longest Drive — Hole 9', winner: null },
+  { label: 'Longest Drive — Hole 18', winner: null },
 ];
 
 /** Sunday scramble teams — empty until drafted. */
@@ -81,7 +83,8 @@ export const DEFAULT_SCHEDULE: TripDay[] = [
     activities: [
       'Covered Bridge Golf Club',
       'Tee time: 10:00 AM',
-      'Game: Stableford · Longest Drive & Closest to the Pin',
+      'Gold tees — 6,453 yards',
+      'Game: Stableford · 2× Longest Drive (9 & 18) · 2× Closest to the Pin (3 & 17)',
       'Night out and dinner',
     ],
   },
@@ -117,6 +120,7 @@ export const DEFAULT_ROUNDS: Round[] = [
     courseName: 'Covered Bridge Golf Club',
     coursePar: [...COVERED_BRIDGE_PAR],
     teeTime: '10:00 AM',
+    tees: 'Gold — 6,453 yards',
     game: 'stableford',
     playerRounds: [],
     mapUrl: 'https://www.google.com/maps/search/?api=1&query=Covered+Bridge+Golf+Club+Louisville',
