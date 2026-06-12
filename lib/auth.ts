@@ -15,7 +15,8 @@ export const authEnabled = Boolean(
  * Server-side only; never shipped to the client bundle.
  */
 const ALLOWED_EMAILS = [
-  'matt@pinhighadvisory.com', // Matt Huber
+  'huber.matt@gmail.com', // Matt Huber
+  'matt@pinhighadvisory.com', // Matt Huber (work)
   // 'adam@example.com',      // Adam Wakeland
   // 'jason@example.com',     // Jason Karns
   // 'mike@example.com',      // Mike Kennedy
