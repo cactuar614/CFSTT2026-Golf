@@ -29,7 +29,7 @@ export default function Dashboard() {
       <header className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-primary-dark to-primary px-6 py-8 text-center shadow-card">
         <div className="pointer-events-none absolute inset-2 rounded-xl border border-accent/40" aria-hidden />
         <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-accent-light">
-          Est. 2026 &middot; {TRIP_LOCATION}
+          Est. 2022 &middot; {TRIP_LOCATION}
         </p>
         <h1 className="mx-auto mt-2 max-w-md font-display text-3xl font-bold tracking-tight text-cream">
           {TRIP_NAME}
