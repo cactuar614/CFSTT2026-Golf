@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTheme } from '@/lib/ThemeContext';
 import { FlagIcon, CalendarIcon, ScorecardIcon, TrophyIcon, SunIcon, MoonIcon } from './icons';
+import UserBadge from './UserBadge';
 
 const tabs = [
   { href: '/', label: 'Home', Icon: FlagIcon },
@@ -59,6 +60,7 @@ export default function Navbar() {
           )}
           <span className="hidden leading-tight md:inline">Theme</span>
         </button>
+        <UserBadge className="ml-auto hidden self-center md:inline-flex" />
       </div>
     </nav>
   );
