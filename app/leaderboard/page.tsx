@@ -152,7 +152,8 @@ export default function BoardPage() {
           <p className="eyebrow">{DAY_LABELS[saturday.dayIndex]}</p>
           <h2 className="font-display text-xl font-bold">{GAME_LABELS[saturday.game]}</h2>
           <p className="text-xs text-ink-soft dark:text-chalk/50">
-            {saturday.courseName} · Tee: {saturday.teeTime} · Most points wins
+            {saturday.courseName} · Tee: {saturday.teeTime}
+            {saturday.tees ? ` · ${saturday.tees}` : ''} · Most points wins
           </p>
         </div>
         <StablefordKey />

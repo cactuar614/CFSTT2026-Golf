@@ -38,8 +38,10 @@ nav label "Board") shows three sections, one per day:
 1. **Friday — Individual stroke play, GROSS.** No tiers, no strokes — lowest gross wins.
    Tier badges/legend are intentionally absent from the Friday board and scorecard.
 2. **Saturday — Stableford** with custom points (double eagle 9 · eagle 6 · birdie 4 ·
-   par 2 · bogey 1 · double bogey+ 0), most points wins, **plus Longest Drive and Closest to the Pin** contests (winner slots in
-   `SATURDAY_CONTESTS`, null until decided on the course). Players still carry
+   par 2 · bogey 1 · double bogey+ 0), most points wins, **plus 2× Longest Drive
+   (holes 9 & 18) and 2× Closest to the Pin (holes 3 & 17)** contests (winner slots in
+   `SATURDAY_CONTESTS`, null until decided on the course). Playing the **Gold tees —
+   6,453 yards** (`Round.tees`). Players still carry
    stroke-allowance tiers (`Player.tier`, values in `TIER_STROKES`) which only matter
    here, if Stableford goes net (TBD):
    - **A = 0 strokes:** Matt Huber, Adam Wakeland, Alex Rogers, Matt Sweeney, Kevin OCallahan
