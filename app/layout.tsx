@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Playfair_Display, Source_Sans_3 } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
+import { MobileUserBar } from '@/components/UserBadge';
 import Providers from '@/components/Providers';
 import ServiceWorkerRegister from '@/components/ServiceWorkerRegister';
 import { Analytics } from '@vercel/analytics/react';
@@ -53,6 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Providers>
           <div className="md:pt-14">
             <main className="max-w-4xl mx-auto px-4 py-4 pt-[max(1rem,env(safe-area-inset-top,0px))] md:pt-4">
+              <MobileUserBar />
               {children}
             </main>
           </div>
