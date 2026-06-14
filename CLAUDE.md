@@ -26,8 +26,8 @@ does not gate it.
 
 - Lodging: AC Hotel Louisville Downtown, Fri 7/31 – Sun 8/2, (4) two-queen rooms, 8 golfers (confirmed).
 - Friday R1: Champions Pointe Golf Club, 12:30 PM — White tees, 6,484 yds.
-- Saturday R2: Covered Bridge Golf Club, 10:00 AM — Gold tees, 6,453 yds.
-- Sunday R3: Valley View Golf Club (Floyds Knobs, IN), 11:00 AM — Green tees, 6,508 yds.
+- Saturday R2: Covered Bridge Golf Club, 10:30 AM — Gold tees, 6,453 yds.
+- Sunday R3: Valley View Golf Club (Floyds Knobs, IN), 11:03 AM — Green tees, 6,508 yds.
 
 ## Scoring structure (decided June 2026)
 
