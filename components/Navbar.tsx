@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTheme } from '@/lib/ThemeContext';
-import { FlagIcon, CalendarIcon, ScorecardIcon, TrophyIcon, SunIcon, MoonIcon } from './icons';
+import { FlagIcon, CalendarIcon, ScorecardIcon, TrophyIcon, BookIcon, SunIcon, MoonIcon } from './icons';
 import UserBadge from './UserBadge';
 
 const tabs = [
@@ -11,6 +11,7 @@ const tabs = [
   { href: '/schedule', label: 'Schedule', Icon: CalendarIcon },
   { href: '/scorecard', label: 'Scores', Icon: ScorecardIcon },
   { href: '/leaderboard', label: 'Board', Icon: TrophyIcon },
+  { href: '/rules', label: 'Rules', Icon: BookIcon },
 ];
 
 const tabClass = (isActive: boolean) =>
