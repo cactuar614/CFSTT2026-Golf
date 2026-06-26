@@ -27,8 +27,8 @@ does not gate it.
 - Lodging: AC Hotel Louisville Downtown, Fri 7/31 – Sun 8/2, (4) two-queen rooms, 8 golfers (confirmed).
 - Friday R1: Champions Pointe Golf Club, 12:30 PM — White tees, 6,484 yds.
 - Saturday is **36 holes** across two rounds:
-  - R2: Covered Bridge Golf Club, 10:30 AM — Gold tees, 6,453 yds.
-  - R3: Hidden Creek Golf Club (Sellersburg, IN), afternoon — Gold tees (tee time & Gold yardage TBD; `HIDDEN_CREEK_PAR` is a par-72 placeholder, real per-hole card TBD).
+  - R2: Covered Bridge Golf Club, 8:00 AM — Gold tees, 6,453 yds (par 72).
+  - R3: Hidden Creek Golf Club (Sellersburg, IN), 1:30 PM (est.) — Gold tees, 6,282 yds, **par 70** (`HIDDEN_CREEK_PAR` is the real 35/35 card).
 - Sunday R4: Valley View Golf Club (Floyds Knobs, IN), 11:03 AM — Green tees, 6,508 yds.
 
 ## Scoring structure (decided June 2026)
@@ -83,7 +83,7 @@ Sans 3 (body) via `next/font`. Shared classes in `globals.css`: `.card`, `.eyebr
 - `npm run build` must pass before pushing (static export of all pages).
 - Stableford (PTS column + points key) appears ONLY on Saturday's two rounds; Friday's
   scorecard is gross-only. Each day is shown strictly in its own game's terms.
-- Courses use their real cards (`CHAMPIONS_POINTE_PAR`, `COVERED_BRIDGE_PAR`,
-  `VALLEY_VIEW_PAR` — each 36/36, par 72). `HIDDEN_CREEK_PAR` is a par-72 placeholder
-  until the real Hidden Creek card is confirmed.
+- Courses use their real cards: `CHAMPIONS_POINTE_PAR`, `COVERED_BRIDGE_PAR`,
+  `VALLEY_VIEW_PAR` are each 36/36 par 72; `HIDDEN_CREEK_PAR` is 35/35 **par 70**
+  (Gold tees, 6,282 yds). Nothing assumes par 72 — totals derive from `coursePar`.
 - Scores live in `Round.playerRounds` (empty = dashes everywhere until entered).

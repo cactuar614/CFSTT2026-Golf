@@ -55,14 +55,10 @@ export const COVERED_BRIDGE_PAR: number[] = [
   4, 4, 3, 4, 5, 4, 4, 3, 5, // Back 9 — 36
 ];
 
-/**
- * Hidden Creek (Sellersburg, IN) — Lake/Creek 18, par 72 total (confirmed).
- * Per-hole distribution below is still a placeholder (36/36) — swap in the real
- * Gold-tee card values once available. Saturday's afternoon round.
- */
+/** Real card (iga.bluegolf.com, Gold tees — 6,282 yds): front 35 / back 35, par 70. */
 export const HIDDEN_CREEK_PAR: number[] = [
-  4, 4, 4, 3, 5, 4, 4, 3, 5, // Front 9 — 36
-  4, 4, 4, 3, 5, 4, 4, 3, 5, // Back 9 — 36
+  4, 4, 4, 3, 4, 4, 5, 3, 4, // Front 9 — 35
+  4, 4, 3, 4, 4, 4, 4, 3, 5, // Back 9 — 35
 ];
 
 /** Real card: front 36 / back 36, par 72. */
@@ -93,9 +89,9 @@ export const DEFAULT_SCHEDULE: TripDay[] = [
     city: 'Louisville, KY',
     activities: [
       'Round 2 — Covered Bridge Golf Club',
-      'Tee time: 10:30 AM · Gold tees — 6,453 yards',
+      'Tee time: 8:00 AM · Gold tees — 6,453 yards',
       'Round 3 — Hidden Creek Golf Club (afternoon)',
-      'Tee time: TBD · Gold tees',
+      'Tee time: 1:30 PM (est.) · Gold tees — 6,282 yards (par 70)',
       'Game: Stableford both rounds',
       'Contests at Covered Bridge: 2× Longest Drive (9 & 18) · 2× Closest to the Pin (3 & 17)',
       'Night out and dinner',
@@ -134,7 +130,7 @@ export const DEFAULT_ROUNDS: Round[] = [
     dayIndex: 1,
     courseName: 'Covered Bridge Golf Club',
     coursePar: [...COVERED_BRIDGE_PAR],
-    teeTime: '10:30 AM',
+    teeTime: '8:00 AM',
     tees: 'Gold — 6,453 yards',
     game: 'stableford',
     playerRounds: [],
@@ -145,8 +141,8 @@ export const DEFAULT_ROUNDS: Round[] = [
     dayIndex: 1,
     courseName: 'Hidden Creek Golf Club',
     coursePar: [...HIDDEN_CREEK_PAR],
-    teeTime: 'TBD',
-    tees: 'Gold',
+    teeTime: '1:30 PM (est.)',
+    tees: 'Gold — 6,282 yards',
     game: 'stableford',
     playerRounds: [],
     mapUrl: 'https://www.google.com/maps/search/?api=1&query=Hidden+Creek+Golf+Club+Sellersburg',
