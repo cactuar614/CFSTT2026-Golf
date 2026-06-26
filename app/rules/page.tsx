@@ -21,7 +21,7 @@ const dayRules = [
       'Two rounds: Covered Bridge in the morning, Hidden Creek in the afternoon. Each is its own Stableford game.',
       'Points per hole: double eagle 9 · eagle 6 · birdie 4 · par 2 · bogey 1 · double bogey or worse 0.',
       '2× Longest Drive (holes 9 & 18) and 2× Closest to the Pin (holes 3 & 17) side contests at Covered Bridge.',
-      'Covered Bridge: Gold tees, 6,453 yards. Hidden Creek tees TBD.',
+      'Covered Bridge: Gold tees, 6,453 yards. Hidden Creek: Gold tees (yardage TBD).',
     ],
   },
   {
