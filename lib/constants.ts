@@ -55,6 +55,15 @@ export const COVERED_BRIDGE_PAR: number[] = [
   4, 4, 3, 4, 5, 4, 4, 3, 5, // Back 9 — 36
 ];
 
+/**
+ * Placeholder card — par 72 (36/36) until Hidden Creek's real scorecard is
+ * confirmed. Saturday's afternoon round; swap in the real par values here.
+ */
+export const HIDDEN_CREEK_PAR: number[] = [
+  4, 4, 4, 3, 5, 4, 4, 3, 5, // Front 9 — 36
+  4, 4, 4, 3, 5, 4, 4, 3, 5, // Back 9 — 36
+];
+
 /** Real card: front 36 / back 36, par 72. */
 export const VALLEY_VIEW_PAR: number[] = [
   4, 3, 5, 4, 3, 4, 5, 4, 4, // Front 9 — 36
@@ -78,20 +87,22 @@ export const DEFAULT_SCHEDULE: TripDay[] = [
   },
   {
     date: '2026-08-01',
-    label: 'Saturday — Louisville · Round 2',
-    description: 'Covered Bridge Golf Club',
+    label: 'Saturday — Louisville · 36 Holes (Rounds 2 & 3)',
+    description: 'Covered Bridge Golf Club, then Hidden Creek Golf Club',
     city: 'Louisville, KY',
     activities: [
-      'Covered Bridge Golf Club',
-      'Tee time: 10:30 AM',
-      'Gold tees — 6,453 yards',
-      'Game: Stableford · 2× Longest Drive (9 & 18) · 2× Closest to the Pin (3 & 17)',
+      'Round 2 — Covered Bridge Golf Club',
+      'Tee time: 10:30 AM · Gold tees — 6,453 yards',
+      'Round 3 — Hidden Creek Golf Club (afternoon)',
+      'Tee time: TBD · tees TBD',
+      'Game: Stableford both rounds',
+      'Contests at Covered Bridge: 2× Longest Drive (9 & 18) · 2× Closest to the Pin (3 & 17)',
       'Night out and dinner',
     ],
   },
   {
     date: '2026-08-02',
-    label: 'Sunday — Louisville · Round 3',
+    label: 'Sunday — Louisville · Round 4',
     description: 'Valley View Golf Club · Check-out',
     city: 'Louisville, KY',
     activities: [
@@ -130,6 +141,16 @@ export const DEFAULT_ROUNDS: Round[] = [
   },
   {
     id: 'round-3',
+    dayIndex: 1,
+    courseName: 'Hidden Creek Golf Club',
+    coursePar: [...HIDDEN_CREEK_PAR],
+    teeTime: 'TBD',
+    game: 'stableford',
+    playerRounds: [],
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Hidden+Creek+Golf+Club+Louisville',
+  },
+  {
+    id: 'round-4',
     dayIndex: 2,
     courseName: 'Valley View Golf Club',
     coursePar: [...VALLEY_VIEW_PAR],

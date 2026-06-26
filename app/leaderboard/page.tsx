@@ -1,8 +1,17 @@
 import { getTripState } from '@/lib/tripState';
 import { buildStrokeBoard, buildStablefordBoard } from '@/lib/scoring';
 import { DAY_LABELS, GAME_LABELS, SATURDAY_CONTESTS, SCRAMBLE_TEAMS } from '@/lib/constants';
-import { Round, Player } from '@/lib/types';
+import { Round, Player, GameType } from '@/lib/types';
 import StablefordKey from '@/components/StablefordKey';
+
+const WIN_CONDITION: Record<GameType, string> = {
+  stroke: 'Lowest gross wins',
+  stableford: 'Most points wins',
+  scramble: 'One ball, lowest team score wins',
+};
+
+/** Contests live at Covered Bridge only (Saturday's morning round). */
+const CONTEST_ROUND_ID = 'round-2';
 
 const headerCell = 'px-3 py-3 md:py-2';
 const bodyCell = 'px-3 py-3 md:py-2';
@@ -97,6 +106,27 @@ function StablefordBoard({ players, round }: { players: Player[]; round: Round }
   );
 }
 
+function RoundBoard({ players, round }: { players: Player[]; round: Round }) {
+  if (round.game === 'stroke') return <StrokeBoard players={players} round={round} />;
+  if (round.game === 'stableford') return <StablefordBoard players={players} round={round} />;
+  return <ScrambleBoard />;
+}
+
+function ContestList() {
+  return (
+    <div className="card divide-y divide-linen dark:divide-char-700">
+      {SATURDAY_CONTESTS.map((contest) => (
+        <div key={contest.label} className="flex items-center justify-between px-4 py-3 text-sm">
+          <span className="eyebrow">{contest.label}</span>
+          <span className={contest.winner ? 'font-semibold' : 'text-ink-soft dark:text-chalk/50'}>
+            {contest.winner ?? 'TBD on the course'}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function ScrambleBoard() {
   if (SCRAMBLE_TEAMS.length === 0) {
     return (
@@ -119,8 +149,11 @@ function ScrambleBoard() {
 
 export default function BoardPage() {
   const state = getTripState();
-  const [friday, saturday, sunday] = state.rounds;
   const players = state.players;
+
+  // Group rounds by their schedule day, preserving order. Saturday now holds
+  // two rounds (Covered Bridge + Hidden Creek = 36 holes).
+  const dayIndexes = Array.from(new Set(state.rounds.map((r) => r.dayIndex)));
 
   return (
     <div className="space-y-8">
@@ -131,61 +164,30 @@ export default function BoardPage() {
         </p>
       </div>
 
-      {/* Friday — Stroke Play */}
-      <section className="space-y-2">
-        <div>
-          <p className="eyebrow">{DAY_LABELS[friday.dayIndex]}</p>
-          <h2 className="font-display text-xl font-bold">{GAME_LABELS[friday.game]}</h2>
-          <p className="text-xs text-ink-soft dark:text-chalk/50">
-            {friday.courseName} · Tee: {friday.teeTime}
-            {friday.tees ? ` · ${friday.tees}` : ''} · Lowest gross wins
-          </p>
-        </div>
-        <div className="card overflow-hidden">
-          <StrokeBoard players={players} round={friday} />
-        </div>
-      </section>
-
-      {/* Saturday — Stableford + contests */}
-      <section className="space-y-2">
-        <div>
-          <p className="eyebrow">{DAY_LABELS[saturday.dayIndex]}</p>
-          <h2 className="font-display text-xl font-bold">{GAME_LABELS[saturday.game]}</h2>
-          <p className="text-xs text-ink-soft dark:text-chalk/50">
-            {saturday.courseName} · Tee: {saturday.teeTime}
-            {saturday.tees ? ` · ${saturday.tees}` : ''} · Most points wins
-          </p>
-        </div>
-        <StablefordKey />
-        <div className="card overflow-hidden">
-          <StablefordBoard players={players} round={saturday} />
-        </div>
-        <div className="card divide-y divide-linen dark:divide-char-700">
-          {SATURDAY_CONTESTS.map((contest) => (
-            <div key={contest.label} className="flex items-center justify-between px-4 py-3 text-sm">
-              <span className="eyebrow">{contest.label}</span>
-              <span className={contest.winner ? 'font-semibold' : 'text-ink-soft dark:text-chalk/50'}>
-                {contest.winner ?? 'TBD on the course'}
-              </span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Sunday — Team Scramble */}
-      <section className="space-y-2">
-        <div>
-          <p className="eyebrow">{DAY_LABELS[sunday.dayIndex]}</p>
-          <h2 className="font-display text-xl font-bold">{GAME_LABELS[sunday.game]}</h2>
-          <p className="text-xs text-ink-soft dark:text-chalk/50">
-            {sunday.courseName} · Tee: {sunday.teeTime}
-            {sunday.tees ? ` · ${sunday.tees}` : ''} · One ball, lowest team score wins
-          </p>
-        </div>
-        <div className="card overflow-hidden">
-          <ScrambleBoard />
-        </div>
-      </section>
+      {dayIndexes.map((dayIndex) => {
+        const rounds = state.rounds.filter((r) => r.dayIndex === dayIndex);
+        return (
+          <section key={dayIndex} className="space-y-4">
+            <p className="eyebrow">{DAY_LABELS[dayIndex]}</p>
+            {rounds.map((round) => (
+              <div key={round.id} className="space-y-2">
+                <div>
+                  <h2 className="font-display text-xl font-bold">{round.courseName}</h2>
+                  <p className="text-xs text-ink-soft dark:text-chalk/50">
+                    {GAME_LABELS[round.game]} · Tee: {round.teeTime}
+                    {round.tees ? ` · ${round.tees}` : ''} · {WIN_CONDITION[round.game]}
+                  </p>
+                </div>
+                {round.game === 'stableford' ? <StablefordKey /> : null}
+                <div className="card overflow-hidden">
+                  <RoundBoard players={players} round={round} />
+                </div>
+                {round.id === CONTEST_ROUND_ID ? <ContestList /> : null}
+              </div>
+            ))}
+          </section>
+        );
+      })}
     </div>
   );
 }

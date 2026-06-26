@@ -9,11 +9,12 @@ type Props = {
   day: TripDay;
   dayIndex: number;
   isActiveDay: boolean;
-  courseName?: string;
-  courseMapUrl?: string;
+  /** Courses played this day — one map link is shown per course with a URL. */
+  courses?: { name: string; mapUrl?: string }[];
 };
 
-export default function ScheduleDayReadOnly({ day, dayIndex, isActiveDay, courseName, courseMapUrl }: Props) {
+export default function ScheduleDayReadOnly({ day, dayIndex, isActiveDay, courses = [] }: Props) {
+  const mappedCourses = courses.filter((c) => c.mapUrl);
   return (
     <div
       className={`card relative overflow-hidden p-4 transition-colors ${
@@ -47,9 +48,11 @@ export default function ScheduleDayReadOnly({ day, dayIndex, isActiveDay, course
         ))}
       </ul>
 
-      {courseMapUrl ? (
-        <div className="mt-3">
-          <MapLink href={courseMapUrl} label={courseName ? `Map · ${courseName}` : 'Map'} />
+      {mappedCourses.length > 0 ? (
+        <div className="mt-3 flex flex-wrap gap-2">
+          {mappedCourses.map((course) => (
+            <MapLink key={course.name} href={course.mapUrl!} label={`Map · ${course.name}`} />
+          ))}
         </div>
       ) : null}
     </div>
