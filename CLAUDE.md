@@ -28,7 +28,7 @@ does not gate it.
 - Friday R1: Champions Pointe Golf Club, 12:30 PM — White tees, 6,484 yds.
 - Saturday is **36 holes** across two rounds:
   - R2: Covered Bridge Golf Club, 8:00 AM — Gold tees, 6,453 yds (par 72).
-  - R3: Hidden Creek Golf Club (Sellersburg, IN), 1:30 PM (est.) — Gold tees, 6,282 yds, **par 70** (`HIDDEN_CREEK_PAR` is the real 35/35 card).
+  - R3: Hidden Creek Golf Club (Sellersburg, IN), 1:30 PM — Gold tees, 6,282 yds, **par 70** (`HIDDEN_CREEK_PAR` is the real 35/35 card).
 - Sunday R4: Valley View Golf Club (Floyds Knobs, IN), 11:03 AM — Green tees, 6,508 yds.
 
 ## Scoring structure (decided June 2026)
