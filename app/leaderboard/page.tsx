@@ -1,6 +1,6 @@
 import { getTripState } from '@/lib/tripState';
 import { buildStrokeBoard, buildStablefordBoard } from '@/lib/scoring';
-import { DAY_LABELS, GAME_LABELS, SATURDAY_CONTESTS, SCRAMBLE_TEAMS } from '@/lib/constants';
+import { DAY_LABELS, GAME_LABELS, SATURDAY_CONTESTS } from '@/lib/constants';
 import { Round, Player, GameType } from '@/lib/types';
 import StablefordKey from '@/components/StablefordKey';
 
@@ -8,6 +8,8 @@ const WIN_CONDITION: Record<GameType, string> = {
   stroke: 'Lowest gross wins',
   stableford: 'Most points wins',
   scramble: 'One ball, lowest team score wins',
+  'best-ball': 'Lowest team total wins',
+  tbd: '',
 };
 
 /** Contests live at Covered Bridge only (Saturday's morning round). */
@@ -107,9 +109,34 @@ function StablefordBoard({ players, round }: { players: Player[]; round: Round }
 }
 
 function RoundBoard({ players, round }: { players: Player[]; round: Round }) {
-  if (round.game === 'stroke') return <StrokeBoard players={players} round={round} />;
-  if (round.game === 'stableford') return <StablefordBoard players={players} round={round} />;
-  return <ScrambleBoard />;
+  switch (round.game) {
+    case 'stroke':
+      return <StrokeBoard players={players} round={round} />;
+    case 'stableford':
+      return <StablefordBoard players={players} round={round} />;
+    case 'scramble':
+      return (
+        <TeamBoard
+          players={players}
+          round={round}
+          emptyLabel="Teams to be drafted — scramble standings will appear here once teams are set."
+        />
+      );
+    case 'best-ball':
+      return (
+        <TeamBoard
+          players={players}
+          round={round}
+          emptyLabel="Foursomes TBD — best-ball standings will appear here once teams are set."
+        />
+      );
+    default:
+      return (
+        <p className="px-4 py-8 text-center text-sm text-ink-soft dark:text-chalk/60">
+          Casual round — game still to be decided with the group.
+        </p>
+      );
+  }
 }
 
 function ContestList() {
@@ -127,20 +154,33 @@ function ContestList() {
   );
 }
 
-function ScrambleBoard() {
-  if (SCRAMBLE_TEAMS.length === 0) {
+function TeamBoard({
+  players,
+  round,
+  emptyLabel,
+}: {
+  players: Player[];
+  round: Round;
+  emptyLabel: string;
+}) {
+  const teams = round.teams ?? [];
+  if (teams.length === 0) {
     return (
-      <p className="px-4 py-8 text-center text-sm text-ink-soft dark:text-chalk/60">
-        Teams to be drafted — scramble standings will appear here once teams are set.
-      </p>
+      <p className="px-4 py-8 text-center text-sm text-ink-soft dark:text-chalk/60">{emptyLabel}</p>
     );
   }
+  const nameFor = (id: string) => players.find((p) => p.id === id)?.name ?? id;
   return (
     <ul className="divide-y divide-linen dark:divide-char-700">
-      {SCRAMBLE_TEAMS.map((team) => (
-        <li key={team.name} className="flex items-center justify-between px-4 py-3 text-sm">
-          <span className="font-medium">{team.name}</span>
-          <span className="font-bold tabular-nums text-copper dark:text-accent">—</span>
+      {teams.map((team) => (
+        <li key={team.name} className="flex items-center justify-between gap-3 px-4 py-3 text-sm">
+          <div className="min-w-0">
+            <span className="block font-medium">{team.name}</span>
+            <span className="block text-xs text-ink-soft dark:text-chalk/50">
+              {team.playerIds.map(nameFor).join(' · ')}
+            </span>
+          </div>
+          <span className="shrink-0 font-bold tabular-nums text-copper dark:text-accent">—</span>
         </li>
       ))}
     </ul>
@@ -175,7 +215,8 @@ export default function BoardPage() {
                   <h2 className="font-display text-xl font-bold">{round.courseName}</h2>
                   <p className="text-xs text-ink-soft dark:text-chalk/50">
                     {GAME_LABELS[round.game]} · Tee: {round.teeTime}
-                    {round.tees ? ` · ${round.tees}` : ''} · {WIN_CONDITION[round.game]}
+                    {round.tees ? ` · ${round.tees}` : ''}
+                    {WIN_CONDITION[round.game] ? ` · ${WIN_CONDITION[round.game]}` : ''}
                   </p>
                 </div>
                 {round.game === 'stableford' ? <StablefordKey /> : null}

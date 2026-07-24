@@ -30,9 +30,15 @@ export const GAME_LABELS: Record<GameType, string> = {
   stroke: 'Individual Stroke Play',
   stableford: 'Stableford',
   scramble: 'Team Scramble',
+  'best-ball': '3-2-1 Best Ball',
+  tbd: 'Format TBD',
 };
 
-/** Saturday side contests; fill in winner names once decided on the course. */
+/**
+ * Saturday side contests at Covered Bridge (round-2); fill in winner names once
+ * decided on the course. TBD whether these carry over now that Covered Bridge is
+ * a 2-man scramble — kept for now.
+ */
 export const SATURDAY_CONTESTS: { label: string; winner: string | null }[] = [
   { label: 'Closest to the Pin — Hole 3', winner: null },
   { label: 'Closest to the Pin — Hole 17', winner: null },
@@ -40,8 +46,13 @@ export const SATURDAY_CONTESTS: { label: string; winner: string | null }[] = [
   { label: 'Longest Drive — Hole 18', winner: null },
 ];
 
-/** Sunday scramble teams — empty until drafted. */
-export const SCRAMBLE_TEAMS: ScrambleTeam[] = [];
+/** Saturday's 2-man scramble teams (Covered Bridge, round-2). */
+export const SATURDAY_SCRAMBLE_TEAMS: ScrambleTeam[] = [
+  { name: 'Rogers & Hippy Mike', playerIds: ['player-7', 'player-6'] },
+  { name: 'Huber & Kennedy', playerIds: ['player-1', 'player-4'] },
+  { name: 'Sweeney & OCallahan', playerIds: ['player-5', 'player-8'] },
+  { name: 'Wakeland & Karns', playerIds: ['player-2', 'player-3'] },
+];
 
 /** Real card: front 36 / back 36, par 72. */
 export const CHAMPIONS_POINTE_PAR: number[] = [
@@ -78,7 +89,7 @@ export const DEFAULT_SCHEDULE: TripDay[] = [
       'Champions Pointe Golf Club',
       'Tee time: 12:30 PM',
       'White tees — 6,484 yards',
-      'Game: Individual stroke play',
+      'Game: 3-2-1 Best Ball (team format — teams TBD)',
       'Dinner',
     ],
   },
@@ -90,9 +101,10 @@ export const DEFAULT_SCHEDULE: TripDay[] = [
     activities: [
       'Round 2 — Covered Bridge Golf Club',
       'Tee time: 8:00 AM · Gold tees — 6,453 yards',
+      'Game: 2-man scramble (4 teams)',
       'Round 3 — Hidden Creek Golf Club (afternoon)',
       'Tee time: 1:30 PM · Gold tees — 6,282 yards (par 70)',
-      'Game: Stableford both rounds',
+      'Game: casual — TBD with the group',
       'Contests at Covered Bridge: 2× Longest Drive (9 & 18) · 2× Closest to the Pin (3 & 17)',
       'Night out and dinner',
     ],
@@ -106,7 +118,7 @@ export const DEFAULT_SCHEDULE: TripDay[] = [
       'Valley View Golf Club',
       'Tee time: 11:03 AM',
       'Green tees — 6,508 yards',
-      'Game: Team scramble',
+      'Game: 4-person team scramble (teams TBD)',
       'AC Hotel Louisville Downtown — check-out',
       'Drive home',
     ],
@@ -121,8 +133,9 @@ export const DEFAULT_ROUNDS: Round[] = [
     coursePar: [...CHAMPIONS_POINTE_PAR],
     teeTime: '12:30 PM',
     tees: 'White — 6,484 yards',
-    game: 'stroke',
+    game: 'best-ball',
     playerRounds: [],
+    teams: [], // Foursome teams TBD
     mapUrl: 'https://www.google.com/maps/search/?api=1&query=Champions+Pointe+Golf+Club+Louisville',
   },
   {
@@ -132,8 +145,9 @@ export const DEFAULT_ROUNDS: Round[] = [
     coursePar: [...COVERED_BRIDGE_PAR],
     teeTime: '8:00 AM',
     tees: 'Gold — 6,453 yards',
-    game: 'stableford',
+    game: 'scramble',
     playerRounds: [],
+    teams: SATURDAY_SCRAMBLE_TEAMS,
     mapUrl: 'https://www.google.com/maps/search/?api=1&query=Covered+Bridge+Golf+Club+Louisville',
   },
   {
@@ -143,7 +157,7 @@ export const DEFAULT_ROUNDS: Round[] = [
     coursePar: [...HIDDEN_CREEK_PAR],
     teeTime: '1:30 PM',
     tees: 'Gold — 6,282 yards',
-    game: 'stableford',
+    game: 'tbd', // Casual game — format to be decided with the group
     playerRounds: [],
     mapUrl: 'https://www.google.com/maps/search/?api=1&query=Hidden+Creek+Golf+Club+Sellersburg',
   },
@@ -156,6 +170,7 @@ export const DEFAULT_ROUNDS: Round[] = [
     tees: 'Green — 6,508 yards',
     game: 'scramble',
     playerRounds: [],
+    teams: [], // 4-person scramble teams TBD
     mapUrl: 'https://www.google.com/maps/search/?api=1&query=Valley+View+Golf+Club+Floyds+Knobs',
   },
 ];
