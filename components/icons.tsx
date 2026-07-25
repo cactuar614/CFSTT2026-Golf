@@ -100,6 +100,15 @@ export function BookIcon({ className }: IconProps) {
   );
 }
 
+export function CardsIcon({ className }: IconProps) {
+  return (
+    <svg {...strokeProps} className={className}>
+      <rect x="4" y="7" width="11" height="14" rx="2" />
+      <path d="M9 7V6a2 2 0 0 1 2.4-2l6.9 1.8A2 2 0 0 1 19.8 8.3L17 18" />
+    </svg>
+  );
+}
+
 export function BedIcon({ className }: IconProps) {
   return (
     <svg {...strokeProps} className={className}>
