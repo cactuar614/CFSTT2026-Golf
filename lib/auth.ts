@@ -44,7 +44,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       return token;
     },
     session({ session, token }) {
-      if (session.user) session.user.playerId = token.playerId as string | undefined;
+      if (session.user) {
+        // Prefer the id stamped at sign-in; fall back to the token email so
+        // already-signed-in golfers resolve without needing to re-login.
+        const fromEmail = token.email ? EMAIL_TO_PLAYER[token.email.toLowerCase()] : undefined;
+        session.user.playerId = (token.playerId as string | undefined) ?? fromEmail;
+      }
       return session;
     },
     authorized({ auth }) {
