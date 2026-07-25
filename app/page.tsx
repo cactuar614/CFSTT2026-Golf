@@ -7,6 +7,7 @@ import { formatTripDayDate } from '@/lib/formatTrip';
 import StatusBanner from '@/components/StatusBanner';
 import LodgingCard from '@/components/LodgingCard';
 import MapLink from '@/components/MapLink';
+import RoundDetails from '@/components/RoundDetails';
 import { CalendarIcon, ScorecardIcon, TrophyIcon } from '@/components/icons';
 
 const quickLinks = [
@@ -20,7 +21,9 @@ export default function Dashboard() {
   const activeDay = state.activeDayIndex !== null ? state.schedule[state.activeDayIndex] : null;
   const activeRounds =
     state.activeDayIndex !== null
-      ? state.rounds.filter((r) => r.dayIndex === state.activeDayIndex)
+      ? state.rounds
+          .map((r, i) => ({ ...r, number: i + 1 }))
+          .filter((r) => r.dayIndex === state.activeDayIndex)
       : [];
 
   return (
@@ -57,24 +60,17 @@ export default function Dashboard() {
             </span>
             <span className="text-sm text-ink-soft dark:text-chalk/60">{DAY_LABELS[state.activeDayIndex]}</span>
           </div>
-          <h2 className="font-display text-lg font-bold">{activeDay.label}</h2>
-          <p className="text-sm text-ink-soft dark:text-chalk/70">{activeDay.description}</p>
+          <h2 className="mb-3 font-display text-lg font-bold">{activeDay.label}</h2>
+          <RoundDetails rounds={activeRounds} />
           {activeDay.activities.length > 0 && (
-            <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-ink-soft marker:text-accent dark:text-chalk/70">
-              {activeDay.activities.filter(a => a).map((a, i) => (
-                <li key={i}>{a}</li>
-              ))}
-            </ul>
-          )}
-          {activeRounds.some((r) => r.mapUrl) ? (
-            <div className="mt-3 flex flex-wrap gap-2">
-              {activeRounds
-                .filter((r) => r.mapUrl)
-                .map((r) => (
-                  <MapLink key={r.id} href={r.mapUrl!} label={`Map · ${r.courseName}`} />
+            <div className={activeRounds.length > 0 ? 'mt-3 border-t border-linen pt-3 dark:border-char-700' : 'mt-2'}>
+              <ul className="list-inside list-disc space-y-1 text-sm text-ink-soft marker:text-accent dark:text-chalk/70">
+                {activeDay.activities.filter((a) => a).map((a, i) => (
+                  <li key={i}>{a}</li>
                 ))}
+              </ul>
             </div>
-          ) : null}
+          )}
         </div>
       )}
 
