@@ -52,19 +52,19 @@ export default function RulesPage() {
         </p>
       </div>
 
-      {/* Putt everything out — the one rule we don't skip */}
+      {/* Breakfast ball — one do-over, then play it as it lies */}
       <div className="card relative overflow-hidden border-accent/70 p-4 pl-5 dark:border-accent/50">
         <span className="absolute inset-y-0 left-0 w-1 bg-accent" aria-hidden />
         <div className="mb-2 flex items-center gap-2">
           <FlagIcon className="h-5 w-5 text-copper dark:text-accent" />
           <span className="rounded-full bg-accent px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-char-900">
-            No gimmes
+            Breakfast ball
           </span>
         </div>
-        <h2 className="font-display text-lg font-bold">Putt everything out</h2>
+        <h2 className="font-display text-lg font-bold">One breakfast ball — no mulligans</h2>
         <p className="text-sm text-ink-soft dark:text-chalk/70">
-          No gimmes, no &ldquo;thatʼs good,&rdquo; no scooping it up two feet out. Everyone putts
-          every ball into the hole, every hole, all weekend. The short ones count too — finish them.
+          Everyone gets a breakfast ball: one free do-over on your very first tee shot of the day.
+          After that, no mulligans — play it as it lies and keep it moving.
         </p>
       </div>
 
