@@ -12,7 +12,7 @@ const dayRules = [
       'Played in a foursome. On each hole the team counts its best 1, 2, or 3 balls toward the team score.',
       'You get six “3” holes, six “2” holes, and six “1” holes — eighteen holes, six of each.',
       'Pick the count for the NEXT hole before anyone tees off on it. Once the first ball is struck, itʼs locked.',
-      'Everyone plays their own ball; lowest team total wins. Foursomes TBD.',
+      'Everyone plays their own ball; lowest team total wins.',
       'White tees, 6,484 yards.',
     ],
   },
@@ -34,7 +34,7 @@ const dayRules = [
     game: '4-person team scramble',
     points: [
       'Teams of four play one ball: everyone hits, pick the best shot, all play from there.',
-      'No individual cards or handicaps — itʼs all about the team. Teams TBD.',
+      'No individual cards or handicaps — itʼs all about the team.',
       'Green tees, 6,508 yards.',
     ],
   },

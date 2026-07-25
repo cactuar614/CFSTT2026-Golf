@@ -3,18 +3,18 @@
 import { TripDay } from '@/lib/types';
 import { DAY_LABELS } from '@/lib/constants';
 import { formatTripDayDate } from '@/lib/formatTrip';
-import MapLink from './MapLink';
+import RoundDetails, { NumberedRound } from './RoundDetails';
 
 type Props = {
   day: TripDay;
   dayIndex: number;
   isActiveDay: boolean;
-  /** Courses played this day — one map link is shown per course with a URL. */
-  courses?: { name: string; mapUrl?: string }[];
+  /** Rounds played this day, numbered by play order. */
+  rounds?: NumberedRound[];
 };
 
-export default function ScheduleDayReadOnly({ day, dayIndex, isActiveDay, courses = [] }: Props) {
-  const mappedCourses = courses.filter((c) => c.mapUrl);
+export default function ScheduleDayReadOnly({ day, dayIndex, isActiveDay, rounds = [] }: Props) {
+  const extras = day.activities.filter((a) => a.trim());
   return (
     <div
       className={`card relative overflow-hidden p-4 transition-colors ${
@@ -22,7 +22,7 @@ export default function ScheduleDayReadOnly({ day, dayIndex, isActiveDay, course
       }`}
     >
       {isActiveDay ? <span className="absolute inset-y-0 left-0 w-1 bg-accent" aria-hidden /> : null}
-      <div className="mb-2 min-w-0">
+      <div className="mb-3 min-w-0">
         <div className="flex flex-wrap items-center gap-2">
           <h3 className="font-display text-lg font-bold">{DAY_LABELS[dayIndex]}</h3>
           {isActiveDay ? (
@@ -38,21 +38,15 @@ export default function ScheduleDayReadOnly({ day, dayIndex, isActiveDay, course
         <p className="mt-1 text-base font-semibold text-primary dark:text-accent sm:text-sm">{day.label}</p>
       </div>
 
-      {day.description ? (
-        <p className="mb-3 text-sm text-ink-soft dark:text-chalk/70">{day.description}</p>
-      ) : null}
+      <RoundDetails rounds={rounds} />
 
-      <ul className="list-inside list-disc space-y-1.5 text-sm marker:text-accent">
-        {day.activities.filter((a) => a.trim()).map((activity, i) => (
-          <li key={i}>{activity}</li>
-        ))}
-      </ul>
-
-      {mappedCourses.length > 0 ? (
-        <div className="mt-3 flex flex-wrap gap-2">
-          {mappedCourses.map((course) => (
-            <MapLink key={course.name} href={course.mapUrl!} label={`Map · ${course.name}`} />
-          ))}
+      {extras.length > 0 ? (
+        <div className={rounds.length > 0 ? 'mt-3 border-t border-linen pt-3 dark:border-char-700' : ''}>
+          <ul className="list-inside list-disc space-y-1.5 text-sm text-ink-soft marker:text-accent dark:text-chalk/70">
+            {extras.map((activity, i) => (
+              <li key={i}>{activity}</li>
+            ))}
+          </ul>
         </div>
       ) : null}
     </div>

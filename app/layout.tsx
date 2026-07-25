@@ -53,7 +53,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${displayFont.variable} ${bodyFont.variable} min-h-screen font-sans`}>
         <Providers>
           <div className="md:pt-14">
-            <main className="max-w-4xl mx-auto px-4 py-4 pt-[max(1rem,env(safe-area-inset-top,0px))] md:pt-4">
+            <main className="max-w-4xl mx-auto px-4 pt-[max(1rem,env(safe-area-inset-top,0px))] pb-[calc(6rem+env(safe-area-inset-bottom,0px))] md:pt-4 md:pb-8">
               <MobileUserBar />
               {children}
             </main>

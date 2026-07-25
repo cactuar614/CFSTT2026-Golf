@@ -103,8 +103,7 @@ export default function RoundScorecardClient() {
           <div className="card p-4">
             <p className="font-display text-lg font-bold">Teams</p>
             <p className="mt-1 text-sm text-ink-soft dark:text-chalk/60">
-              Scramble — one ball per team, so there are no individual cards. Team scores are kept
-              on the course.
+              Scramble — one ball per team. Team scores are kept on the course.
             </p>
             <ul className="mt-3 divide-y divide-linen dark:divide-char-700">
               {teams.map((team) => (
@@ -132,8 +131,20 @@ export default function RoundScorecardClient() {
             <p className="mt-1 text-sm text-ink-soft dark:text-chalk/60">
               Team format: on each hole the foursome counts its best 1, 2, or 3 balls toward the team
               score — six holes at each count, declared before the next tee. Everyone plays their own
-              ball, so individual scores are tracked below. Foursomes TBD.
+              ball, so individual scores are tracked below.
             </p>
+            {teams.length > 0 ? (
+              <ul className="mt-3 divide-y divide-linen dark:divide-char-700">
+                {teams.map((team) => (
+                  <li key={team.name} className="py-2.5">
+                    <span className="font-medium">{team.name}</span>
+                    <span className="block text-xs text-ink-soft dark:text-chalk/50">
+                      {team.playerIds.map(nameFor).join(' · ')}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
           </div>
           <ScorecardTable round={roundWithAllPlayers} players={state.players} />
         </>
