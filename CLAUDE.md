@@ -17,8 +17,12 @@ lodging, scores), edit `lib/constants.ts` and redeploy.
 Google sign-in via Auth.js / NextAuth v5 (`lib/auth.ts`, `middleware.ts`,
 `app/signin/page.tsx`). **Feature-flagged:** the site is public until
 `AUTH_SECRET` + `AUTH_GOOGLE_ID` + `AUTH_GOOGLE_SECRET` are set (Vercel env vars).
-Access is restricted to the hardcoded `ALLOWED_EMAILS` list in `lib/auth.ts`
-(server-side only — most golfer emails still TBD). JWT sessions, no database.
+Access is restricted to the golfers in `EMAIL_TO_PLAYER` (`lib/auth.ts`,
+server-side only; `ALLOWED_EMAILS` is derived from it). JWT sessions, no database.
+The session callback attaches the matched `playerId` to `session.user` (typed in
+`types/next-auth.d.ts`) — the only identity shipped to the client, never the emails.
+Home's `MyPairings` reads `session.user.playerId` to show the signed-in golfer their
+team/partners per round (renders nothing while auth is off or signed out).
 Note: the Capacitor iOS shell serves static files directly, so middleware/auth
 does not gate it.
 
