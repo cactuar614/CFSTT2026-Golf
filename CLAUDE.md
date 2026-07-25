@@ -45,7 +45,7 @@ their scoring in `lib/scoring.ts`.
    hole the team counts its best 1, 2, or 3 balls toward the team score, and must
    declare the count for the next hole before anyone tees off. Six "3" holes, six "2",
    six "1" across 18. Everyone plays their own ball → individual cards still shown;
-   lowest team total wins. **Foursome teams TBD** (`Round.teams` = `[]`).
+   lowest team total wins. Foursomes in `FRIDAY_BEST_BALL_TEAMS` (`Round.teams`).
 2. **Saturday — 36 holes, two rounds, each its own game (NOT summed):**
    - **AM Covered Bridge — 2-man scramble (`scramble`).** Four teams in
      `SATURDAY_SCRAMBLE_TEAMS` (`Round.teams`): Rogers & Hippy Mike · Huber & Kennedy ·
@@ -54,8 +54,8 @@ their scoring in `lib/scoring.ts`.
      (`SATURDAY_CONTESTS`, null until decided; rendered under `round-2`). Gold tees, 6,453 yds.
    - **PM Hidden Creek — casual, format TBD (`tbd`).** To be decided with the group;
      renders a placeholder. Gold tees, 6,282 yds, par 70.
-3. **Sunday — 4-person team scramble (`scramble`).** No individual cards; **teams TBD**
-   (`Round.teams` = `[]` → placeholder UI). Green tees.
+3. **Sunday — 4-person team scramble (`scramble`).** No individual cards; two teams in
+   `SUNDAY_SCRAMBLE_TEAMS` (`Round.teams`). Green tees.
 
 Team games use per-round `Round.teams: ScrambleTeam[]` (empty = not yet drafted →
 placeholder). `TeamBoard` (Board) and the scorecard render them.
@@ -71,10 +71,8 @@ Presentation rules:
 
 ### Still undecided (kept as single constants so they're one-line changes)
 
-- Friday 3-2-1 best-ball **foursomes** not set (`round-1` `teams`).
 - Saturday PM Hidden Creek **game** (`round-3` is `tbd`); may become a Stableford/other.
 - Whether the Covered Bridge **contests** carry over now that it's a scramble (`SATURDAY_CONTESTS`).
-- Sunday 4-person scramble **teams** not drafted (`round-4` `teams`).
 
 ## Design
 

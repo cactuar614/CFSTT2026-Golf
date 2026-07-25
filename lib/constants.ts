@@ -46,12 +46,24 @@ export const SATURDAY_CONTESTS: { label: string; winner: string | null }[] = [
   { label: 'Longest Drive — Hole 18', winner: null },
 ];
 
+/** Friday 3-2-1 best-ball foursomes (Champions Pointe, round-1). */
+export const FRIDAY_BEST_BALL_TEAMS: ScrambleTeam[] = [
+  { name: 'Team 1', playerIds: ['player-8', 'player-5', 'player-1', 'player-6'] }, // Kevin OCallahan · Sweeney · Huber · Hippy Mike
+  { name: 'Team 2', playerIds: ['player-2', 'player-7', 'player-3', 'player-4'] }, // Wakeland · Rogers · Karns · Kennedy
+];
+
 /** Saturday's 2-man scramble teams (Covered Bridge, round-2). */
 export const SATURDAY_SCRAMBLE_TEAMS: ScrambleTeam[] = [
   { name: 'Rogers & Hippy Mike', playerIds: ['player-7', 'player-6'] },
   { name: 'Huber & Kennedy', playerIds: ['player-1', 'player-4'] },
   { name: 'Sweeney & OCallahan', playerIds: ['player-5', 'player-8'] },
   { name: 'Wakeland & Karns', playerIds: ['player-2', 'player-3'] },
+];
+
+/** Sunday 4-person scramble teams (Valley View, round-4). */
+export const SUNDAY_SCRAMBLE_TEAMS: ScrambleTeam[] = [
+  { name: 'Team 1', playerIds: ['player-1', 'player-2', 'player-7', 'player-8'] }, // Huber · Wakeland · Rogers · Kevin OCallahan
+  { name: 'Team 2', playerIds: ['player-5', 'player-4', 'player-3', 'player-6'] }, // Sweeney · Kennedy · Karns · Hippy Mike
 ];
 
 /** Real card: front 36 / back 36, par 72. */
@@ -89,7 +101,7 @@ export const DEFAULT_SCHEDULE: TripDay[] = [
       'Champions Pointe Golf Club',
       'Tee time: 12:30 PM',
       'White tees — 6,484 yards',
-      'Game: 3-2-1 Best Ball (team format — teams TBD)',
+      'Game: 3-2-1 Best Ball (team format)',
       'Dinner',
     ],
   },
@@ -118,7 +130,7 @@ export const DEFAULT_SCHEDULE: TripDay[] = [
       'Valley View Golf Club',
       'Tee time: 11:03 AM',
       'Green tees — 6,508 yards',
-      'Game: 4-person team scramble (teams TBD)',
+      'Game: 4-person team scramble',
       'AC Hotel Louisville Downtown — check-out',
       'Drive home',
     ],
@@ -135,7 +147,7 @@ export const DEFAULT_ROUNDS: Round[] = [
     tees: 'White — 6,484 yards',
     game: 'best-ball',
     playerRounds: [],
-    teams: [], // Foursome teams TBD
+    teams: FRIDAY_BEST_BALL_TEAMS,
     mapUrl: 'https://www.google.com/maps/search/?api=1&query=Champions+Pointe+Golf+Club+Louisville',
   },
   {
@@ -170,7 +182,7 @@ export const DEFAULT_ROUNDS: Round[] = [
     tees: 'Green — 6,508 yards',
     game: 'scramble',
     playerRounds: [],
-    teams: [], // 4-person scramble teams TBD
+    teams: SUNDAY_SCRAMBLE_TEAMS,
     mapUrl: 'https://www.google.com/maps/search/?api=1&query=Valley+View+Golf+Club+Floyds+Knobs',
   },
 ];
