@@ -3,10 +3,13 @@
 import { TRIP_NAME } from '@/lib/constants';
 import { CardsIcon } from '@/components/icons';
 
+type Rule = { text: string; notes?: string[] };
+
 type Game = {
   name: string;
   when?: string;
-  how: string;
+  how?: string;
+  rules?: Rule[];
 };
 
 const gamesInPlay: Game[] = [
@@ -29,6 +32,24 @@ const gamesInPlay: Game[] = [
 
 const otherGames: Game[] = [
   {
+    name: 'Red, White & Blue — Best 2-Ball',
+    how: 'A best-2-ball team game with a twist: you rotate through three sets of tees over the round.',
+    rules: [
+      {
+        text: 'Over 18 holes each team must play 6 holes from the Red tees, 6 from the White, and 6 from the Blue.',
+        notes: [
+          'The team picks which tee color to use on each hole — but you must finish having played exactly 6 holes from each color (DQ if you don’t).',
+          'All players on the team play from the same tee on a given hole.',
+        ],
+      },
+      {
+        text: 'Take the 2 lowest scores on each hole and track the team as +/- par.',
+        notes: ['All birdies count!'],
+      },
+      { text: 'The individual Skins game still applies alongside it.' },
+    ],
+  },
+  {
     name: 'Poker',
     how: 'Play your own ball and earn cards for good holes — say 1 card for par, 2 for a birdie, 3 for an eagle (nothing for bogey or worse). Deal from two decks so there are plenty to go around. At the end, each team combines all its members’ cards and makes the best five-card poker hand — best hand takes it.',
   },
@@ -37,28 +58,8 @@ const otherGames: Game[] = [
     how: 'A scramble-meets-best-ball hybrid: everyone tees off and the team picks the best drive, then each player plays their OWN ball from there into the hole. Count the best one or two scores on the hole.',
   },
   {
-    name: 'Wolf',
-    how: 'For a group of four. Each hole a rotating “Wolf” tees off last and, after watching everyone drive, either picks a partner for that hole or goes “Lone Wolf” against the other three for double points. Tally points over 18.',
-  },
-  {
-    name: 'Skins',
-    how: 'Every hole is worth a skin. Win it outright and the skin is yours; tie and the skin carries to the next hole, so the pot keeps building. Most skins at the end wins.',
-  },
-  {
-    name: 'Nassau',
-    how: 'Three bets in one round: the front nine, the back nine, and the overall eighteen. A classic wager you can run on top of almost any format.',
-  },
-  {
     name: 'Stableford',
     how: 'Points per hole instead of raw strokes — e.g. birdie 4, par 2, bogey 1, double bogey or worse 0, with bonuses for eagles. Most points wins, so one blow-up hole barely stings.',
-  },
-  {
-    name: 'Bingo Bango Bongo',
-    how: 'Three points a hole: first ball on the green (bingo), closest to the pin once everyone’s on (bango), and first in the hole (bongo). Rewards good play at every skill level.',
-  },
-  {
-    name: 'Vegas',
-    how: 'Two-person teams pair their scores into a two-digit number, low score first (a 4 and a 5 become 45). Compare with the other team — the difference is your points. Birdies can flip the opponents’ number for big swings.',
   },
 ];
 
@@ -76,7 +77,28 @@ function GameCard({ game, badge }: { game: Game; badge?: boolean }) {
       {game.when ? (
         <p className="mt-0.5 text-sm font-semibold text-primary dark:text-accent">{game.when}</p>
       ) : null}
-      <p className="mt-1 text-sm text-ink-soft dark:text-chalk/70">{game.how}</p>
+      {game.how ? (
+        <p className="mt-1 text-sm text-ink-soft dark:text-chalk/70">{game.how}</p>
+      ) : null}
+      {game.rules ? (
+        <ul className="mt-2 space-y-2 text-sm text-ink-soft dark:text-chalk/70">
+          {game.rules.map((rule, i) => (
+            <li key={i}>
+              <div className="flex gap-2">
+                <span className="mt-[0.4rem] h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden />
+                <span>{rule.text}</span>
+              </div>
+              {rule.notes ? (
+                <ul className="ml-4 mt-1 list-disc space-y-1 pl-2 marker:text-accent/60">
+                  {rule.notes.map((note, j) => (
+                    <li key={j}>{note}</li>
+                  ))}
+                </ul>
+              ) : null}
+            </li>
+          ))}
+        </ul>
+      ) : null}
     </div>
   );
 }
