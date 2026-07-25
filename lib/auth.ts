@@ -17,13 +17,13 @@ export const authEnabled = Boolean(
 const ALLOWED_EMAILS = [
   'huber.matt@gmail.com', // Matt Huber
   'matt@pinhighadvisory.com', // Matt Huber (work)
-  // 'adam@example.com',      // Adam Wakeland
-  // 'jason@example.com',     // Jason Karns
-  // 'mike@example.com',      // Mike Kennedy
-  // 'sweeney@example.com',   // Matt Sweeney
-  // 'hippy@example.com',     // Hippy Mike
-  // 'alex@example.com',      // Alex Rogers
-  // 'kevin@example.com',     // Kevin OCallahan
+  'adamwake99@yahoo.com', // Adam Wakeland
+  'jason.karns@gmail.com', // Jason Karns
+  'kennedy.396@gmail.com', // Mike (Michael) Kennedy
+  'sweeney.matt34@gmail.com', // Matt Sweeney
+  'mlarsen07@gmail.com', // Hippy Mike (Mike Larsen)
+  'arogers2112@yahoo.com', // Alex Rogers
+  'kevinocallahanwfu@gmail.com', // Kevin OCallahan
 ].map((e) => e.toLowerCase());
 
 export const { handlers, auth, signIn, signOut } = NextAuth({

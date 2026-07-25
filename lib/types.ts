@@ -2,7 +2,7 @@
 export type Tier = 'A' | 'B' | 'M';
 
 /** Scoring format for a round. */
-export type GameType = 'stroke' | 'stableford' | 'scramble';
+export type GameType = 'stroke' | 'stableford' | 'scramble' | 'best-ball' | 'tbd';
 
 export type Player = {
   id: string;
@@ -30,6 +30,8 @@ export type Round = {
   tees?: string;
   game: GameType;
   playerRounds: PlayerRound[];
+  /** Teams for team formats (scramble, best-ball). Empty = not yet drafted. */
+  teams?: ScrambleTeam[];
   /** External map URL (e.g. Google Maps search link). */
   mapUrl?: string;
 };

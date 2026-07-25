@@ -26,34 +26,44 @@ does not gate it.
 
 - Lodging: AC Hotel Louisville Downtown, Fri 7/31 – Sun 8/2, (4) two-queen rooms, 8 golfers (confirmed).
 - Friday R1: Champions Pointe Golf Club, 12:30 PM — White tees, 6,484 yds.
-- Saturday R2: Covered Bridge Golf Club, 10:00 AM — Gold tees, 6,453 yds.
-- Sunday R3: Valley View Golf Club (Floyds Knobs, IN), 11:00 AM — Green tees, 6,508 yds.
+- Saturday is **36 holes** across two rounds:
+  - R2: Covered Bridge Golf Club, 8:00 AM — Gold tees, 6,453 yds (par 72).
+  - R3: Hidden Creek Golf Club (Sellersburg, IN), 1:30 PM — Gold tees, 6,282 yds, **par 70** (`HIDDEN_CREEK_PAR` is the real 35/35 card).
+- Sunday R4: Valley View Golf Club (Floyds Knobs, IN), 11:03 AM — Green tees, 6,508 yds.
 
-## Scoring structure (decided June 2026)
+## Scoring structure (formats decided July 2026)
 
-**There is NO cumulative weekend leaderboard or overall champion.** Each day is a
+**There is NO cumulative weekend leaderboard or overall champion.** Each day/round is a
 self-contained game with its own winner. The Board page (`app/leaderboard/page.tsx`,
-nav label "Board") shows three sections, one per day:
+nav label "Board") groups rounds by their schedule day (`dayIndex`); each day renders
+one board per round, so Saturday shows two boards. `Round.game` (`GameType`) drives
+board + scorecard rendering: `stroke`, `stableford`, `scramble`, `best-ball`, `tbd`.
+`stroke`/`stableford` are currently **unused** but kept (R3 may adopt one) along with
+their scoring in `lib/scoring.ts`.
 
-1. **Friday — Individual stroke play, GROSS.** No tiers, no strokes — lowest gross wins.
-   Tier badges/legend are intentionally absent from the Friday board and scorecard.
-2. **Saturday — Stableford** with custom points (double eagle 9 · eagle 6 · birdie 4 ·
-   par 2 · bogey 1 · double bogey+ 0), most points wins, **plus 2× Longest Drive
-   (holes 9 & 18) and 2× Closest to the Pin (holes 3 & 17)** contests (winner slots in
-   `SATURDAY_CONTESTS`, null until decided on the course). Playing the **Gold tees —
-   6,453 yards** (`Round.tees`). Players still carry
-   stroke-allowance tiers (`Player.tier`, values in `TIER_STROKES`) which only matter
-   here, if Stableford goes net (TBD):
-   - **A = 0 strokes:** Matt Huber, Adam Wakeland, Alex Rogers, Matt Sweeney, Kevin OCallahan
-   - **B = 7 strokes/round:** Jason Karns, Mike Kennedy
-   - **M ("HM") = 18 strokes/round:** Hippy Mike (his own number, not a real tier)
-3. **Sunday — Team scramble.** No individual handicaps or cards; teams in
-   `SCRAMBLE_TEAMS` (empty until drafted → placeholder UI).
+1. **Friday — 3-2-1 Best Ball (`best-ball`).** Team format played in a foursome: each
+   hole the team counts its best 1, 2, or 3 balls toward the team score, and must
+   declare the count for the next hole before anyone tees off. Six "3" holes, six "2",
+   six "1" across 18. Everyone plays their own ball → individual cards still shown;
+   lowest team total wins. **Foursome teams TBD** (`Round.teams` = `[]`).
+2. **Saturday — 36 holes, two rounds, each its own game (NOT summed):**
+   - **AM Covered Bridge — 2-man scramble (`scramble`).** Four teams in
+     `SATURDAY_SCRAMBLE_TEAMS` (`Round.teams`): Rogers & Hippy Mike · Huber & Kennedy ·
+     Sweeney & OCallahan · Wakeland & Karns. One ball per team, lowest team score wins.
+     **Plus 2× Longest Drive (9 & 18) and 2× Closest to the Pin (3 & 17)** contests
+     (`SATURDAY_CONTESTS`, null until decided; rendered under `round-2`). Gold tees, 6,453 yds.
+   - **PM Hidden Creek — casual, format TBD (`tbd`).** To be decided with the group;
+     renders a placeholder. Gold tees, 6,282 yds, par 70.
+3. **Sunday — 4-person team scramble (`scramble`).** No individual cards; **teams TBD**
+   (`Round.teams` = `[]` → placeholder UI). Green tees.
+
+Team games use per-round `Round.teams: ScrambleTeam[]` (empty = not yet drafted →
+placeholder). `TeamBoard` (Board) and the scorecard render them.
 
 Presentation rules:
 - **Tiers are data-only** — A/B/HM badges and the stroke-allowance legend were removed
   from the UI entirely (June 2026). `Player.tier` and `TIER_STROKES` remain in the model
-  in case Saturday's Stableford goes net. If tiers ever resurface in UI, frame them as
+  in case a Stableford round ever goes net. If tiers ever resurface in UI, frame them as
   stroke allowances, never as "+N" added to a score.
 - Hole scores use classic card notation (`cellNotationClass` in `ScorecardTable`):
   birdie circled, eagle+ double-circled, bogey squared, double bogey+ double-squared,
@@ -61,10 +71,10 @@ Presentation rules:
 
 ### Still undecided (kept as single constants so they're one-line changes)
 
-- Final stroke values: B may become **8**, Hippy Mike may become **20** (`TIER_STROKES`).
-- Saturday Stableford: **net vs gross** not decided; currently computed gross
-  (`stablefordPoints` in `lib/scoring.ts`).
-- Sunday scramble **teams** not drafted (`SCRAMBLE_TEAMS`).
+- Friday 3-2-1 best-ball **foursomes** not set (`round-1` `teams`).
+- Saturday PM Hidden Creek **game** (`round-3` is `tbd`); may become a Stableford/other.
+- Whether the Covered Bridge **contests** carry over now that it's a scramble (`SATURDAY_CONTESTS`).
+- Sunday 4-person scramble **teams** not drafted (`round-4` `teams`).
 
 ## Design
 
@@ -76,8 +86,11 @@ Sans 3 (body) via `next/font`. Shared classes in `globals.css`: `.card`, `.eyebr
 ## Conventions
 
 - `npm run build` must pass before pushing (static export of all pages).
-- Stableford (PTS column + points key) appears ONLY on Saturday's round; Friday's
-  scorecard is gross-only. Each day is shown strictly in its own game's terms.
-- All three courses use their real cards (`CHAMPIONS_POINTE_PAR`, `COVERED_BRIDGE_PAR`,
-  `VALLEY_VIEW_PAR` — each 36/36, par 72).
+- The scorecard adapts to `Round.game`: individual hole cards for `stroke`/`stableford`/
+  `best-ball` (Stableford adds the PTS column + points key); team formats (`scramble`)
+  and `tbd` show a team-list / placeholder card instead of individual cards. No round is
+  currently `stableford`. Each round is shown strictly in its own game's terms.
+- Courses use their real cards: `CHAMPIONS_POINTE_PAR`, `COVERED_BRIDGE_PAR`,
+  `VALLEY_VIEW_PAR` are each 36/36 par 72; `HIDDEN_CREEK_PAR` is 35/35 **par 70**
+  (Gold tees, 6,282 yds). Nothing assumes par 72 — totals derive from `coursePar`.
 - Scores live in `Round.playerRounds` (empty = dashes everywhere until entered).

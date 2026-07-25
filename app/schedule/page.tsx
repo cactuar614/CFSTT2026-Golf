@@ -28,15 +28,16 @@ export default function SchedulePage() {
 
       <div className="space-y-4">
         {state.schedule.map((day, i) => {
-          const round = state.rounds.find((r) => r.dayIndex === i);
+          const courses = state.rounds
+            .filter((r) => r.dayIndex === i)
+            .map((r) => ({ name: r.courseName, mapUrl: r.mapUrl }));
           return (
             <ScheduleDayReadOnly
               key={day.date}
               day={day}
               dayIndex={i}
               isActiveDay={state.activeDayIndex === i}
-              courseName={round?.courseName}
-              courseMapUrl={round?.mapUrl}
+              courses={courses}
             />
           );
         })}

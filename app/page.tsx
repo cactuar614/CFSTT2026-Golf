@@ -18,10 +18,10 @@ const quickLinks = [
 export default function Dashboard() {
   const state = getTripState();
   const activeDay = state.activeDayIndex !== null ? state.schedule[state.activeDayIndex] : null;
-  const activeRound =
+  const activeRounds =
     state.activeDayIndex !== null
-      ? state.rounds.find((r) => r.dayIndex === state.activeDayIndex)
-      : undefined;
+      ? state.rounds.filter((r) => r.dayIndex === state.activeDayIndex)
+      : [];
 
   return (
     <div className="space-y-6">
@@ -66,9 +66,13 @@ export default function Dashboard() {
               ))}
             </ul>
           )}
-          {activeRound?.mapUrl ? (
-            <div className="mt-3">
-              <MapLink href={activeRound.mapUrl} label={`Map · ${activeRound.courseName}`} />
+          {activeRounds.some((r) => r.mapUrl) ? (
+            <div className="mt-3 flex flex-wrap gap-2">
+              {activeRounds
+                .filter((r) => r.mapUrl)
+                .map((r) => (
+                  <MapLink key={r.id} href={r.mapUrl!} label={`Map · ${r.courseName}`} />
+                ))}
             </div>
           ) : null}
         </div>
