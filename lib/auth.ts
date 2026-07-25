@@ -1,4 +1,5 @@
 import NextAuth from 'next-auth';
+import type { Provider } from 'next-auth/providers';
 import Google from 'next-auth/providers/google';
 
 /**
@@ -9,6 +10,38 @@ import Google from 'next-auth/providers/google';
 export const authEnabled = Boolean(
   process.env.AUTH_SECRET && process.env.AUTH_GOOGLE_ID && process.env.AUTH_GOOGLE_SECRET
 );
+
+/**
+ * Yahoo sign-in (for the golfers on Yahoo addresses). Enabled once
+ * AUTH_YAHOO_ID + AUTH_YAHOO_SECRET are set. Yahoo has no built-in Auth.js
+ * provider, so it's configured here as a custom OpenID Connect provider
+ * (Yahoo exposes OIDC discovery at api.login.yahoo.com).
+ */
+export const yahooEnabled = Boolean(
+  process.env.AUTH_YAHOO_ID && process.env.AUTH_YAHOO_SECRET
+);
+
+const providers: Provider[] = [Google];
+
+if (yahooEnabled) {
+  providers.push({
+    id: 'yahoo',
+    name: 'Yahoo',
+    type: 'oidc',
+    issuer: 'https://api.login.yahoo.com',
+    clientId: process.env.AUTH_YAHOO_ID,
+    clientSecret: process.env.AUTH_YAHOO_SECRET,
+    authorization: { params: { scope: 'openid email profile' } },
+    profile(profile) {
+      return {
+        id: profile.sub as string,
+        name: (profile.name ?? profile.email) as string,
+        email: profile.email as string,
+        image: (profile.picture as string) ?? null,
+      };
+    },
+  });
+}
 
 /**
  * The 8 golfers' Google accounts, mapped to their `DEFAULT_PLAYERS` id.
@@ -32,7 +65,7 @@ const ALLOWED_EMAILS = Object.keys(EMAIL_TO_PLAYER);
 export const { handlers, auth, signIn, signOut } = NextAuth({
   // Placeholder keeps module load safe while auth is disabled.
   secret: process.env.AUTH_SECRET ?? 'auth-disabled-placeholder',
-  providers: [Google],
+  providers,
   pages: { signIn: '/signin' },
   callbacks: {
     signIn({ user }) {

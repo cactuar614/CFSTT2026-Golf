@@ -17,6 +17,9 @@ lodging, scores), edit `lib/constants.ts` and redeploy.
 Google sign-in via Auth.js / NextAuth v5 (`lib/auth.ts`, `middleware.ts`,
 `app/signin/page.tsx`). **Feature-flagged:** the site is public until
 `AUTH_SECRET` + `AUTH_GOOGLE_ID` + `AUTH_GOOGLE_SECRET` are set (Vercel env vars).
+Yahoo sign-in (for golfers on Yahoo addresses) is a custom **OIDC** provider,
+added only when `AUTH_YAHOO_ID` + `AUTH_YAHOO_SECRET` are set (`yahooEnabled`);
+the sign-in page shows the Yahoo button only then.
 Access is restricted to the golfers in `EMAIL_TO_PLAYER` (`lib/auth.ts`,
 server-side only; `ALLOWED_EMAILS` is derived from it). JWT sessions, no database.
 The session callback attaches the matched `playerId` to `session.user` (typed in
