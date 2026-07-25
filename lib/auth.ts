@@ -11,20 +11,23 @@ export const authEnabled = Boolean(
 );
 
 /**
- * The only Google accounts allowed in — the 8 golfers.
- * Server-side only; never shipped to the client bundle.
+ * The 8 golfers' Google accounts, mapped to their `DEFAULT_PLAYERS` id.
+ * Server-side only — never shipped to the client bundle. Only the matched
+ * `playerId` is exposed to the client (via the session), not the emails.
  */
-const ALLOWED_EMAILS = [
-  'huber.matt@gmail.com', // Matt Huber
-  'matt@pinhighadvisory.com', // Matt Huber (work)
-  'adamwake99@yahoo.com', // Adam Wakeland
-  'jason.karns@gmail.com', // Jason Karns
-  'kennedy.396@gmail.com', // Mike (Michael) Kennedy
-  'sweeney.matt34@gmail.com', // Matt Sweeney
-  'mlarsen07@gmail.com', // Hippy Mike (Mike Larsen)
-  'arogers2112@yahoo.com', // Alex Rogers
-  'kevinocallahanwfu@gmail.com', // Kevin OCallahan
-].map((e) => e.toLowerCase());
+const EMAIL_TO_PLAYER: Record<string, string> = {
+  'huber.matt@gmail.com': 'player-1', // Matt Huber
+  'matt@pinhighadvisory.com': 'player-1', // Matt Huber (work)
+  'adamwake99@yahoo.com': 'player-2', // Adam Wakeland
+  'jason.karns@gmail.com': 'player-3', // Jason Karns
+  'kennedy.396@gmail.com': 'player-4', // Mike Kennedy
+  'sweeney.matt34@gmail.com': 'player-5', // Matt Sweeney
+  'mlarsen07@gmail.com': 'player-6', // Hippy Mike (Mike Larsen)
+  'arogers2112@yahoo.com': 'player-7', // Alex Rogers
+  'kevinocallahanwfu@gmail.com': 'player-8', // Kevin OCallahan
+};
+
+const ALLOWED_EMAILS = Object.keys(EMAIL_TO_PLAYER);
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   // Placeholder keeps module load safe while auth is disabled.
@@ -34,6 +37,15 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   callbacks: {
     signIn({ user }) {
       return Boolean(user.email && ALLOWED_EMAILS.includes(user.email.toLowerCase()));
+    },
+    jwt({ token, user }) {
+      // On sign-in, stamp the golfer's player id onto the token.
+      if (user?.email) token.playerId = EMAIL_TO_PLAYER[user.email.toLowerCase()];
+      return token;
+    },
+    session({ session, token }) {
+      if (session.user) session.user.playerId = token.playerId as string | undefined;
+      return session;
     },
     authorized({ auth }) {
       return Boolean(auth?.user);

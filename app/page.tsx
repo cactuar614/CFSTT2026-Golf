@@ -8,6 +8,7 @@ import StatusBanner from '@/components/StatusBanner';
 import LodgingCard from '@/components/LodgingCard';
 import MapLink from '@/components/MapLink';
 import RoundDetails from '@/components/RoundDetails';
+import MyPairings from '@/components/MyPairings';
 import { CalendarIcon, ScorecardIcon, TrophyIcon } from '@/components/icons';
 
 const quickLinks = [
@@ -73,6 +74,9 @@ export default function Dashboard() {
           )}
         </div>
       )}
+
+      {/* Your pairings — only when a matched golfer is signed in */}
+      <MyPairings />
 
       {/* Quick Links */}
       <div className="grid grid-cols-3 gap-3">
