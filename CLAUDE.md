@@ -93,6 +93,6 @@ Sans 3 (body) via `next/font`. Shared classes in `globals.css`: `.card`, `.eyebr
   (Gold tees, 6,282 yds). Nothing assumes par 72 — totals derive from `coursePar`.
 - Scores live in `Round.playerRounds` (empty = dashes everywhere until entered).
 - Two static reference pages (hardcoded copy, no trip data): `/rules` (house rules —
-  putt everything out, merch reminder, per-day games) and `/games` (how each format
+  one breakfast ball / no mulligans, merch reminder, per-day games) and `/games` (how each format
   works: the ones in play on top, other options like Poker/Shamble/Wolf below). Both are
   nav tabs. `<main>` carries mobile bottom padding to clear the fixed bottom nav.
