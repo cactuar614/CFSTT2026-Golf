@@ -5,6 +5,7 @@ import { TRIP_NAME } from '@/lib/constants';
 import ScheduleDayReadOnly from '@/components/ScheduleDayReadOnly';
 import StatusBanner from '@/components/StatusBanner';
 import LodgingCard from '@/components/LodgingCard';
+import { CalendarIcon } from '@/components/icons';
 
 export default function SchedulePage() {
   const state = getTripState();
@@ -21,6 +22,14 @@ export default function SchedulePage() {
           A day is highlighted only on its actual calendar date (local time).
         </p>
       </div>
+
+      <a
+        href="/schedule.ics"
+        className="inline-flex items-center gap-2 rounded-xl border border-linen bg-parchment/50 px-4 py-2.5 text-sm font-semibold text-primary transition-colors touch-manipulation active:bg-parchment dark:border-char-700 dark:bg-char-800/50 dark:text-accent md:hover:border-accent"
+      >
+        <CalendarIcon className="h-4 w-4" />
+        Add tee times to your calendar
+      </a>
 
       <LodgingCard />
 

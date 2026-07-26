@@ -103,3 +103,7 @@ Sans 3 (body) via `next/font`. Shared classes in `globals.css`: `.card`, `.eyebr
   one breakfast ball / no mulligans, merch reminder, per-day games) and `/games` (how each format
   works: the ones in play on top, other options like Poker/Shamble/Wolf below). Both are
   nav tabs. `<main>` carries mobile bottom padding to clear the fixed bottom nav.
+- `/schedule.ics` (`app/schedule.ics/route.ts`, `force-static`) is an iCalendar feed —
+  one VEVENT per round, tee times converted Eastern→UTC (trip is EDT, UTC-4). It sits
+  outside auth (the middleware matcher excludes dotted paths), so it's downloadable/
+  subscribable. The Schedule page links to it ("Add tee times to your calendar").
