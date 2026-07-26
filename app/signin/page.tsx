@@ -1,4 +1,4 @@
-import { signIn } from '@/lib/auth';
+import { signIn, yahooEnabled } from '@/lib/auth';
 import { TRIP_NAME, TRIP_DATES, TRIP_LOCATION } from '@/lib/constants';
 
 export default function SignInPage({
@@ -20,24 +20,41 @@ export default function SignInPage({
         </h1>
         <p className="mt-2 text-sm text-cream/80">{TRIP_DATES}</p>
 
-        <form
-          action={async () => {
-            'use server';
-            await signIn('google', { redirectTo: '/' });
-          }}
-          className="relative mt-8"
-        >
-          <button
-            type="submit"
-            className="w-full rounded-xl bg-accent px-4 py-3 font-semibold text-char-900 transition-colors active:bg-accent-light md:hover:bg-accent-light"
+        <div className="relative mt-8 space-y-3">
+          <form
+            action={async () => {
+              'use server';
+              await signIn('google', { redirectTo: '/' });
+            }}
           >
-            Continue with Google
-          </button>
-        </form>
+            <button
+              type="submit"
+              className="w-full rounded-xl bg-accent px-4 py-3 font-semibold text-char-900 transition-colors active:bg-accent-light md:hover:bg-accent-light"
+            >
+              Continue with Google
+            </button>
+          </form>
+
+          {yahooEnabled ? (
+            <form
+              action={async () => {
+                'use server';
+                await signIn('yahoo', { redirectTo: '/' });
+              }}
+            >
+              <button
+                type="submit"
+                className="w-full rounded-xl border border-cream/30 bg-cream/10 px-4 py-3 font-semibold text-cream transition-colors active:bg-cream/20 md:hover:bg-cream/20"
+              >
+                Continue with Yahoo
+              </button>
+            </form>
+          ) : null}
+        </div>
 
         {denied ? (
           <p className="mt-4 text-sm text-red-200">
-            That Google account isn&apos;t on the trip roster. Ask Matt to add you.
+            That account isn&apos;t on the trip roster. Ask Matt to add you.
           </p>
         ) : null}
       </div>
