@@ -57,6 +57,7 @@ const EMAIL_TO_PLAYER: Record<string, string> = {
   'sweeney.matt34@gmail.com': 'player-5', // Matt Sweeney
   'mwlarsen87@gmail.com': 'player-6', // Hippy Mike (Mike Larsen)
   'arogers2112@yahoo.com': 'player-7', // Alex Rogers
+  'arogers2114@gmail.com': 'player-7', // Alex Rogers (Gmail)
   'kevinocallahanwfu@gmail.com': 'player-8', // Kevin OCallahan
 };
 
