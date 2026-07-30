@@ -3,7 +3,7 @@
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { getTripState } from '@/lib/tripState';
-import { HoleScore, PlayerRound } from '@/lib/types';
+import { HoleScore, Player, PlayerRound } from '@/lib/types';
 import { DAY_LABELS, GAME_LABELS } from '@/lib/constants';
 import { formatTripDayDate } from '@/lib/formatTrip';
 import ScorecardTable from '@/components/ScorecardTable';
@@ -38,6 +38,20 @@ export default function RoundScorecardClient() {
   const scheduleDay = state.schedule[round.dayIndex];
   const teams = round.teams ?? [];
   const nameFor = (id: string) => state.players.find((p) => p.id === id)?.name ?? id;
+
+  // A scramble is one ball per team. Render each team as a "player" row using
+  // the recorded team card, so the classic scorecard notation/totals apply.
+  const teamScores = round.teamScores ?? [];
+  const teamsHaveScores = teamScores.some((ts) => ts.scores.some((s) => s.strokes !== null));
+  const teamPseudoPlayers: Player[] = teams.map((team) => ({
+    id: team.name,
+    name: team.name,
+    tier: 'A',
+  }));
+  const teamRound = {
+    ...round,
+    playerRounds: teamScores.map((ts) => ({ playerId: ts.teamName, scores: ts.scores })),
+  };
 
   const roundWithAllPlayers = {
     ...round,
@@ -100,30 +114,40 @@ export default function RoundScorecardClient() {
             </p>
           </div>
         ) : (
-          <div className="card p-4">
-            <p className="font-display text-lg font-bold">Teams</p>
-            <p className="mt-1 text-sm text-ink-soft dark:text-chalk/60">
-              Scramble — one ball per team. Team scores are kept on the course.
-            </p>
-            <ul className="mt-3 divide-y divide-linen dark:divide-char-700">
-              {teams.map((team) => (
-                <li key={team.name} className="py-2.5">
-                  <span className="font-medium">{team.name}</span>
-                  <span className="block text-xs text-ink-soft dark:text-chalk/50">
-                    {team.playerIds.map(nameFor).join(' · ')}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <>
+            <div className="card p-4">
+              <p className="font-display text-lg font-bold">Teams</p>
+              <p className="mt-1 text-sm text-ink-soft dark:text-chalk/60">
+                Scramble — one ball per team. Lowest team score wins.
+              </p>
+              <ul className="mt-3 divide-y divide-linen dark:divide-char-700">
+                {teams.map((team) => (
+                  <li key={team.name} className="py-2.5">
+                    <span className="font-medium">{team.name}</span>
+                    <span className="block text-xs text-ink-soft dark:text-chalk/50">
+                      {team.playerIds.map(nameFor).join(' · ')}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {teamsHaveScores ? (
+              <ScorecardTable round={teamRound} players={teamPseudoPlayers} />
+            ) : null}
+          </>
         )
       ) : round.game === 'tbd' ? (
-        <div className="card p-6 text-center">
-          <p className="font-display text-lg font-bold">Casual Round</p>
-          <p className="mt-1 text-sm text-ink-soft dark:text-chalk/60">
-            Game still to be decided with the group — we'll sort out the format on the day.
-          </p>
-        </div>
+        <>
+          <div className="card p-6 text-center">
+            <p className="font-display text-lg font-bold">Casual Round</p>
+            <p className="mt-1 text-sm text-ink-soft dark:text-chalk/60">
+              Game still to be decided with the group — we'll sort out the format on the day.
+            </p>
+          </div>
+          {round.playerRounds.length > 0 ? (
+            <ScorecardTable round={roundWithAllPlayers} players={state.players} />
+          ) : null}
+        </>
       ) : round.game === 'best-ball' ? (
         <>
           <div className="card p-4">

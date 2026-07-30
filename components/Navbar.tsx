@@ -2,8 +2,9 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import { useTheme } from '@/lib/ThemeContext';
-import { FlagIcon, CalendarIcon, ScorecardIcon, TrophyIcon, BookIcon, CardsIcon, SunIcon, MoonIcon } from './icons';
+import { FlagIcon, CalendarIcon, ScorecardIcon, TrophyIcon, BookIcon, CardsIcon, AdminIcon, SunIcon, MoonIcon } from './icons';
 import UserBadge from './UserBadge';
 
 const tabs = [
@@ -15,6 +16,9 @@ const tabs = [
   { href: '/games', label: 'Games', Icon: CardsIcon },
 ];
 
+/** Admin score editor — only rendered for admins (Huber, Karns). */
+const adminTab = { href: '/admin', label: 'Admin', Icon: AdminIcon };
+
 const tabClass = (isActive: boolean) =>
   `relative flex flex-1 min-h-[48px] min-w-0 flex-col items-center justify-center gap-0.5 rounded-lg px-1 py-1.5 text-[11px] font-semibold transition-colors touch-manipulation active:opacity-80 md:min-h-0 md:flex-none md:flex-row md:gap-2 md:px-3 md:py-3 md:text-sm ${
     isActive
@@ -25,6 +29,8 @@ const tabClass = (isActive: boolean) =>
 export default function Navbar() {
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
+  const { data: session } = useSession();
+  const visibleTabs = session?.user?.isAdmin ? [...tabs, adminTab] : tabs;
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-linen bg-cream/95 backdrop-blur-sm dark:border-char-700 dark:bg-char-900/95 md:bottom-auto md:top-0 md:border-b md:border-t-0">
@@ -34,7 +40,7 @@ export default function Navbar() {
         role="navigation"
         aria-label="Main"
       >
-        {tabs.map((tab) => {
+        {visibleTabs.map((tab) => {
           const isActive = tab.href === '/' ? pathname === '/' : pathname.startsWith(tab.href);
           return (
             <Link key={tab.href} href={tab.href} className={tabClass(isActive)}>

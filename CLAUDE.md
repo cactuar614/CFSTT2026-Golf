@@ -7,10 +7,33 @@ Bourbon Scramble** — a buddies golf trip, **July 31 – August 2, 2026**, Loui
 Deployed on Vercel (project `cfstt-2026-golf`, team PinHigh Advisory); pushes to `main`
 auto-deploy production.
 
-**All data is hardcoded in `lib/constants.ts`** — there is no backend, no localStorage,
-no admin UI. Pages are view-only and read everything via `getTripState()`
+**Trip facts are hardcoded in `lib/constants.ts`** — there is no backend and no
+database. Pages are view-only and read everything via `getTripState()`
 (`lib/tripState.ts`). To change trip facts (players, courses, tee times, schedule,
-lodging, scores), edit `lib/constants.ts` and redeploy.
+lodging), edit `lib/constants.ts` and redeploy.
+
+**Scores are the one exception:** they live in `data/scores.json`, are overlaid onto
+the rounds in `getTripState()` (`lib/scores.ts`), and can be edited by admins in the UI.
+
+## Admin score editor
+
+`/admin` (nav tab "Admin", `AdminIcon`) is an admin-only page — server-gated in
+`app/admin/page.tsx` (`redirect('/')` unless `session.user.isAdmin`). Admins are
+Matt Huber (both emails) and Jason Karns, keyed by email server-side in `lib/auth.ts`
+(`ADMIN_EMAILS` / `isAdminEmail`); only the derived `isAdmin` boolean ships to the
+client (session, typed in `types/next-auth.d.ts`), never the emails. The Navbar shows
+the Admin tab only when `session.user.isAdmin`. **The editor requires auth to be ON**
+(see Auth) — with auth off nobody has an identity, so the page redirects home.
+
+The editor (`AdminScoreEditor.tsx`) edits one card per row per round — every golfer for
+individual rounds (`best-ball`/`tbd`/`stroke`), one card per team for `scramble` — and
+"Save round" POSTs to `app/api/admin/scores/route.ts`. That route re-checks `isAdmin`,
+then commits the round's scores into `data/scores.json` via the **GitHub Contents API**
+(read file + SHA → replace that round's entry → PUT), which triggers a Vercel redeploy —
+so scores go live ~1 min after saving. Requires env vars (Vercel): `ADMIN_GH_TOKEN`
+(a PAT / fine-grained token with **contents: write** on the repo), and optionally
+`ADMIN_GH_REPO` (default `cactuar614/cfstt2026-golf`) and `ADMIN_GH_BRANCH` (default
+`main`).
 
 ## Auth
 

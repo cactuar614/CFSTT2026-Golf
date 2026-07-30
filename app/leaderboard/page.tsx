@@ -1,5 +1,5 @@
 import { getTripState } from '@/lib/tripState';
-import { buildStrokeBoard, buildStablefordBoard } from '@/lib/scoring';
+import { buildStrokeBoard, buildStablefordBoard, grossTotal } from '@/lib/scoring';
 import { DAY_LABELS, GAME_LABELS, SATURDAY_CONTESTS } from '@/lib/constants';
 import { Round, Player, GameType } from '@/lib/types';
 import StablefordKey from '@/components/StablefordKey';
@@ -170,19 +170,48 @@ function TeamBoard({
     );
   }
   const nameFor = (id: string) => players.find((p) => p.id === id)?.name ?? id;
+
+  // Team gross from the scramble team card (one ball per team). Best-ball has
+  // no single team card (the 3-2-1 count is declared on the course), so those
+  // teams simply show a dash.
+  const grossFor = (teamName: string): number | null => {
+    const ts = round.teamScores?.find((t) => t.teamName === teamName);
+    return ts ? grossTotal(ts.scores) : null;
+  };
+
+  const rows = teams
+    .map((team) => ({ team, gross: grossFor(team.name) }))
+    .sort((a, b) => {
+      if (a.gross === null && b.gross === null) return 0;
+      if (a.gross === null) return 1;
+      if (b.gross === null) return -1;
+      return a.gross - b.gross;
+    });
+  const anyScored = rows.some((r) => r.gross !== null);
+
   return (
     <ul className="divide-y divide-linen dark:divide-char-700">
-      {teams.map((team) => (
-        <li key={team.name} className="flex items-center justify-between gap-3 px-4 py-3 text-sm">
-          <div className="min-w-0">
-            <span className="block font-medium">{team.name}</span>
-            <span className="block text-xs text-ink-soft dark:text-chalk/50">
-              {team.playerIds.map(nameFor).join(' · ')}
+      {rows.map(({ team, gross }, i) => {
+        const isLeader = anyScored && i === 0 && gross !== null;
+        return (
+          <li
+            key={team.name}
+            className={`flex items-center justify-between gap-3 px-4 py-3 text-sm ${
+              isLeader ? 'bg-accent/15 font-semibold dark:bg-accent/10' : ''
+            }`}
+          >
+            <div className="min-w-0">
+              <span className="block font-medium">{team.name}</span>
+              <span className="block text-xs text-ink-soft dark:text-chalk/50">
+                {team.playerIds.map(nameFor).join(' · ')}
+              </span>
+            </div>
+            <span className="shrink-0 font-bold tabular-nums text-copper dark:text-accent">
+              {gross ?? '—'}
             </span>
-          </div>
-          <span className="shrink-0 font-bold tabular-nums text-copper dark:text-accent">—</span>
-        </li>
-      ))}
+          </li>
+        );
+      })}
     </ul>
   );
 }

@@ -63,6 +63,21 @@ const EMAIL_TO_PLAYER: Record<string, string> = {
 
 const ALLOWED_EMAILS = Object.keys(EMAIL_TO_PLAYER);
 
+/**
+ * Admins may open the score editor at `/admin`. Server-side only — the client
+ * only ever sees the derived `isAdmin` boolean on the session, never these
+ * emails. Matt Huber (both addresses) and Jason Karns.
+ */
+const ADMIN_EMAILS = new Set([
+  'huber.matt@gmail.com',
+  'matt@pinhighadvisory.com',
+  'jason.karns@gmail.com',
+]);
+
+export function isAdminEmail(email?: string | null): boolean {
+  return Boolean(email && ADMIN_EMAILS.has(email.toLowerCase()));
+}
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
   // Placeholder keeps module load safe while auth is disabled.
   secret: process.env.AUTH_SECRET ?? 'auth-disabled-placeholder',
@@ -83,6 +98,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         // already-signed-in golfers resolve without needing to re-login.
         const fromEmail = token.email ? EMAIL_TO_PLAYER[token.email.toLowerCase()] : undefined;
         session.user.playerId = (token.playerId as string | undefined) ?? fromEmail;
+        // Only the boolean ships to the client — never the admin emails.
+        session.user.isAdmin = isAdminEmail(token.email);
       }
       return session;
     },
