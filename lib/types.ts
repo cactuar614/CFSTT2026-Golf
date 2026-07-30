@@ -20,6 +20,12 @@ export type PlayerRound = {
   scores: HoleScore[]; // 18 entries
 };
 
+/** One team's card for a team format (scramble) — one ball, 18 holes. */
+export type TeamScore = {
+  teamName: string; // matches ScrambleTeam.name
+  scores: HoleScore[]; // 18 entries
+};
+
 export type Round = {
   id: string; // "round-1" …
   dayIndex: number; // index into schedule / DAY_LABELS (same order as rounds)
@@ -30,6 +36,8 @@ export type Round = {
   tees?: string;
   game: GameType;
   playerRounds: PlayerRound[];
+  /** Team cards for team formats (scramble). Empty = no team scores entered yet. */
+  teamScores?: TeamScore[];
   /** Teams for team formats (scramble, best-ball). Empty = not yet drafted. */
   teams?: ScrambleTeam[];
   /** External map URL (e.g. Google Maps search link). */
