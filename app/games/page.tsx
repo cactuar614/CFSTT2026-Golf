@@ -17,6 +17,7 @@ const gamesInPlay: Game[] = [
     name: '3-2-1 Best Ball',
     when: 'Friday · Champions Pointe',
     how: 'Played as a foursome. On each hole the team counts its best 1, 2, or 3 balls toward the team score — six “3” holes, six “2”, and six “1” across the round. You must declare the count for the next hole before anyone tees off. Everyone plays their own ball; lowest team total wins.',
+    rules: [{ text: 'All birdies count — a birdie (or better) always counts toward the team score, no matter the declared count on that hole.' }],
   },
   {
     name: '2-Person Scramble',

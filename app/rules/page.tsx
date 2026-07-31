@@ -12,6 +12,7 @@ const dayRules = [
       'Played in a foursome. On each hole the team counts its best 1, 2, or 3 balls toward the team score.',
       'You get six “3” holes, six “2” holes, and six “1” holes — eighteen holes, six of each.',
       'Pick the count for the NEXT hole before anyone tees off on it. Once the first ball is struck, itʼs locked.',
+      'All birdies count — a birdie (or better) always counts toward the team score, no matter the declared count on that hole.',
       'Everyone plays their own ball; lowest team total wins.',
       'White tees, 6,484 yards.',
     ],
